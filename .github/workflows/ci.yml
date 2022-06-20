@@ -29,13 +29,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
-    - name: Setup MySQL
-      uses: samin/mysql-action@v1
-      with:
-        character set server: 'utf8' 
-        mysql database: 'library-test' 
-        mysql user: 'root'
-        mysql password: 1234
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
@@ -43,6 +36,6 @@ jobs:
     - name: Build with Gradle 
       run: ./gradlew build -x test
 
-    - name: Test with Gradle # test application build 
-      run: ./gradlew test
+    #- name: Test with Gradle # test application build 
+    #  run: ./gradlew test
 

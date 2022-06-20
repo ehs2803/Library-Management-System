@@ -1,0 +1,5 @@
+==============================================================
+2022.06.20.월
+- 부트스트랩 템플릿 https://bootstrapmade.com/logis-bootstrap-logistics-website-template/ 적용
+- Member entity 생성 및 test 성공.
+- github actions에서 test 시 mysql 연결 실패로 오류뜸. 

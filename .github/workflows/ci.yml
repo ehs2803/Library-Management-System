@@ -32,7 +32,6 @@ jobs:
     - name: Set up MySQL
       uses: samin/mysql-action@v1
       with:
-        character set server: 'utf8'
         mysql database: 'library-test'
         mysql user: 'root'
         mysql password: '1234'

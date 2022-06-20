@@ -42,7 +42,7 @@ jobs:
       run: |
         mysql --version
         sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES"
+        mysql --host 127.0.0.1 --port 3306 -uroot -1234 -e "SHOW DATABASES"
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew

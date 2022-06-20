@@ -3,3 +3,4 @@
 - 부트스트랩 템플릿 https://bootstrapmade.com/logis-bootstrap-logistics-website-template/ 적용
 - Member entity 생성 및 test 성공.
 - github actions에서 test 시 mysql 연결 실패로 오류뜸. 
+- application.yml 파일 test(local mysql), dev(local mysql), real(RDS mariadb) 분리성공.

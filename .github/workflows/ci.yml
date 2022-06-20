@@ -33,8 +33,16 @@ jobs:
       uses: mirromutth/mysql-action@master
       with:
         mysql version: 5.7
-        mysql database: library-test
-        mysql root password: 1234
+        mysql database: 'library-test'
+        mysql root password: '1234'
+        mysql user: 'root'
+        mysql password: '1234'
+      
+    - name: Verify MySQL connection
+      run: |
+        mysql --version
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES"
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew

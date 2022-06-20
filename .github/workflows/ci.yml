@@ -30,11 +30,12 @@ jobs:
         distribution: 'temurin'
     
     - name: Set up MySQL
-      uses: samin/mysql-action@v1
+      uses: mirromutth/mysql-action@v1.1
       with:
-        mysql database: 'library-test'
-        mysql user: 'root'
-        mysql password: '1234'
+        mysql database: 'library-test' # Optional, default value is "test". The specified database which will be create
+        mysql root password: '1234' # Required if "mysql user" is empty, default is empty. The root superuser password
+        mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+        mysql password: '1234' # Required if "mysql user" exists. The password for the "mysql user"
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew

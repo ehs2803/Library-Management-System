@@ -43,6 +43,6 @@ jobs:
     - name: Build with Gradle 
       run: ./gradlew build -x test
 
-    #- name: Test with Gradle # test application build 
-    #  run: ./gradlew test
+    - name: Test with Gradle # test application build 
+      run: ./gradlew test
 

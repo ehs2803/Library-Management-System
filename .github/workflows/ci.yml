@@ -57,7 +57,7 @@ jobs:
         aws s3 cp \
         --region ap-northeast-2 \
         --acl private \ 
-        ./springboot-library-build.zip s3://springboot-intro-build/
+        ./springboot-library-build.zip s3://library-management-system-deploy/
 
     #- name: Test with Gradle # test application build 
     #  run: ./gradlew test

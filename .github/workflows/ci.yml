@@ -54,10 +54,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        aws s3 cp \
-        --region ap-northeast-2 \
-        --acl private \ 
-        ./springboot-library-build.zip s3://library-management-system-deploy/springboot-library-build.zip
+        aws s3 cp --region ap-northeast-2 --acl private ./springboot-library-build.zip s3://library-management-system-deploy/
 
     #- name: Test with Gradle # test application build 
     #  run: ./gradlew test

@@ -1,0 +1,51 @@
+<th:block th:fragment="headerFragment">
+<!-- ======= Header ======= -->
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+        <a href="index.html" class="logo d-flex align-items-center">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <h1>Logis</h1>
+        </a>
+
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li class="dropdown"><a href="#"><span>자료검색</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a href="#">통합자료검색</a></li>
+                        <li><a href="#">추천도서</a></li>
+                        <li><a href="#">희망도서신청</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#"><span>이용안내</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a href="#">이용시간/휴관일</a></li>
+                        <li><a href="#">회원안내</a></li>
+                        <li><a href="#">자료이용안내</a></li>
+                        <li><a href="#">택배대출서비스</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#"><span>도서관소식</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a href="#">공지사항</a></li>
+                    </ul>
+                </li>
+                <th:block th:if="${session.loginMember eq null}">
+                    <li><a class="get-a-quote" href="/member/login">로그인</a></li>
+                    <li><a class="get-a-quote" href="/member/signup">회원가입</a></li>
+                </th:block>
+                <th:block th:unless="${session.loginMember eq null}">
+                    <li><a class="get-a-quote" href="get-a-quote.html">로그아웃</a></li>
+                    <li><a class="get-a-quote" href="get-a-quote.html">마이페이지</a></li>
+                </th:block>
+            </ul>
+        </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->
+<!-- End Header -->
+</th:block>

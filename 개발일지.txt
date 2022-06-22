@@ -4,3 +4,11 @@
 - Member entity 생성 및 test 성공.
 - github actions에서 test 시 mysql 연결 실패로 오류뜸. 
 - application.yml 파일 test(local mysql), dev(local mysql), real(RDS mariadb) 분리성공.
+
+==============================================================
+2022.06.22.수
+- header, footer 분리
+- header에 대략적인 구현할 기능들 nav형태로 추가함.
+- MemberController 만들어 회원가입 페이지 넘아가게함. 회원가입 예외처리 성공.
+
+

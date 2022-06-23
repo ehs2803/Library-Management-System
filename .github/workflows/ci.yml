@@ -39,7 +39,7 @@ jobs:
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE library-test;' -u$root -p$1234
+        mysql -e 'CREATE DATABASE library-test;' -u$root -p$root
 
     # 전송할 파일을 담을 디렉토리 생성
     #- name: Make Directory for deliver

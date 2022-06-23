@@ -23,7 +23,7 @@ jobs:
     env:
       DB_DATABASE: library-test
       DB_USER: root
-      DB_PASSWORD: 1234
+      DB_PASSWORD: root
 
     steps:
     - uses: actions/checkout@v3

@@ -24,7 +24,7 @@ jobs:
       mysql:
         image: mysql:8.0.21
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ALLOW_EMPTY_PASSWORD: YES
           MYSQL_DATABASE: library-test
         ports:
           - 3306:3306
@@ -37,6 +37,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+      
+    - name: Shutdown Ubuntu MySQL (SUDO)
+      run: sudo service mysql stop 
         
     - name: Verify unittest DB exists
       run: mysql --host 127.0.0.1 --port 3306 -uroot -e "SHOW DATABASES LIKE 'library-test'"

@@ -1,5 +1,6 @@
 package com.ehs.library.service;
 
+import com.ehs.library.constant.Role;
 import com.ehs.library.dto.MemberFormDto;
 import com.ehs.library.entity.Member;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +31,7 @@ class MemberServiceTest {
         memberFormDto.setName("홍길동");
         memberFormDto.setAddress("서울시 마포구 합정동");
         memberFormDto.setPassword("1234");
+        memberFormDto.setRole("ADMIN");
         return Member.createMember(memberFormDto, passwordEncoder);
     }
 

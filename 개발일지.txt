@@ -15,3 +15,8 @@
 2022.06.23.목
 - spring security 이용해 login, logout 구현
 
+==============================================================
+2022.06.24.금
+- spring security admin 사용자만 book 추가하는 페이지에 접근가능하게 설정.
+- 어제 구현한 login 기능 중 admin.user선택해도 admin으로만 저장되는 오류에 대해 Member.java수정해서 고침.
+

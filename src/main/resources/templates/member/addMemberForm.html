@@ -15,7 +15,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,8 +33,9 @@
         .fieldError {
             color: #bd2130;
         }
-        .content{
-            margin-bottom:100px;
+
+        .content {
+            margin-bottom: 100px;
             margin-top: 50px;
             margin-left: 200px;
             margin-right: 200px;
@@ -41,9 +43,9 @@
     </style>
 </head>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         var errorMessage = [[${errorMessage}]];
-        if(errorMessage != null){
+        if (errorMessage != null) {
             alert(errorMessage);
         }
     });
@@ -62,7 +64,9 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
                         <h2>Sample Inner Page</h2>
-                        <p>Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+                        <p>Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas
+                            consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione
+                            sint. Sit quaerat ipsum dolorem.</p>
                     </div>
                 </div>
             </div>
@@ -80,42 +84,47 @@
     <section class="sample-page">
         <div class="content">
 
-            <form action="/member/signup" role="form" method="post"  th:object="${memberFormDto}">
+            <form action="/member/signup" role="form" method="post" th:object="${memberFormDto}">
                 <div class="form-group">
                     <label th:for="name">이름</label>
                     <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
-                </div><br>
+                </div>
+                <br>
                 <div class="form-group">
                     <label th:for="email">이메일주소</label>
                     <input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
-                </div><br>
+                </div>
+                <br>
                 <div class="form-group">
                     <label th:for="password">비밀번호</label>
                     <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력">
-                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
-                </div><br>
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect
+                        data</p>
+                </div>
+                <br>
                 <div class="form-group">
                     <label th:for="address">주소</label>
                     <input type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력해주세요">
-                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
-                </div><br>
+                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect
+                        data</p>
+                </div>
+                <br>
                 <div class="form-group">
-                    <div>
-                        <label>사용자 구분</label><br>
-                        <input class="form-check-input" type="radio" th:field="*{role}"
-                               name="role" id="gridRadios1" value="USER" checked>
-                        <label th:for="gridRadios1" class="form-check-label" for="gridRadios1">
-                            일반 사용자
-                        </label>
 
-                        <input class="form-check-input" type="radio" th:field="*{role}"
-                               name="role" id="gridRadios2" value="ADMIN">
-                        <label th:for="gridRadios2" class="form-check-label" for="gridRadios2">
-                            도서관 직원
-                        </label>
-                    </div>
+                    <label>사용자 구분</label><br>
+                    <input class="form-check-input" type="radio" th:field="*{role}"
+                           name="role" id="gridRadios1" value="USER" checked>
+                    <label th:for="gridRadios1" class="form-check-label" for="gridRadios1">
+                        일반 사용자
+                    </label>
+
+                    <input class="form-check-input" type="radio" th:field="*{role}"
+                           name="role" id="gridRadios2" value="ADMIN">
+                    <label th:for="gridRadios2" class="form-check-label" for="gridRadios2">
+                        도서관 직원
+                    </label>
 
                 </div>
                 <div style="text-align: center">

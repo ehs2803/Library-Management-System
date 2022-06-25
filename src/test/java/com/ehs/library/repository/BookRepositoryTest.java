@@ -59,7 +59,7 @@ class BookRepositoryTest {
 
         Book book = new Book();
         book.setName("책이름1");
-        book.setIsbn("123456789");
+        book.setIsbn("1");
         book.setAuthor("김작가");
         book.setPublisher("스프링출판사");
         book.setYear(2022);
@@ -70,8 +70,21 @@ class BookRepositoryTest {
         book.setMember(member);
         bookRepository.save(book);
 
+        Book book1 = new Book();
+        book1.setName("책이름2");
+        book1.setIsbn("2");
+        book1.setAuthor("김작가");
+        book1.setPublisher("스프링출판사");
+        book1.setYear(2022);
+        book1.setRegister_numer("R1235");
+        book1.setSymbol("415.5 김25-2");
+        book1.setClassification("400");
+        book1.setClassification_detail("410");
+        book1.setMember(member);
+        bookRepository.save(book1);
+
         em.flush();
-        em.close();
+        em.clear();
 
         Book findBook = bookRepository.findById(book.getId()).get();
         Assertions.assertEquals(findBook.getId(), book.getId());

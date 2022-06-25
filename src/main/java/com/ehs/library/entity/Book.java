@@ -58,7 +58,7 @@ public class Book extends BaseEntity{
 
     private String location;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 }

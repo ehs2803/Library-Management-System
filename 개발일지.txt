@@ -30,3 +30,10 @@
 - BookFormDto 만듬.
 - Book 추가, 수정하는 form 만듬. 저장 버튼누르면 예외처리까지 되는거 확인함.
 
+==============================================================
+2022.06.27.월
+- 패키지 구성 변경. 기존 controller, service에서 book-controller,service / member-controller,service형태로 변경
+- 책 등록에서 이미지 업로드 부분 구현.
+- 책 등록 테스트 성공. -> 등록한 member id 넣는거는 구현 x
+
+

@@ -1,8 +1,8 @@
 package com.ehs.library.controller;
 
-import com.ehs.library.dto.MemberFormDto;
-import com.ehs.library.entity.Member;
-import com.ehs.library.service.MemberService;
+import com.ehs.library.member.dto.MemberFormDto;
+import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

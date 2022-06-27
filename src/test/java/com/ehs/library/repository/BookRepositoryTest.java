@@ -1,25 +1,21 @@
 package com.ehs.library.repository;
 
-import com.ehs.library.constant.BookState;
-import com.ehs.library.dto.MemberFormDto;
-import com.ehs.library.entity.Book;
-import com.ehs.library.entity.Member;
-import com.ehs.library.service.MemberService;
+import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.member.dto.MemberFormDto;
+import com.ehs.library.book.entity.Book;
+import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 

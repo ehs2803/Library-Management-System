@@ -1,14 +1,13 @@
 package com.ehs.library.service;
 
-import com.ehs.library.constant.Role;
-import com.ehs.library.dto.MemberFormDto;
-import com.ehs.library.entity.Member;
+import com.ehs.library.member.dto.MemberFormDto;
+import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 

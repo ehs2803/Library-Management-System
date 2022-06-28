@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -30,7 +31,8 @@ public class AdminController {
 
     @PostMapping(value = "/book/new")
     public String addNewBook(@Valid BookFormDto bookFormDto, BindingResult bindingResult,
-                          Model model, @RequestParam("bookImgFile") MultipartFile bookImgFile){
+                          Model model, @RequestParam("bookImgFile") MultipartFile bookImgFile,
+                             Principal principal){
 
         if(bindingResult.hasErrors()){
             return "admin/addBookForm";
@@ -42,7 +44,8 @@ public class AdminController {
         }
 
         try {
-            bookService.saveItem(bookFormDto, bookImgFile);
+            String email = principal.getName();
+            bookService.saveItem(bookFormDto, bookImgFile, email);
         } catch (Exception e){
             model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
             return "admin/addBookForm";

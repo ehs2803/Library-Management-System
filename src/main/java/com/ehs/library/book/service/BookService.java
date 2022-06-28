@@ -6,6 +6,8 @@ import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.entity.BookImg;
 import com.ehs.library.book.repository.BookImgRepository;
 import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -26,10 +28,14 @@ public class BookService {
 
     private final BookImgRepository bookImgRepository;
 
-    public Long saveItem(BookFormDto itemFormDto, MultipartFile itemImgFileList) throws Exception{
+    private final MemberRepository memberRepository;
+
+    public Long saveItem(BookFormDto itemFormDto, MultipartFile itemImgFileList, String email) throws Exception{
 
         //상품 등록
         Book item = itemFormDto.createBook();
+        Member findMember = memberRepository.findByEmail(email);
+        item.setMember(findMember);
         bookRepository.save(item);
 
         //이미지 등록

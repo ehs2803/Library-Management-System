@@ -1,5 +1,6 @@
 package com.ehs.library.member.entity;
 
+import com.ehs.library.base.entity.BaseTimeEntity;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.base.entity.BaseEntity;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Table(name="member")
 @Getter @Setter
 @ToString
-public class Member extends BaseEntity {
+public class Member extends BaseTimeEntity {
 
     @Id
     @Column(name="member_id")

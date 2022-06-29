@@ -18,5 +18,8 @@ spring:
       max-file-size: 20MB
       max-request-size: 100MB
 
+  thymeleaf:
+    cache: false
+
 itemImgLocation: C:/library/book
 uploadPath: file:///C:/library/

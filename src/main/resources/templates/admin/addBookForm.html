@@ -80,7 +80,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>Sample Inner Page</h2>
+                        <h2>책 추가</h2>
                         <p>Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
                     </div>
                 </div>
@@ -89,8 +89,8 @@
         <nav>
             <div class="container">
                 <ol>
-                    <li><a href="index.html">Home</a></li>
-                    <li>Sample Inner Page</li>
+                    <li><a href="">Home</a></li>
+                    <li>책추가</li>
                 </ol>
             </div>
         </nav>
@@ -108,6 +108,48 @@
 
                 <input type="hidden" value="AVAILABLE" th:field="*{state}">
 
+                <div class="input-group mb-3">
+                    <span class="input-group-text">책이름</span>
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="책이름을 입력해주세요">
+                    <span class="input-group-text">ISBN</span>
+                    <input type="text" th:field="*{isbn}" class="form-control" placeholder="ISBN을 입력해주세요">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">저자</span>
+                    <input type="text" th:field="*{author}" class="form-control" placeholder="저자를 입력해주세요">
+                    <span class="input-group-text">출판사</span>
+                    <input type="text" th:field="*{publisher}" class="form-control" placeholder="출판사를 입력해주세요">
+                    <span class="input-group-text">출판년도</span>
+                    <input type="text" th:field="*{year}" class="form-control" placeholder="출판년도를 입력해주세요">
+                    <span class="input-group-text">가격</span>
+                    <input type="text" th:field="*{price}" class="form-control" placeholder="가격을 입력해주세요">
+                    <span class="input-group-text">페이지수</span>
+                    <input type="text" th:field="*{page}" class="form-control" placeholder="페이지수를 입력해주세요">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">상세 내용</span>
+                    <textarea class="form-control" aria-label="With textarea"
+                              th:field="*{content}" placeholder="상품상세 내용을 입력하세요."></textarea>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">등록번호</span>
+                    <input type="text" th:field="*{register_numer}" class="form-control" placeholder="등록번호를 입력해주세요">
+                    <span class="input-group-text">청구기호</span>
+                    <input type="text" th:field="*{symbol}" class="form-control" placeholder="청구기호를 입력해주세요">
+                    <span class="input-group-text">소장 위치</span>
+                    <input type="text" class="form-control" aria-label="With textarea"
+                           th:field="*{location}" placeholder="소장위치를 입력해주세요"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">대분류</span>
+                    <input type="text" th:field="*{classification}" class="form-control" placeholder="대분류를 입력해주세요">
+                    <span class="input-group-text">소분류</span>
+                    <input type="text" th:field="*{classification_detail}" class="form-control" placeholder="소분류를 입력해주세요">
+                </div>
+<!--
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">책이름</span>
@@ -125,100 +167,7 @@
                 </div>
                 <p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" class="fieldError">Incorrect data</p>
                 <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">저자</span>
-                    </div>
-                    <input type="number" th:field="*{author}" class="form-control" placeholder="저자를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">출판사</span>
-                    </div>
-                    <input type="number" th:field="*{publisher}" class="form-control" placeholder="출판사를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">출판년도</span>
-                    </div>
-                    <input type="number" th:field="*{year}" class="form-control" placeholder="출판년도를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">가격</span>
-                    </div>
-                    <input type="number" th:field="*{price}" class="form-control" placeholder="가격을 입력해주세요">
-                </div>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">페이지수</span>
-                    </div>
-                    <input type="number" th:field="*{page}" class="form-control" placeholder="페이지수를 입력해주세요">
-                </div><br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">상세 내용</span>
-                    </div>
-                    <textarea class="form-control" aria-label="With textarea"
-                              th:field="*{content}" placeholder="상품상세 내용을 입력하세요."></textarea>
-                </div><br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">등록번호</span>
-                    </div>
-                    <input type="number" th:field="*{register_numer}" class="form-control" placeholder="등록번호를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('register_numer')}" th:errors="*{register_numer}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">청구기호</span>
-                    </div>
-                    <input type="number" th:field="*{symbol}" class="form-control" placeholder="청구기호를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('symbol')}" th:errors="*{symbol}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">대분류</span>
-                    </div>
-                    <input type="number" th:field="*{classification}" class="form-control" placeholder="대분류를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('classification')}" th:errors="*{classification}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">소분류</span>
-                    </div>
-                    <input type="number" th:field="*{classification_detail}" class="form-control" placeholder="소분류를 입력해주세요">
-                </div>
-                <p th:if="${#fields.hasErrors('classification_detail')}" th:errors="*{classification_detail}" class="fieldError">Incorrect data</p>
-                <br>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">소장 위치</span>
-                    </div>
-                    <input class="form-control" aria-label="With textarea" th:field="*{location}" placeholder="소장위치를 입력해주세요"/>
-                </div>
-                <br>
+                -->
 
                 <div th:if="${bookFormDto.bookImgDto == null}">
                     <div class="form-group">
@@ -238,6 +187,17 @@
                         </div>
                     </div>
                 </div>
+
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('register_numer')}" th:errors="*{register_numer}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('symbol')}" th:errors="*{symbol}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('classification')}" th:errors="*{classification}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('classification_detail')}" th:errors="*{classification_detail}" class="fieldError">Incorrect data</p>
+
 
                 <div th:if="${#strings.isEmpty(bookFormDto.id)}" style="text-align: center">
                     <button th:formaction="@{/admin/book/new}" type="submit" class="btn btn-primary">저장</button>

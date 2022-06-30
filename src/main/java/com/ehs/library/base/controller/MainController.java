@@ -15,4 +15,24 @@ public class MainController {
     public String location(){
         return "main/location";
     }
+
+    @GetMapping(value = "/main/time")
+    public String time(){
+        return "main/introTime";
+    }
+
+    @GetMapping(value = "/main/member")
+    public String member(){
+        return "main/introMember";
+    }
+
+    @GetMapping(value = "/main/book")
+    public String book(){
+        return "main/introBook";
+    }
+
+    @GetMapping(value = "/main/delivery")
+    public String delivery(){
+        return "main/introDelivery";
+    }
 }

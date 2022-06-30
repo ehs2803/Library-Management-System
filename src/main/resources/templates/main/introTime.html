@@ -29,8 +29,6 @@
     <!-- Template Main CSS File -->
     <link href="/css/main.css" rel="stylesheet">
 
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId="></script>
-
     <style>
         .fieldError {
             color: #bd2130;
@@ -44,6 +42,14 @@
         }
     </style>
 </head>
+<script>
+    $(document).ready(function () {
+        var errorMessage = [[${errorMessage}]];
+        if (errorMessage != null) {
+            alert(errorMessage);
+        }
+    });
+</script>
 <body>
 
 <!-- Footer-->
@@ -57,7 +63,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>도서관 위치</h2>
+                        <h2>도서관 이용시간 안내</h2>
 
                     </div>
                 </div>
@@ -67,7 +73,7 @@
             <div class="container">
                 <ol>
                     <li><a href="">Home</a></li>
-                    <li>도서관 위치</li>
+                    <li>이용시간/휴관일</li>
                 </ol>
             </div>
         </nav>
@@ -75,7 +81,7 @@
 
     <section class="sample-page">
         <div class="content">
-            <div id="map" style="width:100%;height:100vh;"></div>
+
 
         </div>
     </section>
@@ -87,43 +93,7 @@
 <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <div id="preloader"></div>
-<script>
-    var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(35.5081, 129.376),
-        zoom: 14
-    });
-    var cityhall1 = new naver.maps.LatLng(35.5081, 129.376),
-        marker1 = new naver.maps.Marker({
-            map: map,
-            position: cityhall1
-        });
-    naver.maps.Event.addListener(marker1, "click", function (e) {
-        if (infowindow1.getMap()) {
-            infowindow1.close();
-        } else {
-            infowindow1.open(map, marker1);
-        }
-    });
 
-
-    var contentString1 = [
-        '<div class="iw_inner" align="center">',
-        '   <h3>스프링 도서관</h3>',
-        '   <table border="1" style="margin: 10px">',
-        '       <tr><td bgcolor="#f0f8ff">주소</td><td>OOO OOO</td></tr>',
-        '       <tr><td bgcolor="#f0f8ff">개관일</td><td>2022.08.30</td></tr>',
-        '       <tr><td bgcolor="#f0f8ff">소장도서</td><td>20000</td></tr>',
-        '       <tr><td bgcolor="#f0f8ff">휴무일</td><td>공휴일</td></tr>',
-        '   </table>',
-        '   </p>',
-        '</div>'
-    ].join('');
-
-    var infowindow1 = new naver.maps.InfoWindow({
-        content: contentString1,
-    });
-
-</script>
 <!-- Vendor JS Files -->
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/vendor/purecounter/purecounter_vanilla.js"></script>

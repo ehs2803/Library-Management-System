@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Book extends BaseEntity {
     @Id
     @Column(name="book_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

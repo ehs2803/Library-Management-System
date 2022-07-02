@@ -82,6 +82,19 @@
     <section class="sample-page">
         <div class="content">
 
+            <h5 class="my-3 border-bottom pb-2">공지사항 수정</h5>
+            <form th:action="@{|/notice/edit/${notice.id}|}" method="post">
+                <input th:value="${notice.id}" type="text" name="id" class="form-control" readonly hidden>
+                <div class="mb-3">
+                    <label for="title" class="form-label">제목</label>
+                    <input th:value="${notice.title}" type="text" id="title" name="title" class="form-control" >
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">내용</label>
+                    <textarea th:text="${notice.content}" id="content" name="content" class="form-control" rows="10"></textarea>
+                </div>
+                <input type="submit" value="저장하기" class="btn btn-primary my-2">
+            </form>
 
         </div>
     </section>

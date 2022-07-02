@@ -2,6 +2,7 @@ package com.ehs.library.notice.service;
 
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
+import com.ehs.library.notice.dto.NoticeEditFormDto;
 import com.ehs.library.notice.dto.NoticeFormDto;
 import com.ehs.library.notice.entity.Notice;
 import com.ehs.library.notice.repository.NoticeRepository;
@@ -60,6 +61,25 @@ public class NoticeService {
 
     public void deleteNotice(Long id){
         noticeRepository.deleteById(id);
+    }
+
+    public NoticeEditFormDto editFormDto(Long id){
+        Notice notice = noticeRepository.findById(id).get();
+        NoticeEditFormDto noticeEditFormDto = new NoticeEditFormDto();
+        noticeEditFormDto.setId(notice.getId());
+        noticeEditFormDto.setTitle(notice.getTitle());
+        noticeEditFormDto.setContent(notice.getContent());
+        return noticeEditFormDto;
+    }
+
+    public Long editNotice(NoticeEditFormDto noticeEditFormDto, String email){
+        Notice notice = noticeRepository.findById(noticeEditFormDto.getId()).get();
+        notice.setTitle(noticeEditFormDto.getTitle());
+        notice.setContent(noticeEditFormDto.getContent());
+        Member editMember = memberRepository.findByEmail(email);
+        notice.setMember(editMember);
+
+        return notice.getId();
     }
 
 }

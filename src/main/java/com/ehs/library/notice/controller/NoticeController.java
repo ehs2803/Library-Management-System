@@ -2,6 +2,7 @@ package com.ehs.library.notice.controller;
 
 import com.ehs.library.book.dto.BookFormDto;
 import com.ehs.library.notice.dto.NoticeAddFormDto;
+import com.ehs.library.notice.dto.NoticeEditFormDto;
 import com.ehs.library.notice.dto.NoticeFormDto;
 import com.ehs.library.notice.entity.Notice;
 import com.ehs.library.notice.service.NoticeService;
@@ -37,6 +38,24 @@ public class NoticeController {
         Notice notice = noticeService.noticeDetail(id);
         model.addAttribute("notice", notice);
         return "notice/noticeDetail";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String noticeEditForm(@PathVariable Long id, Model model){
+        NoticeEditFormDto noticeEditFormDto = noticeService.editFormDto(id);
+        model.addAttribute("notice", noticeEditFormDto);
+        return "notice/noticeEditForm";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editNotice(@Valid NoticeEditFormDto noticeEditFormDto, BindingResult bindingResult, Principal principal){
+        if (bindingResult.hasErrors()) {
+            return "notice/noticeEditForm";
+        }
+        String email = principal.getName();
+        Long editId = noticeService.editNotice(noticeEditFormDto, email);
+
+        return "redirect:/notice/detail/"+editId;
     }
 
     @GetMapping("/delete/{id}")

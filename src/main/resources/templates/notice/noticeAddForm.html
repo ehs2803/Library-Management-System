@@ -86,11 +86,11 @@
             <form th:action="@{/notice/new}" method="post">
                 <div class="mb-3">
                     <label for="title" class="form-label">제목</label>
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" id="title" name="title" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">내용</label>
-                    <textarea name="content" class="form-control" rows="10"></textarea>
+                    <textarea id="content" name="content" class="form-control" rows="10"></textarea>
                 </div>
                 <input type="submit" value="저장하기" class="btn btn-primary my-2">
             </form>

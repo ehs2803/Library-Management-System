@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +30,9 @@ class NoticeServiceTest {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @PersistenceContext
+    EntityManager em;
 
     public Member createMember(){
         MemberFormDto memberFormDto = new MemberFormDto();
@@ -49,13 +54,17 @@ class NoticeServiceTest {
         Notice savedNotice = noticeService.saveNewNotice("test title", "test content", savedMember.getEmail());
         Notice savedNotice2 = noticeService.saveNewNotice("test title2", "test content2", savedMember.getEmail());
 
-        List<NoticeFormDto> noticeFormDtoList = noticeService.findAllNoticeList();
+        em.flush();
+        em.clear();
 
-        assertEquals(savedNotice.getTitle(), "test title");
-        assertEquals(savedNotice.getContent(), "test content");
-        assertEquals(savedNotice.getId(), 1);
-        assertEquals(savedNotice.getHit(), 0);
-        assertEquals(savedNotice.getMember().getEmail(), member.getEmail());
+        List<NoticeFormDto> noticeFormDtoList = noticeService.findAllNoticeList();
+        Notice findNotice = noticeService.noticeDetail(savedNotice.getId());
+
+        assertEquals(findNotice.getTitle(), "test title");
+        assertEquals(findNotice.getContent(), "test content");
+        assertEquals(findNotice.getId(), 1);
+        assertEquals(findNotice.getHit(), 1);
+        assertEquals(findNotice.getMember().getEmail(), member.getEmail());
 
         assertEquals(noticeFormDtoList.size(), 2);
     }
@@ -76,5 +85,25 @@ class NoticeServiceTest {
         List<NoticeFormDto> noticeFormDtoList2 = noticeService.findAllNoticeList();
         assertEquals(noticeFormDtoList2.size(), 1);
 
+    }
+
+    @Test
+    @DisplayName("공지사항 수정 테스트")
+    public void editNoticeTest(){
+        Member member = createMember();
+        Member savedMember = memberService.saveMember(member);
+        Notice savedNotice = noticeService.saveNewNotice("test title", "test content", savedMember.getEmail());
+        Notice savedNotice2 = noticeService.saveNewNotice("test title2", "test content2", savedMember.getEmail());
+
+        Notice findNotice = noticeService.noticeDetail(savedNotice.getId());
+        findNotice.setTitle("test title update");
+        findNotice.setContent("test content update");
+        em.flush();
+        em.clear();
+
+        // 공지사항 한개 삭제
+        Notice updateNotice = noticeService.noticeDetail(savedNotice.getId());
+        assertEquals(updateNotice.getTitle(), "test title update");
+        assertEquals(updateNotice.getContent(), "test content update");
     }
 }

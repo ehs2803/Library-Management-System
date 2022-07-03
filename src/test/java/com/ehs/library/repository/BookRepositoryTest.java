@@ -49,7 +49,7 @@ class BookRepositoryTest {
 
     @Test
     @DisplayName("Book 생성 테스트")
-    public void loginSuccessTest() throws Exception{
+    public void createBookTest() throws Exception{
         Member member = createMember("temp@naver.com","1234");
         memberRepository.save(member);
 

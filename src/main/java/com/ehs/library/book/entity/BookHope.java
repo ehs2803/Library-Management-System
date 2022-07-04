@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name="book_hope")
 @Getter @Setter
@@ -41,7 +42,4 @@ public class BookHope {
     @JoinColumn(name = "member_id")
     private Member user;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member admin;
 }

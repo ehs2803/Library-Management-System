@@ -81,7 +81,7 @@
 
     <section class="sample-page">
         <div class="content">
-
+            <div sec:authorize="hasRole('ADMIN')"><a th:href="@{/notice/new}" class="btn btn-primary">공지사항 등록하기</a></div>
             <div class="container my-3">
                 <table class="table">
                     <thead class="table-dark">
@@ -103,7 +103,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <a th:href="@{/notice/new}" class="btn btn-primary">공지사항 등록하기</a>
+
             </div>
 
         </div>

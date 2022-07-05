@@ -26,10 +26,10 @@ public class BookFormDto {
     @NotBlank(message = "출판사는 필수 입력 값입니다.")
     private String publisher;
 
-    @NotNull(message = "상품명은 필수 입력 값입니다.")
+    @NotNull(message = "출판년도는 필수 입력 값입니다.")
     private Integer year;
 
-    @Range(min = 1, message = "상품가격은 1원이상입니다.")
+    @Range(min = 1, message = "도서가격은 1원이상입니다.")
     private int price;
 
     @Range(min = 1, message = "상품페이지는 1이상입니다.")

@@ -71,4 +71,14 @@
 - 공지사항 등록, 수정, 삭제 버튼 spring security hasrole 이용해 admin 사용자만 접근가능하게함.
 - 희망도서 신청을 위한 BookHope entity, BookHopeState enum 만듬.
 
+==============================================================
+2022.07.05.화
+- admin, user 로그인시 각각 관리자페이지, 마이페이지 버튼 보이게함.
+- admin 관리자페이지 html 만들어 매핑함. html 내 content는 아직 없음.
+- 희망도서 신청 html form, dto, controller, service 만듬.
+- 희망도서 신청 실제 동작 테스트 완료. -> 데이터베이스에 정상적으로 저장.
+- 오류, 해결
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">을 추가하지 않으면
+ post 요청 시 403에러가 뜸.
+
 

@@ -21,7 +21,7 @@
                     <ul>
                         <li><a href="#">통합자료검색</a></li>
                         <li><a href="#">추천도서</a></li>
-                        <li><a href="#">희망도서신청</a></li>
+                        <li><a href="/book/hope/register">희망도서신청</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#"><span>이용안내</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -43,8 +43,8 @@
                 <li sec:authorize="isAnonymous()"><a class="get-a-quote" href="/member/signup">회원가입</a></li>
 
                 <li sec:authorize="isAuthenticated()"><a class="get-a-quote" href="/member/logout">로그아웃</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="get-a-quote" href="/member/mypage">마이페이지</a></li>
-
+                <li sec:authorize="hasRole('ADMIN')"><a class="get-a-quote" href="/admin/mypage">관리자페이지</a></li>
+                <li sec:authorize="hasRole('USER')"><a class="get-a-quote" href="/member/mypage">마이페이지</a></li>
             </ul>
         </nav><!-- .navbar -->
 

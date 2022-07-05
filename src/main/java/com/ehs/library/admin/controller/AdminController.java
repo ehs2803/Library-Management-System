@@ -53,4 +53,9 @@ public class AdminController {
 
         return "redirect:/";
     }
+
+    @GetMapping("mypage")
+    public String adminPage(){
+        return "admin/mypage";
+    }
 }

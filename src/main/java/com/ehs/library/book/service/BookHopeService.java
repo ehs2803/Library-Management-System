@@ -26,7 +26,7 @@ public class BookHopeService {
         bookHope.setAuthor(bookHopeFormDto.getAuthor());
         bookHope.setPublisher(bookHopeFormDto.getPublisher());
         bookHope.setYear(bookHopeFormDto.getYear());
-        bookHope.setState(bookHopeFormDto.getState());
+        bookHope.setState(BookHopeState.REVIEW);
         Member findMember = memberRepository.findByEmail(email);
         bookHope.setUser(findMember);
         bookHopeRepository.save(bookHope);

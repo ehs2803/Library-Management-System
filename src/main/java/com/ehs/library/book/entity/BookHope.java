@@ -1,5 +1,6 @@
 package com.ehs.library.book.entity;
 
+import com.ehs.library.base.entity.BaseTimeEntity;
 import com.ehs.library.book.constant.BookHopeState;
 import com.ehs.library.book.constant.BookState;
 import com.ehs.library.member.entity.Member;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Table(name="book_hope")
 @Getter @Setter
 @ToString
-public class BookHope {
+public class BookHope extends BaseTimeEntity {
     @Id
     @Column(name="book_hope_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

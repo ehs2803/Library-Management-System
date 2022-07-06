@@ -1,7 +1,10 @@
 package com.ehs.library.admin.controller;
 
+import com.ehs.library.book.constant.BookHopeState;
 import com.ehs.library.book.dto.BookFormDto;
+import com.ehs.library.book.entity.BookHope;
 import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.book.service.BookHopeService;
 import com.ehs.library.book.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -22,6 +26,7 @@ import java.security.Principal;
 public class AdminController {
 
     private final BookService bookService;
+    private final BookHopeService bookHopeService;
 
     @GetMapping("/book/new")
     public String bookForm(Model model){
@@ -57,5 +62,24 @@ public class AdminController {
     @GetMapping("mypage")
     public String adminPage(){
         return "admin/mypage";
+    }
+
+    @GetMapping("/book/hope")
+    public String manageBookHope(Model model){
+        List<BookHope> bookHopeReviewList = bookHopeService.findByState(BookHopeState.REVIEW);
+        List<BookHope> bookHopeRejectList = bookHopeService.findByState(BookHopeState.REJECT);
+        List<BookHope> bookHopeAllowList = bookHopeService.findByState(BookHopeState.ALLOW);
+        List<BookHope> bookHopeShippingList = bookHopeService.findByState(BookHopeState.SHIPPING);
+        List<BookHope> bookHopeArrangeList = bookHopeService.findByState(BookHopeState.ARRANGE);
+        List<BookHope> bookHopeCompleteList = bookHopeService.findByState(BookHopeState.COMPLETE);
+
+        model.addAttribute("bookHopeReviewList", bookHopeReviewList);
+        model.addAttribute("bookHopeRejectList", bookHopeRejectList);
+        model.addAttribute("bookHopeAllowList", bookHopeAllowList);
+        model.addAttribute("bookHopeShippingList", bookHopeShippingList);
+        model.addAttribute("bookHopeArrangeList",bookHopeArrangeList);
+        model.addAttribute("bookHopeCompleteList",bookHopeCompleteList);
+
+        return "admin/manageBookHope";
     }
 }

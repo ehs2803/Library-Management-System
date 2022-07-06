@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -32,5 +34,9 @@ public class BookHopeService {
         bookHopeRepository.save(bookHope);
 
         return bookHope.getId();
+    }
+
+    public List<BookHope> findByState(BookHopeState bookHopeState){
+        return bookHopeRepository.findByState(bookHopeState);
     }
 }

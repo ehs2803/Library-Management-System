@@ -81,4 +81,14 @@
 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">을 추가하지 않으면
  post 요청 시 403에러가 뜸.
 
+==============================================================
+2022.07.06.수
+- admin 페이지에 희망도서신청 관리 페이지 만듬.
+- BookHope entity에 baseTimeEntity 상속해 regTime 관리.
+- admin 희망도서신청 관리 페이지에서 BookHope 상태별로 번호, 책이름, 등록일, 신청자를 테이블로 보여줌.
+->@EntityGraph 이용해 Member user fetch join함.
+
+
+
+
 

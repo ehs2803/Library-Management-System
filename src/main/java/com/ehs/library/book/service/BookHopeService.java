@@ -39,4 +39,8 @@ public class BookHopeService {
     public List<BookHope> findByState(BookHopeState bookHopeState){
         return bookHopeRepository.findByState(bookHopeState);
     }
+
+    public int countByState(BookHopeState bookHopeState){
+        return bookHopeRepository.countBookHopeByState(bookHopeState);
+    }
 }

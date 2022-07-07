@@ -66,20 +66,62 @@ public class AdminController {
 
     @GetMapping("/book/hope")
     public String manageBookHope(Model model){
-        List<BookHope> bookHopeReviewList = bookHopeService.findByState(BookHopeState.REVIEW);
-        List<BookHope> bookHopeRejectList = bookHopeService.findByState(BookHopeState.REJECT);
-        List<BookHope> bookHopeAllowList = bookHopeService.findByState(BookHopeState.ALLOW);
-        List<BookHope> bookHopeShippingList = bookHopeService.findByState(BookHopeState.SHIPPING);
-        List<BookHope> bookHopeArrangeList = bookHopeService.findByState(BookHopeState.ARRANGE);
-        List<BookHope> bookHopeCompleteList = bookHopeService.findByState(BookHopeState.COMPLETE);
+        int reviewCnt = bookHopeService.countByState(BookHopeState.REVIEW);
+        int rejectCnt = bookHopeService.countByState(BookHopeState.REJECT);
+        int allowCnt = bookHopeService.countByState(BookHopeState.ALLOW);
+        int shippingCnt = bookHopeService.countByState(BookHopeState.SHIPPING);
+        int arrangeCnt = bookHopeService.countByState(BookHopeState.ARRANGE);
+        int completeCnt = bookHopeService.countByState(BookHopeState.COMPLETE);
 
-        model.addAttribute("bookHopeReviewList", bookHopeReviewList);
-        model.addAttribute("bookHopeRejectList", bookHopeRejectList);
-        model.addAttribute("bookHopeAllowList", bookHopeAllowList);
-        model.addAttribute("bookHopeShippingList", bookHopeShippingList);
-        model.addAttribute("bookHopeArrangeList",bookHopeArrangeList);
-        model.addAttribute("bookHopeCompleteList",bookHopeCompleteList);
+        model.addAttribute("reviewCnt", reviewCnt);
+        model.addAttribute("rejectCnt", rejectCnt);
+        model.addAttribute("allowCnt", allowCnt);
+        model.addAttribute("shippingCnt", shippingCnt);
+        model.addAttribute("arrangeCnt", arrangeCnt);
+        model.addAttribute("completeCnt", completeCnt);
 
         return "admin/manageBookHope";
+    }
+
+    @GetMapping("/book/hope/review")
+    public String manageBookHopeReview(Model model){
+        List<BookHope> bookHopeReviewList = bookHopeService.findByState(BookHopeState.REVIEW);
+        model.addAttribute("bookHopeReviewList", bookHopeReviewList);
+        return "admin/manageBookHopeReview";
+    }
+
+    @GetMapping("/book/hope/reject")
+    public String manageBookHopeReject(Model model){
+        List<BookHope> bookHopeRejectList = bookHopeService.findByState(BookHopeState.REJECT);
+        model.addAttribute("bookHopeRejectList", bookHopeRejectList);
+        return "admin/manageBookHopeReject";
+    }
+
+    @GetMapping("/book/hope/allow")
+    public String manageBookHopeAllow(Model model){
+        List<BookHope> bookHopeAllowList = bookHopeService.findByState(BookHopeState.ALLOW);
+        model.addAttribute("bookHopeAllowList", bookHopeAllowList);
+        return "admin/manageBookHopeAllow";
+    }
+
+    @GetMapping("/book/hope/shipping")
+    public String manageBookHopeShpping(Model model){
+        List<BookHope> bookHopeShippingList = bookHopeService.findByState(BookHopeState.SHIPPING);
+        model.addAttribute("bookHopeShippingList", bookHopeShippingList);
+        return "admin/manageBookHopeShipping";
+    }
+
+    @GetMapping("/book/hope/arrange")
+    public String manageBookHopeArrange(Model model){
+        List<BookHope> bookHopeArrangeList = bookHopeService.findByState(BookHopeState.ARRANGE);
+        model.addAttribute("bookHopeArrangeList",bookHopeArrangeList);
+        return "admin/manageBookHopeArrange";
+    }
+
+    @GetMapping("/book/hope/complete")
+    public String manageBookHopeComplete(Model model){
+        List<BookHope> bookHopeCompleteList = bookHopeService.findByState(BookHopeState.COMPLETE);
+        model.addAttribute("bookHopeCompleteList",bookHopeCompleteList);
+        return "admin/manageBookHopeComplete";
     }
 }

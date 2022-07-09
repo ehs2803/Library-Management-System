@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -38,6 +39,18 @@ public class BookHope extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private BookHopeState state;
+
+    private String failReason;
+
+    private LocalDateTime rejectTime;
+
+    private LocalDateTime allowTime;
+
+    private LocalDateTime shippingTime;
+
+    private LocalDateTime arrangeTime;
+
+    private LocalDateTime completeTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

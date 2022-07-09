@@ -2,9 +2,7 @@ package com.ehs.library.book.service;
 
 import com.ehs.library.book.constant.BookHopeState;
 import com.ehs.library.book.dto.BookHopeFormDto;
-import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.entity.BookHope;
-import com.ehs.library.book.entity.BookImg;
 import com.ehs.library.book.repository.BookHopeRepository;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -42,5 +41,9 @@ public class BookHopeService {
 
     public int countByState(BookHopeState bookHopeState){
         return bookHopeRepository.countBookHopeByState(bookHopeState);
+    }
+
+    public Optional<BookHope> findById(Long id){
+        return bookHopeRepository.findById(id);
     }
 }

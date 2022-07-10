@@ -102,7 +102,7 @@
                     희망도서 신청 입력 사항
                 </p>
 
-                <input type="hidden" th:field="*{bookHope.id}">
+                <input type="hidden" name="id" th:field="*{bookHope.id}">
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">책이름</span>
@@ -121,14 +121,18 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">현재상태</span>
-                    <input value="REVIEW" th:field="*{bookHope.state}" disabled>
+                    <input th:field="*{bookHope.state}" disabled>
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">상태변경</span>
-                    <select name="nextstate">
+                    <select name="state">
                         <div th:if="${bookHope.getState.toString().equals('REVIEW')}">
                             <option value="ALLOW" th:text="ALLOW"></option>
+                            <option value="REJECT" th:text="REJECT"></option>
+                        </div>
+                        <div th:if="${bookHope.getState.toString().equals('ALLOW')}">
+                            <option value="SHIPPING" th:text="SHIPPING"></option>
                             <option value="REJECT" th:text="REJECT"></option>
                         </div>
                     </select>
@@ -136,8 +140,10 @@
                     <input type="text" name="failReason" class="form-control" placeholder="거절 시 거절사유는 필수입니다.">
                 </div>
 
+                <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
 
-                <button th:formaction="@{/book/hope/register}" type="submit" class="btn btn-primary">저장하기</button>
+
+                <button th:formaction="@{/admin/book/hope/update}" type="submit" class="btn btn-primary">저장하기</button>
 
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 

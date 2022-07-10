@@ -86,7 +86,7 @@
                     <tr th:each="bookHope, loop : ${bookHopeAllowList}">
                         <td th:text="${loop.count}"></td>
                         <td>
-                            <a th:href="@{|/book/hope/detail/${bookHope.id}|}" th:text="${bookHope.name}"></a>
+                            <a th:href="@{|/admin/book/hope/update/${bookHope.id}|}" th:text="${bookHope.name}"></a>
                         </td>
                         <td th:text="${#temporals.format(bookHope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
                         <td th:text="${bookHope.user.getEmail()}"></td>

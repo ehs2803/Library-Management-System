@@ -2,6 +2,7 @@ package com.ehs.library.admin.controller;
 
 import com.ehs.library.book.constant.BookHopeState;
 import com.ehs.library.book.dto.BookFormDto;
+import com.ehs.library.book.dto.BookHopeUpdateDto;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.entity.BookHope;
 import com.ehs.library.book.repository.BookRepository;
@@ -89,12 +90,35 @@ public class AdminController {
         return "admin/manageBookHopeReview";
     }
 
-    @GetMapping("/book/hope/detail/{id}")
-    public String BookHopeReviewDetail(@PathVariable Long id, Model model){
+    @GetMapping("/book/hope/update/{id}")
+    public String BookHopeReviewUpdate(@PathVariable Long id, Model model){
         BookHope bookHope = bookHopeService.findById(id).get();
         model.addAttribute("bookHope", bookHope);
 
         return "admin/manageBookHopeUpdate";
+    }
+
+    @PostMapping("/book/hope/update")
+    public String BookHopeReviewUpdatePost(BookHopeUpdateDto bookHopeUpdateDto, Model model){
+
+
+        if(bookHopeUpdateDto.getState().toString().equals("REJECT")&&bookHopeUpdateDto.getFailReason().equals("")){
+            BookHope bookHope = bookHopeService.findById(bookHopeUpdateDto.getId()).get();
+            model.addAttribute("bookHope", bookHope);
+            model.addAttribute("errorMessage", "거절 시 거절사유 입력은 필수입니다.");
+            return "admin/manageBookHopeUpdate";
+        }
+
+        try {
+            bookHopeService.updateState(bookHopeUpdateDto);
+        } catch (Exception e){
+            model.addAttribute("errorMessage", "상태 변경 중 에러가 발생하였습니다.");
+            BookHope bookHope = bookHopeService.findById(bookHopeUpdateDto.getId()).get();
+            model.addAttribute("bookHope", bookHope);
+            return "admin/manageBookHopeUpdate";
+        }
+
+        return "redirect:/admin/book/hope";
     }
 
     @GetMapping("/book/hope/reject")

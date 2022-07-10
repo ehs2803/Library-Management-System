@@ -2,6 +2,7 @@ package com.ehs.library.book.service;
 
 import com.ehs.library.book.constant.BookHopeState;
 import com.ehs.library.book.dto.BookHopeFormDto;
+import com.ehs.library.book.dto.BookHopeUpdateDto;
 import com.ehs.library.book.entity.BookHope;
 import com.ehs.library.book.repository.BookHopeRepository;
 import com.ehs.library.member.entity.Member;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +47,14 @@ public class BookHopeService {
 
     public Optional<BookHope> findById(Long id){
         return bookHopeRepository.findById(id);
+    }
+
+    public Long updateState(BookHopeUpdateDto bookHopeUpdateDto){
+        BookHope bookHope = bookHopeRepository.findById(bookHopeUpdateDto.getId()).get();
+        bookHope.setState(bookHopeUpdateDto.getState());
+        if(bookHopeUpdateDto.getState().toString().equals("ALLOW")){
+            bookHope.setAllowTime(LocalDateTime.now());
+        }
+        return bookHope.getId();
     }
 }

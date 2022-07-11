@@ -29,14 +29,46 @@
     <!-- Template Main CSS File -->
     <link href="/css/main.css" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: Logis - v1.0.1
-    * Template URL: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
-</head>
+    <style>
+        .fieldError {
+            color: #bd2130;
+        }
 
+        .content {
+            margin-bottom: 100px;
+            margin-top: 50px;
+            margin-left: 200px;
+            margin-right: 200px;
+        }
+    </style>
+</head>
+<script>
+    $(document).ready(function () {
+        var errorMessage = [[${errorMessage}]];
+        if (errorMessage != null) {
+            alert(errorMessage);
+        }
+
+        bindDomEvent();
+
+    });
+
+    function bindDomEvent() {
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+            var fileExt = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자 추출
+            fileExt = fileExt.toLowerCase(); //소문자 변환
+
+            if (fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp") {
+                alert("이미지 파일만 등록이 가능합니다.");
+                return;
+            }
+
+            $(this).siblings(".custom-file-label").html(fileName);
+        });
+    }
+
+</script>
 <body>
 
 <!-- Footer-->
@@ -50,7 +82,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>배송 중 도서</h2>
+                        <h2>희망도서 신청 관리</h2>
                     </div>
                 </div>
             </div>
@@ -59,43 +91,46 @@
             <div class="container">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/admin/mypage">관리자 페이지</a></li>
-                    <li><a href="/admin/book/hope">희망도서 신청 관리</a></li>
-                    <li>배송 중 도서</li>
+                    <li>희망도서 신청관리</li>
                 </ol>
             </div>
         </nav>
     </div><!-- End Breadcrumbs -->
 
     <section class="sample-page">
-        <div class="container" data-aos="fade-up">
-            <div class="container">
+        <div class="content">
+            <p class="h2">
+                희망도서 신청 입력 사항
+            </p>
 
+            <input type="hidden" name="id" th:field="*{bookHope.id}">
 
-                <h2>배송(SHIPPING) 중 도서</h2>
-                <table class="table">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>번호</th>
-                        <th>희망도서 이름</th>
-                        <th>작성일시</th>
-                        <th>신청자</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bookHope, loop : ${bookHopeShippingList}">
-                        <td th:text="${loop.count}"></td>
-                        <td>
-                            <a th:href="@{|/admin/book/hope/update/${bookHope.id}|}" th:text="${bookHope.name}"></a>
-                        </td>
-                        <td th:text="${#temporals.format(bookHope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${bookHope.user.getEmail()}"></td>
-                    </tr>
-                    </tbody>
-                </table><br>
-
-
+            <div class="input-group mb-3">
+                <span class="input-group-text">책이름</span>
+                <input type="text" th:field="*{bookHope.name}" class="form-control" placeholder="책이름을 입력해주세요" disabled>
+                <span class="input-group-text">ISBN</span>
+                <input type="text" th:field="*{bookHope.isbn}" class="form-control" placeholder="ISBN을 입력해주세요" disabled>
             </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">저자</span>
+                <input type="text" th:field="*{bookHope.author}" class="form-control" placeholder="저자를 입력해주세요" disabled>
+                <span class="input-group-text">출판사</span>
+                <input type="text" th:field="*{bookHope.publisher}" class="form-control" placeholder="출판사를 입력해주세요"
+                       disabled>
+                <span class="input-group-text">출판년도</span>
+                <input type="text" th:field="*{bookHope.year}" class="form-control" placeholder="출판년도를 입력해주세요" disabled>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">현재상태</span>
+                <input th:field="*{bookHope.state}" disabled>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">거절사유</span>
+                <input th:field="*{bookHope.failReason}" disabled>
+            </div>
+
         </div>
     </section>
 

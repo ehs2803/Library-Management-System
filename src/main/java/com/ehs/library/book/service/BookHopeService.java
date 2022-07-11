@@ -55,6 +55,19 @@ public class BookHopeService {
         if(bookHopeUpdateDto.getState().toString().equals("ALLOW")){
             bookHope.setAllowTime(LocalDateTime.now());
         }
+        else if(bookHopeUpdateDto.getState().toString().equals("SHIPPING")){
+            bookHope.setShippingTime(LocalDateTime.now());
+        }
+        else if(bookHopeUpdateDto.getState().toString().equals("ARRANGE")){
+            bookHope.setArrangeTime(LocalDateTime.now());
+        }
+        else if(bookHopeUpdateDto.getState().toString().equals("COMPLETE")){
+            bookHope.setCompleteTime(LocalDateTime.now());
+        }
+        else if(bookHopeUpdateDto.getState().toString().equals("REJECT")){
+            bookHope.setRejectTime(LocalDateTime.now());
+            bookHope.setFailReason(bookHopeUpdateDto.getFailReason());
+        }
         return bookHope.getId();
     }
 }

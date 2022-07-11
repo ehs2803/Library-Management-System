@@ -101,7 +101,6 @@ public class AdminController {
     @PostMapping("/book/hope/update")
     public String BookHopeReviewUpdatePost(BookHopeUpdateDto bookHopeUpdateDto, Model model){
 
-
         if(bookHopeUpdateDto.getState().toString().equals("REJECT")&&bookHopeUpdateDto.getFailReason().equals("")){
             BookHope bookHope = bookHopeService.findById(bookHopeUpdateDto.getId()).get();
             model.addAttribute("bookHope", bookHope);
@@ -154,5 +153,21 @@ public class AdminController {
         List<BookHope> bookHopeCompleteList = bookHopeService.findByState(BookHopeState.COMPLETE);
         model.addAttribute("bookHopeCompleteList",bookHopeCompleteList);
         return "admin/manageBookHopeComplete";
+    }
+
+    @GetMapping("/book/hope/complete/{id}")
+    public String BookHopeCompleteDetail(@PathVariable Long id, Model model){
+        BookHope bookHope = bookHopeService.findById(id).get();
+        model.addAttribute("bookHope", bookHope);
+
+        return "admin/manageBookHopeCompleteDetail";
+    }
+
+    @GetMapping("/book/hope/reject/{id}")
+    public String BookHopeRejectDetail(@PathVariable Long id, Model model){
+        BookHope bookHope = bookHopeService.findById(id).get();
+        model.addAttribute("bookHope", bookHope);
+
+        return "admin/manageBookHopeRejectDetail";
     }
 }

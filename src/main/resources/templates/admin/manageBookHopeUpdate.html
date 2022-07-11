@@ -135,6 +135,14 @@
                             <option value="SHIPPING" th:text="SHIPPING"></option>
                             <option value="REJECT" th:text="REJECT"></option>
                         </div>
+                        <div th:if="${bookHope.getState.toString().equals('SHIPPING')}">
+                            <option value="ARRANGE" th:text="ARRANGE"></option>
+                            <option value="REJECT" th:text="REJECT"></option>
+                        </div>
+                        <div th:if="${bookHope.getState.toString().equals('ARRANGE')}">
+                            <option value="COMPLETE" th:text="COMPLETE"></option>
+                            <option value="REJECT" th:text="REJECT"></option>
+                        </div>
                     </select>
                     <span class="input-group-text">거절사유</span>
                     <input type="text" name="failReason" class="form-control" placeholder="거절 시 거절사유는 필수입니다.">

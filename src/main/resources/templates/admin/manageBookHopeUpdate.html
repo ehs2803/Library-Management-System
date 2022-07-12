@@ -150,6 +150,9 @@
 
                 <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
 
+                <div th:if="${bookHope.getState.toString().equals('ARRANGE')}">
+                    <button class="btn btn-primary"><a th:href="@{|/admin/book/hope/new/${bookHope.id}|}" target="_blank" style="color: white">책 추가하기</a></button>
+                </div>
 
                 <button th:formaction="@{/admin/book/hope/update}" type="submit" class="btn btn-primary">저장하기</button>
 

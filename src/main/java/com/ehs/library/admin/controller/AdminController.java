@@ -170,4 +170,20 @@ public class AdminController {
 
         return "admin/manageBookHopeRejectDetail";
     }
+
+    @GetMapping("/book/hope/new/{id}")
+    public String bookHopeRegisterForm(@PathVariable Long id, Model model){
+        BookHope bookHope = bookHopeService.findById(id).get();
+
+        BookFormDto bookFormDto = new BookFormDto();
+        bookFormDto.setName(bookHope.getName());
+        bookFormDto.setIsbn(bookHope.getIsbn());
+        bookFormDto.setAuthor(bookHope.getAuthor());
+        bookFormDto.setPublisher(bookHope.getPublisher());
+        bookFormDto.setYear(bookHope.getYear());
+
+        model.addAttribute("bookFormDto", bookFormDto);
+
+        return "admin/addBookForm";
+    }
 }

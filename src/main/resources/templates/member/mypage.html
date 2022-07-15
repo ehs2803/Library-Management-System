@@ -75,28 +75,28 @@
             <div class="col-md-8">
               <div class="row">
                 <div class="col">
-                  <h2>ㅇㅇㅇ</h2><h3>님, 안녕하세요.</h3>
+                  <h2>[[${member.name}]] 님, 안녕하세요.</h2>
                 </div>
                 <div class="col order-5" style="text-align: right">
-                  <button type="button" class="btn btn-secondary btn-lg">회원정보수정</button>
+                  <button type="button" class="btn btn-secondary btn-lg"><a th:href="@{|/member/mypage/edit/confirm|}">회원정보수정</a></button>
                 </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col">
-                  <h4>아이디</h4>
+                  <h4>아이디: [[${member.email}]]</h4>
                 </div>
                 <div class="col order-5">
-                  <h4>회원번호</h4>
+                  <h4>회원번호: [[${member.id}]]</h4>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col">
-                  <h4>휴대폰번호</h4>
+                  <h4>휴대폰번호: [[${member.tel}]]</h4>
                 </div>
                 <div class="col order-5">
-                  <h4>이메일주소</h4>
+                  <h4>주소: [[${member.address}]]</h4>
                 </div>
               </div>
 

@@ -2,6 +2,7 @@ package com.ehs.library.member.entity;
 
 import com.ehs.library.base.entity.BaseTimeEntity;
 import com.ehs.library.member.constant.Role;
+import com.ehs.library.member.dto.MemberEditFormDto;
 import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.base.entity.BaseEntity;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class Member extends BaseTimeEntity {
     @Column(unique = true)
     private String email;
 
+    private String tel;
+
     private String password;
 
     private String address;
@@ -38,6 +41,7 @@ public class Member extends BaseTimeEntity {
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
+        member.setTel(memberFormDto.getTel());
         member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
@@ -47,6 +51,16 @@ public class Member extends BaseTimeEntity {
         else {
             member.setRole(Role.USER);
         }
+        return member;
+    }
+
+    public static Member createMember(MemberEditFormDto memberEditFormDto, PasswordEncoder passwordEncoder){
+        Member member = new Member();
+        member.setName(memberEditFormDto.getName());
+        member.setEmail(memberEditFormDto.getEmail());
+        member.setTel(memberEditFormDto.getTel());
+        member.setAddress(memberEditFormDto.getAddress());
+        member.setPassword(passwordEncoder.encode(memberEditFormDto.getPassword()));
         return member;
     }
 

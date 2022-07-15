@@ -44,4 +44,18 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
+
+    public Member findByemail(String email){
+        return memberRepository.findByEmail(email);
+    }
+
+    public Long updateMember(Member member){
+        Member updateMember = memberRepository.findByEmail(member.getEmail());
+        updateMember.setName(member.getName());
+        updateMember.setEmail(member.getEmail());
+        updateMember.setTel(member.getTel());
+        updateMember.setPassword(member.getPassword());
+        updateMember.setAddress(member.getAddress());
+        return updateMember.getId();
+    }
 }

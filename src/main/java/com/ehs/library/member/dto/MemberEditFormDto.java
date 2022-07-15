@@ -1,5 +1,6 @@
 package com.ehs.library.member.dto;
 
+import com.ehs.library.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -8,8 +9,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-@Getter @Setter
-public class MemberFormDto {
+@Getter
+@Setter
+public class MemberEditFormDto {
+    private Long id;
 
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String name;
@@ -28,4 +31,19 @@ public class MemberFormDto {
     private String address;
 
     private String role;
+
+    public MemberEditFormDto() {
+    }
+
+    public MemberEditFormDto(Member member) {
+        id = member.getId();
+        name = member.getName();
+        email = member.getEmail();
+        tel = member.getTel();
+        password = member.getPassword();
+        address = member.getAddress();
+        role = member.getRole().toString();
+    }
+
+
 }

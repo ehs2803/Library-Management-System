@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -22,10 +23,13 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/mypage")
-    public String mypageIndex(){
-        return "member/mypage";
-    }
+//    @GetMapping("/mypage")
+//    public String mypageIndex(Model model, Principal principal){
+//        Member member = memberService.findByemail(principal.getName());
+//        model.addAttribute("member", member);
+//
+//        return "member/mypage";
+//    }
 
     @GetMapping("/signup")
     public String memberAddForm(Model model){

@@ -1,11 +1,8 @@
-package com.ehs.library.book.dto;
+package com.ehs.library.bookhope.dto;
 
-import com.ehs.library.book.constant.BookHopeState;
-import com.ehs.library.book.constant.BookState;
+import com.ehs.library.bookhope.constant.BookHopeState;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

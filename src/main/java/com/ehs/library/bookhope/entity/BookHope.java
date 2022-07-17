@@ -1,8 +1,7 @@
-package com.ehs.library.book.entity;
+package com.ehs.library.bookhope.entity;
 
 import com.ehs.library.base.entity.BaseTimeEntity;
-import com.ehs.library.book.constant.BookHopeState;
-import com.ehs.library.book.constant.BookState;
+import com.ehs.library.bookhope.constant.BookHopeState;
 import com.ehs.library.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;

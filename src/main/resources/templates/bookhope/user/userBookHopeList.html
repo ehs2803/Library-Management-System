@@ -84,6 +84,29 @@
         <div class="content">
             <div class="container my-3">
 
+                <h1>진행중인 희망도서</h1>
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>책 제목</th>
+                        <th>isbn</th>
+                        <th>등록일시</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bookhope, loop : ${bookHopeListProgress}">
+                        <td th:text="${loop.count}"></td>
+                        <td>
+                            <a th:href="@{|/notice/detail/${bookhope.book_hope_id}|}" th:text="${bookhope.name}"></a>
+                        </td>
+                        <td th:text="${bookhope.isbn}"></td>
+                        <td th:text="${#temporals.format(bookhope.reg_time, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${bookhope.state}"></td>
+                    </tr>
+                    </tbody>
+                </table><br>
 
                 <h1>거절된 희망도서</h1>
                 <table class="table">
@@ -105,7 +128,7 @@
                         <td th:text="${#temporals.format(bookhope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
                     </tr>
                     </tbody>
-                </table>
+                </table><br>
 
                 <h1>완료된 희망도서</h1>
                 <table class="table">
@@ -127,7 +150,7 @@
                         <td th:text="${#temporals.format(bookhope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
                     </tr>
                     </tbody>
-                </table>
+                </table><br>
 
             </div>
 

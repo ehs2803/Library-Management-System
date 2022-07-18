@@ -3,9 +3,12 @@ package com.ehs.library.bookhope.controller.user;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.bookhope.constant.BookHopeState;
 import com.ehs.library.bookhope.dto.BookHopeFormDto;
+import com.ehs.library.bookhope.dto.BookHopeMapperDto;
 import com.ehs.library.bookhope.entity.BookHope;
+import com.ehs.library.bookhope.repository.BookHopeMapperRepository;
 import com.ehs.library.bookhope.service.user.BookHopeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookHopeController {
     private final BookHopeService bookHopeService;
+
+    private final BookHopeMapperRepository bookHopeMapperRepository;
 
     @GetMapping("/book/hope/register")
     public String registerHopeBookForm(Model model){
@@ -52,7 +57,11 @@ public class BookHopeController {
 
         List<BookHope> bookHopeListComplete = bookHopeService.findByMemberAndState(email, BookHopeState.COMPLETE);
         List<BookHope> bookHopeListReject = bookHopeService.findByMemberAndState(email, BookHopeState.REJECT);
+        List<BookHopeMapperDto> bookHopeMapperDtoList = bookHopeMapperRepository.findProgressBookHope(3L);
 
+//        for(int i=0;i<bookHopeMapperDtoList.size();i++){
+//            System.out.println(bookHopeMapperDtoList.get(i).getBook_hope_id());
+//        }
 //        for(int i=0;i<bookHopeListComplete.size();i++){
 //            System.out.println(bookHopeListComplete.get(i).getName());
 //        }
@@ -62,6 +71,7 @@ public class BookHopeController {
 
         model.addAttribute("bookHopeListComplete", bookHopeListComplete);
         model.addAttribute("bookHopeListReject", bookHopeListReject);
+        model.addAttribute("bookHopeListProgress", bookHopeMapperDtoList);
 
         return "bookhope/user/userBookHopeList";
     }

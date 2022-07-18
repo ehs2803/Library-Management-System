@@ -8,6 +8,9 @@ logging:
             sql:
               BasicBinder: TRACE
 
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: com.may.mybatispractice.dto
 ---
 
 spring:

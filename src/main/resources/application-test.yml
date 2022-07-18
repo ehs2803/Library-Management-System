@@ -21,6 +21,7 @@ spring:
       max-file-size: 20MB
       max-request-size: 100MB
 
+
 itemImgLocation: C:/library/book
 uploadPath: file:///C:/library/
 

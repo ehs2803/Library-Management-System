@@ -21,5 +21,6 @@ spring:
   thymeleaf:
     cache: false
 
+
 itemImgLocation: C:/library/book
 uploadPath: file:///C:/library/

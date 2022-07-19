@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -54,10 +55,11 @@ public class BookHopeController {
     @GetMapping("/member/mypage/book/hope/list")
     public String memberBookHopeList(Model model, Principal principal){
         String email = principal.getName();
+        Long memberId = bookHopeService.getMemberId(email);
 
         List<BookHope> bookHopeListComplete = bookHopeService.findByMemberAndState(email, BookHopeState.COMPLETE);
         List<BookHope> bookHopeListReject = bookHopeService.findByMemberAndState(email, BookHopeState.REJECT);
-        List<BookHopeMapperDto> bookHopeMapperDtoList = bookHopeMapperRepository.findProgressBookHope(3L);
+        List<BookHopeMapperDto> bookHopeMapperDtoList = bookHopeMapperRepository.findProgressBookHope(memberId);
 
 //        for(int i=0;i<bookHopeMapperDtoList.size();i++){
 //            System.out.println(bookHopeMapperDtoList.get(i).getBook_hope_id());
@@ -74,5 +76,21 @@ public class BookHopeController {
         model.addAttribute("bookHopeListProgress", bookHopeMapperDtoList);
 
         return "bookhope/user/userBookHopeList";
+    }
+
+    @GetMapping("/member/mypage/book/hope/reject/{id}")
+    public String memberBookHopeReject(@PathVariable Long id, Model model){
+        BookHope bookHope = bookHopeService.findById(id);
+        model.addAttribute("bookHope", bookHope);
+
+        return "bookhope/user/BookHopeRejectDetail";
+    }
+
+    @GetMapping("/member/mypage/book/hope/complete/{id}")
+    public String memberBookHopeComplete(@PathVariable Long id, Model model){
+        BookHope bookHope = bookHopeService.findById(id);
+        model.addAttribute("bookHope", bookHope);
+
+        return "bookhope/user/BookHopeCompleteDetail";
     }
 }

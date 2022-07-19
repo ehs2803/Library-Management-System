@@ -48,7 +48,26 @@
         if (errorMessage != null) {
             alert(errorMessage);
         }
+
+        bindDomEvent();
+
     });
+
+    function bindDomEvent() {
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+            var fileExt = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자 추출
+            fileExt = fileExt.toLowerCase(); //소문자 변환
+
+            if (fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp") {
+                alert("이미지 파일만 등록이 가능합니다.");
+                return;
+            }
+
+            $(this).siblings(".custom-file-label").html(fileName);
+        });
+    }
+
 </script>
 <body>
 
@@ -59,12 +78,11 @@
 
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs">
-        <div class="page-header d-flex align-items-center" style="background-image: url('/img/page-header1.jpg');">
+        <div class="page-header d-flex align-items-center" style="background-image: url('/img/page-header.jpg');">
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>공지사항</h2>
-
+                        <h2>희망도서 신청 관리</h2>
                     </div>
                 </div>
             </div>
@@ -74,7 +92,8 @@
                 <ol>
                     <li><a href="/">Home</a></li>
                     <li><a href="/member/mypage">마이페이지</a></li>
-                    <li>희망도서 신청</li>
+                    <li><a href="/member/mypage/book/hope/list">희망도서 신청</a></li>
+                    <li>거절된 희망도서</li>
                 </ol>
             </div>
         </nav>
@@ -82,76 +101,38 @@
 
     <section class="sample-page">
         <div class="content">
-            <div class="container my-3">
+            <p class="h2">
+                거절 도서 상세 정보
+            </p>
 
-                <h1>진행중인 희망도서</h1>
-                <table class="table">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>번호</th>
-                        <th>책 제목</th>
-                        <th>isbn</th>
-                        <th>등록일시</th>
-                        <th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bookhope, loop : ${bookHopeListProgress}">
-                        <td th:text="${loop.count}"></td>
-                        <td>
-                            <a th:href="@{|/notice/detail/${bookhope.book_hope_id}|}" th:text="${bookhope.name}"></a>
-                        </td>
-                        <td th:text="${bookhope.isbn}"></td>
-                        <td th:text="${#temporals.format(bookhope.reg_time, 'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${bookhope.state}"></td>
-                    </tr>
-                    </tbody>
-                </table><br>
+            <input type="hidden" name="id" th:field="*{bookHope.id}">
 
-                <h1>거절된 희망도서</h1>
-                <table class="table">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>번호</th>
-                        <th>책 제목</th>
-                        <th>isbn</th>
-                        <th>등록일시</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bookhope, loop : ${bookHopeListReject}">
-                        <td th:text="${loop.count}"></td>
-                        <td>
-                            <a th:href="@{|/member/mypage/book/hope/reject/${bookhope.id}|}" th:text="${bookhope.name}"></a>
-                        </td>
-                        <td th:text="${bookhope.isbn}"></td>
-                        <td th:text="${#temporals.format(bookhope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
-                    </tr>
-                    </tbody>
-                </table><br>
+            <div class="input-group mb-3">
+                <span class="input-group-text">책이름</span>
+                <input type="text" th:field="*{bookHope.name}" class="form-control" placeholder="책이름을 입력해주세요" disabled>
+                <span class="input-group-text">ISBN</span>
+                <input type="text" th:field="*{bookHope.isbn}" class="form-control" placeholder="ISBN을 입력해주세요" disabled>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">저자</span>
+                <input type="text" th:field="*{bookHope.author}" class="form-control" placeholder="저자를 입력해주세요" disabled>
+                <span class="input-group-text">출판사</span>
+                <input type="text" th:field="*{bookHope.publisher}" class="form-control" placeholder="출판사를 입력해주세요"
+                       disabled>
+                <span class="input-group-text">출판년도</span>
+                <input type="text" th:field="*{bookHope.year}" class="form-control" placeholder="출판년도를 입력해주세요" disabled>
+            </div>
 
-                <h1>완료된 희망도서</h1>
-                <table class="table">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>번호</th>
-                        <th>책 제목</th>
-                        <th>isbn</th>
-                        <th>등록일시</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bookhope, loop : ${bookHopeListComplete}">
-                        <td th:text="${loop.count}"></td>
-                        <td>
-                            <a th:href="@{|/member/mypage/book/hope/complete/${bookhope.id}|}" th:text="${bookhope.name}"></a>
-                        </td>
-                        <td th:text="${bookhope.isbn}"></td>
-                        <td th:text="${#temporals.format(bookhope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
-                    </tr>
-                    </tbody>
-                </table><br>
+            <div class="input-group mb-3">
+                <span class="input-group-text">현재상태</span>
+                <input th:field="*{bookHope.state}" disabled>
+            </div>
 
+            <div class="input-group mb-3">
+                <span class="input-group-text">거절사유</span>
+                <input th:field="*{bookHope.failReason}" disabled>
+                <span class="input-group-text">거절시간</span>
+                <input th:field="*{bookHope.rejectTime}" disabled>
             </div>
 
         </div>

@@ -1,5 +1,6 @@
 package com.ehs.library.bookhope.service.user;
 
+import com.ehs.library.book.entity.Book;
 import com.ehs.library.bookhope.constant.BookHopeState;
 import com.ehs.library.bookhope.dto.BookHopeFormDto;
 import com.ehs.library.bookhope.entity.BookHope;
@@ -37,5 +38,13 @@ public class BookHopeService {
     public List<BookHope> findByMemberAndState(String email, BookHopeState bookHopeState){
         Member member = memberRepository.findByEmail(email);
         return bookHopeRepository.findByIdAndState(member.getId(), bookHopeState);
+    }
+
+    public Long getMemberId(String email){
+        return memberRepository.findByEmail(email).getId();
+    }
+
+    public BookHope findById(Long id){
+        return bookHopeRepository.findById(id).get();
     }
 }

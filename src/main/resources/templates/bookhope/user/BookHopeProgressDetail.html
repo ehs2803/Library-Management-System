@@ -66,7 +66,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/member/mypage">마이페이지</a></li>
                     <li><a href="/member/mypage/book/hope/list">희망도서 신청</a></li>
-                    <li>완료된 도서</li>
+                    <li>진행중인 도서</li>
                 </ol>
             </div>
         </nav>
@@ -112,10 +112,6 @@
             <div class="input-group mb-3">
                 <span class="input-group-text">ARRANGE 시간</span>
                 <input th:value="${#temporals.format(bookHope.arrangeTime, 'yyyy-MM-dd HH:mm')}" disabled>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text">COMPLETE 시간</span>
-                <input th:value="${#temporals.format(bookHope.completeTime, 'yyyy-MM-dd HH:mm')}" disabled>
             </div>
 
 

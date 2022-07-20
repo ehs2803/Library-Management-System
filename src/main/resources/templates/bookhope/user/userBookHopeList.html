@@ -99,7 +99,7 @@
                     <tr th:each="bookhope, loop : ${bookHopeListProgress}">
                         <td th:text="${loop.count}"></td>
                         <td>
-                            <a th:href="@{|/notice/detail/${bookhope.book_hope_id}|}" th:text="${bookhope.name}"></a>
+                            <a th:href="@{|/member/mypage/book/hope/progress/${bookhope.book_hope_id}|}" th:text="${bookhope.name}"></a>
                         </td>
                         <td th:text="${bookhope.isbn}"></td>
                         <td th:text="${#temporals.format(bookhope.reg_time, 'yyyy-MM-dd HH:mm')}"></td>

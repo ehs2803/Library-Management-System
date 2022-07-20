@@ -93,4 +93,12 @@ public class BookHopeController {
 
         return "bookhope/user/BookHopeCompleteDetail";
     }
+
+    @GetMapping("/member/mypage/book/hope/progress/{id}")
+    public String memberBookHopeProgress(@PathVariable Long id, Model model){
+        BookHope bookHope = bookHopeService.findById(id);
+        model.addAttribute("bookHope", bookHope);
+
+        return "bookhope/user/BookHopeProgressDetail";
+    }
 }

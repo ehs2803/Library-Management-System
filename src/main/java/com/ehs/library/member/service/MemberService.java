@@ -1,5 +1,6 @@
 package com.ehs.library.member.service;
 
+import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -57,5 +60,9 @@ public class MemberService implements UserDetailsService {
         updateMember.setPassword(member.getPassword());
         updateMember.setAddress(member.getAddress());
         return updateMember.getId();
+    }
+
+    public List<Member> findByRole(Role role){
+        return memberRepository.findByRole(role);
     }
 }

@@ -34,7 +34,9 @@ public class LoanController {
 
     @GetMapping("/admin/member/{id}")
     public String memberDetail(@PathVariable Long id, Model model){
-        System.out.println(id);
+        Member member = memberService.findById(id);
+        model.addAttribute("member", member);
+
         return "loan/loanMemberDatail";
     }
 }

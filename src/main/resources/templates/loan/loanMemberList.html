@@ -61,9 +61,12 @@
 
     <section class="sample-page">
         <div class="container" data-aos="fade-up">
-            <div>
-                <input type="text" placeholder="검색어를 입력해주세요."><button>검색</button>
-            </div>
+            <form action="/admin/book/loan" method="GET">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input name="keyword" type="text" placeholder="사용자 이메일">
+                    <button class="btn btn-secondary">검색</button>
+                </div>
+            </form><br>
             <table class="table">
                 <thead class="table-dark">
                 <tr>
@@ -84,8 +87,12 @@
                 </tr>
                 </tbody>
             </table>
-
-
+            <div class="pagination justify-content-center">
+                <a th:if="${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>
+                <a th:if="!${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button" class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
+                <a th:if="${hasNext}" th:href="@{/admin/book/loan(page = ${next})}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>
+                <a th:if="!${hasNext}" th:href="@{/admin/book/loan(page = ${next})}" role="button" class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
+            </div>
         </div>
     </section>
 

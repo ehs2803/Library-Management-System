@@ -4,6 +4,8 @@ import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -68,5 +70,10 @@ public class MemberService implements UserDetailsService {
 
     public List<Member> findByRole(Role role){
         return memberRepository.findByRole(role);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Member> memberUserLoanList(String email, Pageable pageable) {
+        return memberRepository.findByRoleAndEmailContaining(Role.USER, email, pageable);
     }
 }

@@ -1,5 +1,6 @@
 package com.ehs.library.book.service;
 
+import com.ehs.library.book.constant.BookState;
 import com.ehs.library.book.dto.BookFormDto;
 import com.ehs.library.book.dto.BookImgDto;
 import com.ehs.library.book.entity.Book;
@@ -8,6 +9,8 @@ import com.ehs.library.book.repository.BookImgRepository;
 import com.ehs.library.book.repository.BookRepository;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -32,10 +35,10 @@ public class BookService {
 
     public Long saveItem(BookFormDto itemFormDto, MultipartFile itemImgFileList, String email) throws Exception{
 
-        //상품 등록
         Book item = itemFormDto.createBook();
         Member findMember = memberRepository.findByEmail(email);
         item.setMember(findMember);
+        item.setState(BookState.AVAILABLE);
         bookRepository.save(item);
 
         //이미지 등록
@@ -74,6 +77,29 @@ public class BookService {
         return item.getId();
     }
 
+    public String findByNameContainingRetrunJson(String keyword){
+        List<Book> bookList = bookRepository.findByNameContaining(keyword);
 
+        JsonObject jo = new JsonObject();
+        if(bookList.size()>0) jo.addProperty("status", "YES");
+        else jo.addProperty("status", "NO");
+
+        JsonArray ja = new JsonArray();
+        for (Book book : bookList) {
+            JsonObject jObj = new JsonObject();
+            jObj.addProperty("id", book.getId());
+            jObj.addProperty("name", book.getName());
+            jObj.addProperty("isbn", book.getIsbn());
+            jObj.addProperty("author", book.getAuthor());
+            jObj.addProperty("publisher", book.getPublisher());
+            jObj.addProperty("register_numer", book.getRegister_numer());
+            jObj.addProperty("symbol", book.getSymbol());
+            jObj.addProperty("state", book.getState().toString());
+            ja.add(jObj);
+        }
+        jo.add("books", ja);
+
+        return jo.toString();
+    }
 
 }

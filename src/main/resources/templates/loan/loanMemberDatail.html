@@ -28,11 +28,28 @@
     <!-- Template Main CSS File -->
     <link href="/css/main.css" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
+<script>
+    function search_book(){
+        var inputkeyword = document.getElementById("keyword").value;
+        console.log(inputkeyword);
+        var bookList = [];
+        $.ajax({
+            url: '/api/book/search/base',
+            type: "post",
+            data: {keyword: inputkeyword},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
 
+            }
+        });
+    }
+</script>
 <body>
 
-<!-- Footer-->
+
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 
 <main id="main">
@@ -129,7 +146,8 @@
                         <div>
                             <h2 style="display: inline">도서 검색</h2>
                             <div>
-                                <input type="text" placeholder="검색어를 입력해주세요."><button>검색</button>
+                                <input id="keyword" type="text" placeholder="검색어를 입력해주세요.">
+                                <button onclick="search_book()">검색</button>
                             </div>
 
                         </div>

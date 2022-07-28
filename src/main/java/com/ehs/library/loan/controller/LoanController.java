@@ -1,6 +1,7 @@
 package com.ehs.library.loan.controller;
 
 
+import com.ehs.library.book.service.BookService;
 import com.ehs.library.loan.service.LoanService;
 import com.ehs.library.loan.vo.Criteria;
 import com.ehs.library.loan.vo.PageMaker;
@@ -15,19 +16,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.synth.SynthUI;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class LoanController {
 
     private final MemberService memberService;
+    private final BookService bookService;
 
     private final LoanService loanService;
 
@@ -52,5 +53,14 @@ public class LoanController {
         model.addAttribute("member", member);
 
         return "loan/loanMemberDatail";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/book/search/base")
+    public String getSaleWeek(@RequestParam Map<String, Object> params) throws IOException {
+        String keyword = (String) params.get("keyword");
+        System.out.println(keyword);
+
+        return bookService.findByNameContainingRetrunJson(keyword);
     }
 }

@@ -63,4 +63,12 @@ public class LoanController {
 
         return bookService.findByNameContainingRetrunJson(keyword);
     }
+
+    @GetMapping(value = "/admin/book/loan/{id}")
+    public String moveReadyLoanList(@PathVariable Long id, Model model){
+        System.out.println(id);
+        model.addAttribute("member", new Member());
+
+        return "loan/loanMemberDatail";
+    }
 }

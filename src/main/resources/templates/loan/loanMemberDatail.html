@@ -104,7 +104,7 @@
     </style>
 </head>
 <script>
-    function search_book() {
+    function search_book(mid) {
         var inputkeyword = document.getElementById("keyword").value;
         console.log(inputkeyword);
         var bookList = [];
@@ -163,8 +163,9 @@
                     str_col8 = str_col8.replace('{}', data.books[i].state);
                     str_temp = str_temp + str_col8;
 
-                    var str_col9 = '<td class ="content right_border"><button><a href="/admin/book/loan/{}">대출대기</a></button></td>'
-                    str_col9 = str_col9.replace('{}', data.books[i].id);
+                    var str_col9 = '<td class ="content right_border"><button><a href="/admin/book/loan/{}/[]">대출대기</a></button></td>'
+                    str_col9 = str_col9.replace('{}', mid);
+                    str_col9 = str_col9.replace('[]', data.books[i].id);
                     str_temp = str_temp + str_col9;
 
                     str_temp = str_temp + '</tr>';
@@ -300,8 +301,9 @@
                             <h2 style="display: inline">도서 검색</h2>
                             <div>
                                 <input id="keyword" type="text" placeholder="검색어를 입력해주세요.">
-                                <button onclick="search_book()">검색</button>
-                                <button onclick="setContentToTable()">set</button>
+                                <button th:mid="${member.id}"
+                                        th:onclick="search_book(this.getAttribute('mid'))">검색</button>
+
                             </div>
 
                         </div>

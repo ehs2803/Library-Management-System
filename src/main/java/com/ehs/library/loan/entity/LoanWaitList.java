@@ -1,6 +1,5 @@
-package com.ehs.library.notice.entity;
+package com.ehs.library.loan.entity;
 
-import com.ehs.library.base.entity.BaseEntity;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.member.entity.Member;
 import lombok.Getter;
@@ -10,26 +9,29 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name="notice")
+@Table(name="loan_wait_list")
 @Getter @Setter
 @ToString
-public class Notice extends BaseEntity {
-
+public class LoanWaitList {
     @Id
-    @Column(name="notice_id")
+    @Column(name="loan_wait_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 200)
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
-    private String content;
-
-    private int hit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    public LoanWaitList(Member member, Book book){
+        this.member = member;
+        this.book = book;
+    }
+
+    public LoanWaitList() {
+
+    }
 }

@@ -2,6 +2,7 @@ package com.ehs.library.loan.controller;
 
 
 import com.ehs.library.book.service.BookService;
+import com.ehs.library.loan.entity.LoanWaitList;
 import com.ehs.library.loan.service.LoanService;
 import com.ehs.library.loan.vo.Criteria;
 import com.ehs.library.loan.vo.PageMaker;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.synth.SynthUI;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,6 @@ public class LoanController {
 
     private final MemberService memberService;
     private final BookService bookService;
-
     private final LoanService loanService;
 
     @GetMapping("/admin/book/loan")
@@ -50,7 +51,10 @@ public class LoanController {
     @GetMapping("/admin/member/{id}")
     public String memberDetail(@PathVariable Long id, Model model){
         Member member = memberService.findById(id);
+        List<LoanWaitList> loanWaitList = loanService.findByMember(member);
+
         model.addAttribute("member", member);
+        model.addAttribute("loanWaitList", loanWaitList);
 
         return "loan/loanMemberDatail";
     }
@@ -64,10 +68,14 @@ public class LoanController {
         return bookService.findByNameContainingRetrunJson(keyword);
     }
 
-    @GetMapping(value = "/admin/book/loan/{id}")
-    public String moveReadyLoanList(@PathVariable Long id, Model model){
-        System.out.println(id);
-        model.addAttribute("member", new Member());
+    @GetMapping(value = "/admin/book/loan/{mid}/{bid}")
+    public String moveReadyLoanList(@PathVariable Long mid,@PathVariable Long bid, Model model){
+        Member member = memberService.findById(mid);
+        loanService.moveWaitList(member, bid);
+
+        List<LoanWaitList> loanWaitList = loanService.findByMember(member);
+        model.addAttribute("member", member);
+        model.addAttribute("loanWaitList", loanWaitList);
 
         return "loan/loanMemberDatail";
     }

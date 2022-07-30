@@ -1,5 +1,5 @@
 package com.ehs.library.book.constant;
 
 public enum BookState {
-    BOOKED, LOAN, AVAILABLE
+    BOOKED, LOAN, AVAILABLE, WAIT
 }

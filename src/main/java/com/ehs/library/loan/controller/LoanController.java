@@ -2,6 +2,8 @@ package com.ehs.library.loan.controller;
 
 
 import com.ehs.library.book.service.BookService;
+import com.ehs.library.loan.constant.LoanState;
+import com.ehs.library.loan.entity.Loan;
 import com.ehs.library.loan.entity.LoanWaitList;
 import com.ehs.library.loan.service.LoanService;
 import com.ehs.library.loan.vo.Criteria;
@@ -52,9 +54,11 @@ public class LoanController {
     public String memberDetail(@PathVariable Long id, Model model){
         Member member = memberService.findById(id);
         List<LoanWaitList> loanWaitList = loanService.findByMember(member);
+        List<Loan> loanList = loanService.findByMemberAndLoan(member, LoanState.LOAN);
 
         model.addAttribute("member", member);
         model.addAttribute("loanWaitList", loanWaitList);
+        model.addAttribute("loanList", loanList);
 
         return "loan/loanMemberDatail";
     }
@@ -63,7 +67,6 @@ public class LoanController {
     @PostMapping(value = "/api/book/search/base")
     public String getSaleWeek(@RequestParam Map<String, Object> params) throws IOException {
         String keyword = (String) params.get("keyword");
-        System.out.println(keyword);
 
         return bookService.findByNameContainingRetrunJson(keyword);
     }
@@ -74,8 +77,26 @@ public class LoanController {
         loanService.moveWaitList(member, bid);
 
         List<LoanWaitList> loanWaitList = loanService.findByMember(member);
+        List<Loan> loanList = loanService.findByMemberAndLoan(member, LoanState.LOAN);
+
         model.addAttribute("member", member);
         model.addAttribute("loanWaitList", loanWaitList);
+        model.addAttribute("loanList", loanList);
+
+        return "loan/loanMemberDatail";
+    }
+
+    @GetMapping(value = "/admin/book/loan/delete/{mid}/{wid}")
+    public String deleteReadyLoanList(@PathVariable Long mid,@PathVariable Long wid, Model model){
+        Member member = memberService.findById(mid);
+        loanService.deleteWaitList(wid);
+
+        List<LoanWaitList> loanWaitList = loanService.findByMember(member);
+        List<Loan> loanList = loanService.findByMemberAndLoan(member, LoanState.LOAN);
+
+        model.addAttribute("member", member);
+        model.addAttribute("loanWaitList", loanWaitList);
+        model.addAttribute("loanList", loanList);
 
         return "loan/loanMemberDatail";
     }

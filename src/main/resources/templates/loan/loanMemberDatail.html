@@ -31,7 +31,7 @@
 
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style type="text/css">
-        #tblBackground {
+        .tblBackground {
             /*
              *  화면에 보여야 할 Table의 가로크기를 잡아줍니다.
              */
@@ -39,7 +39,7 @@
             table-layout: fixed;
         }
 
-        #divHeadScroll {
+        .divHeadScroll {
             /*
              *  안의 내용이 790보다 길게 적용이 되므로 overflow-x, overflow-y를 hidden을 걸어줘서 설정한 가로너비만큼만 화면에 보이도록 잡아줍니다.
              */
@@ -49,7 +49,7 @@
             border-top: 2px solid #d0d0d0;
         }
 
-        #tblHead {
+        .tblHead {
             /*
              *  Table의 필드명의 너비를 여기에서 지정합니다.
              *  필드명을 보여줄 테이블은 body보다 하나의 td를 더 가지며 마지막 td는 아무것도 입력하지 않고 크기만 잡아줍니다.
@@ -63,7 +63,7 @@
             border-collapse: collapse;
         }
 
-        #divBodyScroll {
+        .divBodyScroll {
             /*
              *  overflow-x, overflow-y는 scroll로 지정하고,
              *  height는 테이블의 데이터가 나올 기본 크기를 잡아줍니다.
@@ -76,7 +76,7 @@
             border-top: 1px solid #d0d0d0;
         }
 
-        #tblBody {
+        .tblBody {
             /*
              * tblBody의 데이터는 필요한 열의 수만큼만 만드시고 헤더와 col의 width는 동일해야 합니다.
              */
@@ -163,39 +163,31 @@
                     str_col8 = str_col8.replace('{}', data.books[i].state);
                     str_temp = str_temp + str_col8;
 
-                    var str_col9 = '<td class ="content right_border"><button><a href="/admin/book/loan/{}/[]">대출대기</a></button></td>'
-                    str_col9 = str_col9.replace('{}', mid);
-                    str_col9 = str_col9.replace('[]', data.books[i].id);
-                    str_temp = str_temp + str_col9;
+                    if(data.books[i].state == 'AVAILABLE'){
+                        var str_col9 = '<td class ="content right_border"><button onclick="location.href=\'/admin/book/loan/{}/[]\'">대출대기</button></td>'
+                        str_col9 = str_col9.replace('{}', mid);
+                        str_col9 = str_col9.replace('[]', data.books[i].id);
+                        str_temp = str_temp + str_col9;
+                    }
+                    else{
+                        var str_col9 = '<td class ="content right_border"><button disabled>대출대기</button></td>'
+                        str_col9 = str_col9.replace('{}', mid);
+                        str_col9 = str_col9.replace('[]', data.books[i].id);
+                        str_temp = str_temp + str_col9;
+                    }
 
                     str_temp = str_temp + '</tr>';
 
                     str_html = str_html + str_temp;
                 }
                 console.log(str_html);
-                $('#tblBody').html(str_html);
+                $('#searchList').html(str_html);
                 // html_btn = html_btn.replace('{}', idsplit[i]);
                 // html_btn = html_btn.replace('[]', str_location);
 
             }
         });
     }
-
-    // function setContentToTable() {
-    //     var str_html=''
-    //
-    //     str_html=
-    //         '<tr><td class="content right_border">20062022</td><td class="content right_border">홍길동</td><td class="content right_border">공학대학</td>'+
-    //         '<td class="content right_border">컴퓨터공학</td><td class="content right_border">A / B</td><td class="content right_border">A+ / A</td>'+
-    //         '<td class="content right_border">B / B</td><td class="content right_border">B / A</td><td class="content right_border">없음</td></tr>'
-    //     // str_html=str_html+
-    //     //     '<tr><td className="content right_border">20062022</td><td className="content right_border">홍길동</td><td className="content right_border">공학대학</td>'+
-    //     //     '<td className="content right_border">컴퓨터</td><td className="content right_border">A / B</td><td className="content right_border">A+ / A</td>'+
-    //     //     '<td className="content right_border">B / B</td><td className="content right_border">B / A</td><td className="content right_border">없음</td></tr>'
-    //     console.log(str_html);
-    //
-    //     $('#tblBody').html(str_html);
-    // }
 </script>
 <body>
 
@@ -252,68 +244,14 @@
             <div class="row">
                 <div class="col-sm" style="width: 100%">
                     <div class="row">
-                        <h2>대출 현황</h2>
+                        <h2 style="display:inline">대출 현황</h2>
                     </div>
                     <div class="row">
-                        <div style="overflow:scroll; padding:10px; background-color:gold;">
-
-                            친구의 이야기를 다 들었을 때 나에게는, 친구의 의도와 상관 없이, 거대한 암흑의 이미지가 떠올라 있었다.<br/>
-                            <br/>
-                            다른 친구들은 그 친구의 이야기를 거의 듣지 않은 듯싶었다. 왜냐하면 토요일 오후였기 때문이다. 그러나 나에게는 친구의 이야기가 화창한 토요일 오후와 대비되어 더욱
-                            강렬하게 다가왔었다. 무엇보다도 친구의 들뜨고 밝은 표정이 깊은 인상을 남겼다.<br/>
-                            <br/>
-                            친구에게 그 이야기를 재차 확인하고 싶었지만 어쩐지 입이 떨어지지 않았다. 자동차로 한두 시간 거리에 그토록 어둠에 찬 곳이 있다는 사실이 우선 믿기지 않았다.
-                            그리고 그런 곳에 사는 것이 왜 그리 즐겁고 들뜬 일인지 짐작할 수조차 없었다.<br/>
-                            <br/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br><br>
-            <div class="row">
-                <div class="col-sm" style="width: 100%">
-                    <div class="row">
-                        <h2 style="display:inline">대출 대기</h2>
-                        <a style="display:inline" th:href="@{/admin/book/loan}" class="btn btn-primary">대출하기</a>
-                    </div>
-                    <div class="row">
-                        <div style="overflow:scroll; padding:10px; background-color:gold;">
-
-                            친구의 이야기를 다 들었을 때 나에게는, 친구의 의도와 상관 없이, 거대한 암흑의 이미지가 떠올라 있었다.<br/>
-                            <br/>
-                            다른 친구들은 그 친구의 이야기를 거의 듣지 않은 듯싶었다. 왜냐하면 토요일 오후였기 때문이다. 그러나 나에게는 친구의 이야기가 화창한 토요일 오후와 대비되어 더욱
-                            강렬하게 다가왔었다. 무엇보다도 친구의 들뜨고 밝은 표정이 깊은 인상을 남겼다.<br/>
-                            <br/>
-                            친구에게 그 이야기를 재차 확인하고 싶었지만 어쩐지 입이 떨어지지 않았다. 자동차로 한두 시간 거리에 그토록 어둠에 찬 곳이 있다는 사실이 우선 믿기지 않았다.
-                            그리고 그런 곳에 사는 것이 왜 그리 즐겁고 들뜬 일인지 짐작할 수조차 없었다.<br/>
-                            <br/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br><br>
-            <div class="row">
-                <div class="col-sm" style="width: 100%">
-                    <div class="row">
-                        <div>
-                            <h2 style="display: inline">도서 검색</h2>
-                            <div>
-                                <input id="keyword" type="text" placeholder="검색어를 입력해주세요.">
-                                <button th:mid="${member.id}"
-                                        th:onclick="search_book(this.getAttribute('mid'))">검색</button>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <table id="tblBackground" cellspacing="0">
+                        <table class="tblBackground" cellspacing="0">
                             <tr>
                                 <td>
-                                    <div id="divHeadScroll">
-                                        <table id="tblHead" border="0">
+                                    <div class="divHeadScroll">
+                                        <table class="tblHead" border="0">
                                             <colgroup>
                                                 <col style="width:50px;"/>
                                                 <col style="width:400px;"/>
@@ -335,13 +273,173 @@
                                                 <td class="title">등록번호</td>
                                                 <td class="title">청구기호</td>
                                                 <td class="title">상태</td>
-                                                <td class="title">버튼</td>
+                                                <td class="title">반납</td>
                                                 <td></td>
                                             </tr>
                                         </table>
                                     </div>
-                                    <div id="divBodyScroll">
-                                        <table id="tblBody" border="0">
+                                    <div class="divBodyScroll">
+                                        <table class="tblBody" border="0">
+                                            <colgroup>
+                                                <col style="width:50px;" class="right_border"/>
+                                                <col style="width:400px;" class="right_border"/>
+                                                <col style="width:200px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                            </colgroup>
+                                            <tr th:each="loan : ${loanList}">
+                                                <td class="content right_border" th:text="${loan.id}"></td>
+                                                <td class="content right_border" th:text="${loan.book.name}"></td>
+                                                <td class="content right_border" th:text="${loan.book.isbn}"></td>
+                                                <td class="content right_border" th:text="${loan.book.author}"></td>
+                                                <td class="content right_border" th:text="${loan.book.publisher}"></td>
+                                                <td class="content right_border" th:text="${loan.book.register_numer}"></td>
+                                                <td class="content right_border" th:text="${loan.book.symbol}"></td>
+                                                <td class="content right_border" th:text="${loan.book.state}"></td>
+                                                <td class="content right_border" th:text="${loan.book.name}"></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+            <div class="row">
+                <div class="col-sm" style="width: 100%">
+                    <div class="row">
+                        <h2 style="display:inline">대출 대기</h2>
+                        <a style="display:inline" th:href="@{/admin/book/loan}" class="btn btn-primary">대출하기</a>
+                    </div>
+                    <div class="row">
+                        <table class="tblBackground" cellspacing="0">
+                            <tr>
+                                <td>
+                                    <div class="divHeadScroll">
+                                        <table class="tblHead" border="0">
+                                            <colgroup>
+                                                <col style="width:50px;"/>
+                                                <col style="width:400px;"/>
+                                                <col style="width:200px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:17px;"/>
+                                            </colgroup>
+                                            <tr>
+                                                <td class="title">ID</td>
+                                                <td class="title">책제목</td>
+                                                <td class="title">ISBN</td>
+                                                <td class="title">저자</td>
+                                                <td class="title">출판사</td>
+                                                <td class="title">등록번호</td>
+                                                <td class="title">청구기호</td>
+                                                <td class="title">상태</td>
+                                                <td class="title">대기취소</td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="divBodyScroll">
+                                        <table class="tblBody" border="0">
+                                            <colgroup>
+                                                <col style="width:50px;" class="right_border"/>
+                                                <col style="width:400px;" class="right_border"/>
+                                                <col style="width:200px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                                <col style="width:100px;" class="right_border"/>
+                                            </colgroup>
+                                            <tr th:each="wait : ${loanWaitList}">
+                                                <td class="content right_border" th:text="${wait.book.id}"></td>
+                                                <td class="content right_border" th:text="${wait.book.name}"></td>
+                                                <td class="content right_border" th:text="${wait.book.isbn}"></td>
+                                                <td class="content right_border" th:text="${wait.book.author}"></td>
+                                                <td class="content right_border" th:text="${wait.book.publisher}"></td>
+                                                <td class="content right_border" th:text="${wait.book.register_numer}"></td>
+                                                <td class="content right_border" th:text="${wait.book.symbol}"></td>
+                                                <td class="content right_border" th:text="${wait.book.state}"></td>
+                                                <td class="content right_border">
+                                                    <button><a th:href="@{|/admin/book/loan/delete/${member.id}/${wait.id}|}">대기취소</a></button>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+            <div class="row">
+                <div class="col-sm" style="width: 100%">
+                    <div class="row">
+                        <div>
+                            <h2 style="display: inline">도서 검색</h2>
+                            <div>
+                                <input id="keyword" type="text" placeholder="검색어를 입력해주세요.">
+                                <button th:mid="${member.id}"
+                                        th:onclick="search_book(this.getAttribute('mid'))">검색
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="tblBackground" cellspacing="0">
+                            <tr>
+                                <td>
+                                    <div class="divHeadScroll">
+                                        <table class="tblHead" border="0">
+                                            <colgroup>
+                                                <col style="width:50px;"/>
+                                                <col style="width:400px;"/>
+                                                <col style="width:200px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:100px;"/>
+                                                <col style="width:17px;"/>
+                                            </colgroup>
+                                            <tr>
+                                                <td class="title">ID</td>
+                                                <td class="title">책제목</td>
+                                                <td class="title">ISBN</td>
+                                                <td class="title">저자</td>
+                                                <td class="title">출판사</td>
+                                                <td class="title">등록번호</td>
+                                                <td class="title">청구기호</td>
+                                                <td class="title">상태</td>
+                                                <td class="title">대출대기</td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="divBodyScroll">
+                                        <table class="tblBody" id="searchList" border="0">
 
 
                                         </table>

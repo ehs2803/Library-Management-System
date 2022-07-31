@@ -3,7 +3,10 @@ package com.ehs.library.loan.service;
 import com.ehs.library.book.constant.BookState;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.loan.constant.LoanState;
+import com.ehs.library.loan.entity.Loan;
 import com.ehs.library.loan.entity.LoanWaitList;
+import com.ehs.library.loan.repository.LoanRepository;
 import com.ehs.library.loan.repository.LoanWaitListRepository;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
@@ -23,6 +26,7 @@ public class LoanService {
 
     private final BookRepository bookRepository;
     private final LoanWaitListRepository loanWaitListRepository;
+    private final LoanRepository loanRepository;
 
     public void moveWaitList(Member member, Long bid){
         Book book = bookRepository.findById(bid).get();
@@ -32,8 +36,20 @@ public class LoanService {
         loanWaitListRepository.save(loanWaitList);
     }
 
+    public void deleteWaitList(Long wid){
+        LoanWaitList loanWaitList = loanWaitListRepository.findByIdFetchJoin(wid);
+        Book book = loanWaitList.getBook();
+        book.setState(BookState.AVAILABLE);
+
+        loanWaitListRepository.delete(loanWaitList);
+    }
+
     public List<LoanWaitList> findByMember(Member member){
         return loanWaitListRepository.findByMember(member);
+    }
+
+    public List<Loan> findByMemberAndLoan(Member member, LoanState loanState){
+        return loanRepository.findByMemberAndLoan(member, loanState);
     }
 
 }

@@ -302,7 +302,9 @@
                                                 <td class="content right_border" th:text="${loan.book.register_numer}"></td>
                                                 <td class="content right_border" th:text="${loan.book.symbol}"></td>
                                                 <td class="content right_border" th:text="${loan.book.state}"></td>
-                                                <td class="content right_border" th:text="${loan.book.name}"></td>
+                                                <td class="content right_border">
+                                                    <button><a th:href="@{|/admin/book/loan/return/${loan.id}|}">반납</a></button>
+                                                </td>
                                             </tr>
 
                                         </table>
@@ -319,7 +321,7 @@
                 <div class="col-sm" style="width: 100%">
                     <div class="row">
                         <h2 style="display:inline">대출 대기</h2>
-                        <a style="display:inline" th:href="@{/admin/book/loan}" class="btn btn-primary">대출하기</a>
+                        <a style="display:inline" th:href="@{|/admin/book/loan/${member.id}|}" class="btn btn-primary">대출하기</a>
                     </div>
                     <div class="row">
                         <table class="tblBackground" cellspacing="0">

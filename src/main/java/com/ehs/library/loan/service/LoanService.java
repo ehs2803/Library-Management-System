@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -50,6 +51,37 @@ public class LoanService {
 
     public List<Loan> findByMemberAndLoan(Member member, LoanState loanState){
         return loanRepository.findByMemberAndLoan(member, loanState);
+    }
+
+    public void loanWatiBookList(Member member){
+        List<LoanWaitList> loanWaitListList = loanWaitListRepository.findByMember(member);
+        // loan wati list
+        for(int i=0;i<loanWaitListList.size();i++){
+            Book book = loanWaitListList.get(i).getBook();
+            book.setState(BookState.LOAN);
+            Loan loan = new Loan(book, member, LoanState.LOAN, LocalDateTime.now());
+            loanWaitListRepository.delete(loanWaitListList.get(i));
+            loanRepository.save(loan);
+        }
+    }
+
+    public Long loanReturn(Long id){
+        Loan loan = loanRepository.findByIdFetchJoin(id);
+
+        // book
+        Book book = loan.getBook();
+        book.setState(BookState.AVAILABLE);
+
+        // loan state
+        loan.setLoanState(LoanState.NORMAL_RETURN);
+        loan.setReturnTime(LocalDateTime.now());
+
+        ///////////////////
+        ///////////////////
+        //////////////////
+        //////////////////
+        // 연체 구현
+        return loan.getMember().getId();
     }
 
 }

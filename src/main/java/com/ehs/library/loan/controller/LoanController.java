@@ -72,32 +72,32 @@ public class LoanController {
     }
 
     @GetMapping(value = "/admin/book/loan/{mid}/{bid}")
-    public String moveReadyLoanList(@PathVariable Long mid,@PathVariable Long bid, Model model){
+    public String moveReadyLoanList(@PathVariable Long mid,@PathVariable Long bid){
         Member member = memberService.findById(mid);
         loanService.moveWaitList(member, bid);
 
-        List<LoanWaitList> loanWaitList = loanService.findByMember(member);
-        List<Loan> loanList = loanService.findByMemberAndLoan(member, LoanState.LOAN);
-
-        model.addAttribute("member", member);
-        model.addAttribute("loanWaitList", loanWaitList);
-        model.addAttribute("loanList", loanList);
-
-        return "loan/loanMemberDatail";
+        return "redirect:/admin/member/"+mid;
     }
 
     @GetMapping(value = "/admin/book/loan/delete/{mid}/{wid}")
-    public String deleteReadyLoanList(@PathVariable Long mid,@PathVariable Long wid, Model model){
-        Member member = memberService.findById(mid);
+    public String deleteReadyLoanList(@PathVariable Long mid,@PathVariable Long wid){
         loanService.deleteWaitList(wid);
 
-        List<LoanWaitList> loanWaitList = loanService.findByMember(member);
-        List<Loan> loanList = loanService.findByMemberAndLoan(member, LoanState.LOAN);
+        return "redirect:/admin/member/"+mid;
+    }
 
-        model.addAttribute("member", member);
-        model.addAttribute("loanWaitList", loanWaitList);
-        model.addAttribute("loanList", loanList);
+    @GetMapping(value = "/admin/book/loan/{mid}")
+    public String loanWaitBookList(@PathVariable Long mid){
+        Member member = memberService.findById(mid);
+        loanService.loanWatiBookList(member);
 
-        return "loan/loanMemberDatail";
+        return "redirect:/admin/member/"+mid;
+    }
+
+    @GetMapping(value = "/admin/book/loan/return/{id}")
+    public String loanReturn(@PathVariable Long id){
+        Long mid = loanService.loanReturn(id);
+
+        return "redirect:/admin/member/"+mid;
     }
 }

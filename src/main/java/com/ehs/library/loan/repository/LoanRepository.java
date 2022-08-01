@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LoanRepository extends JpaRepository<Loan, Loan> {
+public interface LoanRepository extends JpaRepository<Loan, Long> {
     @Query("select l from Loan l join fetch l.book where l.member=:member and l.loanState=:loanState")
-    List<Loan> findByMemberAndLoan(@Param("member") Member member, @Param("loanState")LoanState loanState);
+    List<Loan> findByMemberAndLoan(@Param("member") Member member, @Param("loanState") LoanState loanState);
+
+    @Query("select l from Loan l join fetch l.book join fetch l.member where l.id=:id")
+    Loan findByIdFetchJoin(@Param("id") Long id);
 }

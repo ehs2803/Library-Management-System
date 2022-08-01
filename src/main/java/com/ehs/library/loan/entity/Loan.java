@@ -37,4 +37,15 @@ public class Loan {
 
     @Enumerated(EnumType.STRING)
     private LoanState loanState;
+
+    public Loan(){
+
+    }
+
+    public Loan(Book book, Member member, LoanState loanState, LocalDateTime startLoanTime) {
+        this.book = book;
+        this.member = member;
+        this.loanState = loanState;
+        this.startLoanTime = startLoanTime;
+    }
 }

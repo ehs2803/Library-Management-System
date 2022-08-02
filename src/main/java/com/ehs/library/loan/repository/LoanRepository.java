@@ -17,4 +17,6 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     @Query("select l from Loan l join fetch l.book join fetch l.member where l.id=:id")
     Loan findByIdFetchJoin(@Param("id") Long id);
+
+    List<Loan> findByLoanState(LoanState loanState);
 }

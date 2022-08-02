@@ -39,6 +39,7 @@ public class BookService {
         Member findMember = memberRepository.findByEmail(email);
         item.setMember(findMember);
         item.setState(BookState.AVAILABLE);
+        item.setLoanCnt(0);
         bookRepository.save(item);
 
         //이미지 등록

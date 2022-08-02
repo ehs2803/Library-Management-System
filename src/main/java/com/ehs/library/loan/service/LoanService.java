@@ -1,5 +1,6 @@
 package com.ehs.library.loan.service;
 
+import com.ehs.library.base.constant.Policy;
 import com.ehs.library.book.constant.BookState;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.repository.BookRepository;
@@ -59,7 +60,11 @@ public class LoanService {
         for(int i=0;i<loanWaitListList.size();i++){
             Book book = loanWaitListList.get(i).getBook();
             book.setState(BookState.LOAN);
+            book.setLoanCnt(book.getLoanCnt()+1);
             Loan loan = new Loan(book, member, LoanState.LOAN, LocalDateTime.now());
+            loan.setRemainDay(Policy.LOAN_BOOK_DAY);
+            loan.setUseExtensionCnt(0);
+            loan.setOverdueDay(0);
             loanWaitListRepository.delete(loanWaitListList.get(i));
             loanRepository.save(loan);
         }
@@ -73,15 +78,32 @@ public class LoanService {
         book.setState(BookState.AVAILABLE);
 
         // loan state
-        loan.setLoanState(LoanState.NORMAL_RETURN);
+        if(loan.getLoanState().toString().equals("LOAN")){
+            loan.setLoanState(LoanState.NORMAL_RETURN);
+        }
+        else{
+            loan.setLoanState(LoanState.OVERDUE_RETURN);
+        }
         loan.setReturnTime(LocalDateTime.now());
 
-        ///////////////////
-        ///////////////////
-        //////////////////
-        //////////////////
-        // 연체 구현
         return loan.getMember().getId();
     }
 
+    public void updateLoanState(){
+        List<Loan> loanList_LOAN = loanRepository.findByLoanState(LoanState.LOAN);
+        List<Loan> loanList_OVERDUE = loanRepository.findByLoanState(LoanState.OVERDUE);
+
+        for(int i=0;i<loanList_LOAN.size();i++){
+            Loan loan = loanList_LOAN.get(i);
+            loan.setRemainDay(loan.getRemainDay()-1);
+            if(loan.getRemainDay()==0){
+                loan.setLoanState(LoanState.OVERDUE);
+            }
+        }
+
+        for(int i=0;i<loanList_OVERDUE.size();i++){
+            Loan loan = loanList_OVERDUE.get(i);
+            loan.setOverdueDay(loan.getOverdueDay()+1);
+        }
+    }
 }

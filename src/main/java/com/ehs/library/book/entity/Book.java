@@ -62,6 +62,8 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private int loanCnt;
+
     public void updateBook(BookFormDto itemFormDto){
 
     }

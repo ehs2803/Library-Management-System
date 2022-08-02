@@ -38,6 +38,12 @@ public class Loan {
     @Enumerated(EnumType.STRING)
     private LoanState loanState;
 
+    private int remainDay;
+
+    private int useExtensionCnt;
+
+    private int overdueDay;
+
     public Loan(){
 
     }

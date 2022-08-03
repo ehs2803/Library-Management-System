@@ -186,3 +186,8 @@
 - loan entity에 remainDay(반납까지남은일), userExtensionCnt(반납연장사용횟수), overdueDay(연체일) 칼럼 추가
 - @Scheduled 어노테이션 사용해 매일 0시0분에 대출중인 도서에 대해 loan 테이블에 접근해 상태 업데이트 구현.
 
+==============================================================
+2022.08.03.수
+- 일반 회원 마이페이지에서 대출중인 도서 클릭시 loan 테이블에서 loan_state가 loan 혹은 overdue인 칼럼을 조회하면서
+book 테이블까지 fetch join하기 위해서 mybatis 사용함. vo, resultMap 등 사용해 구현성공함.
+

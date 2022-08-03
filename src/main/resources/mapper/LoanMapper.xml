@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ehs.library.loan.repository.LoanMapperRepository">
+    <resultMap id="BookVo" type="com.ehs.library.book.vo.BookVo">
+        <result property="book_id" column="book_id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <resultMap id="LoanVo" type="com.ehs.library.loan.vo.LoanVo">
+        <result property="loan_id" column="loan_id"/>
+        <result property="loan_state" column="loan_state"/>
+        <result property="start_loan_time" column="start_loan_time"/>
+        <result property="book_id" column="book_id"/>
+        <result property="remain_day" column="remain_day"/>
+        <result property="overdue_day" column="overdue_day"/>
+        <result property="use_extension_cnt" column="use_extension_cnt"/>
+        <association property="bookVo" resultMap="BookVo"/>
+    </resultMap>
+
+
+    <select id="findLoanBookList" parameterType = "Long" resultMap="LoanVo">
+        select l.loan_id, l.loan_state, l.start_loan_time, l.remain_day, l.overdue_day, l.use_extension_cnt, b.book_id, b.name
+        from loan l join book b on l.book_id=b.book_id
+        where l.member_id=#{member_id} and l.loan_state in ('LOAN','OVERDUE');
+    </select>
+</mapper>

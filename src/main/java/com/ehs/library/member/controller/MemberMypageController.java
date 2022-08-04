@@ -16,10 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -92,10 +89,17 @@ public class MemberMypageController {
     @GetMapping("/overdue")
     public String memberLoanOverdueList(Principal principal, Model model){
         Member member = memberService.findByemail(principal.getName());
-        List<Loan> loanList = loanService.findByMemberAndLoan(member, LoanState.LOAN);
+        List<LoanVo> loanList = loanMapperRepository.findLoanOverdueList(member.getId());
 
         model.addAttribute("loanList", loanList);
 
         return "member/memberLoanOverdueList";
+    }
+
+    @GetMapping("/delay/{id}")
+    public String memberBookLoanDelay(@PathVariable Long id){
+        loanService.delayLoan(id);
+
+        return "redirect:/member/mypage/loan";
     }
 }

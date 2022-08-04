@@ -106,4 +106,10 @@ public class LoanService {
             loan.setOverdueDay(loan.getOverdueDay()+1);
         }
     }
+
+    public void delayLoan(Long id){
+        Loan loan = loanRepository.findById(id).get();
+        loan.setUseExtensionCnt(1);
+        loan.setRemainDay(loan.getRemainDay()+Policy.LOAN_BOOK_EXTENSION_DAY);
+    }
 }

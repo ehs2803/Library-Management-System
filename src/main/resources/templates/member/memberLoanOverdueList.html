@@ -15,7 +15,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,8 +30,8 @@
     <link href="/css/main.css" rel="stylesheet">
 
     <style>
-        .content{
-            margin-bottom:100px;
+        .content {
+            margin-bottom: 100px;
             margin-top: 50px;
             margin-left: 200px;
             margin-right: 200px;
@@ -70,7 +71,31 @@
 
     <section class="sample-page">
         <div class="content">
-
+            <div class="card mb-3" style="width: 100%" th:each="loan : ${loanList}">
+                <div class="row g-0">
+                    <div class="col-md-2" style="border: 1px solid black">
+                        <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-6" style="border: 1px solid black">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${loan.bookVo.name}">title</h5>
+                            <p th:text="${#temporals.format(loan.start_loan_time, 'yyyy-MM-dd')}"></p>
+                            <p th:text="${loan.remain_day}"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="border: 1px solid black;">
+                        <p th:text="${loan.loan_state}"></p>
+                    </div>
+                    <div class="col-md-2" style="border: 1px solid black">
+                        <button th:if="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0"
+                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기
+                        </button>
+                        <button th:unless="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0" disabled
+                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기
+                        </button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>

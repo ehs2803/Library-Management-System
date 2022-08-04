@@ -71,25 +71,32 @@
 
     <section class="sample-page">
         <div class="content">
-            <div class="card mb-3" th:each="loan : ${loanList}">
+            <div class="card mb-3" style="width: 100%" th:each="loan : ${loanList}">
                 <div class="row g-0">
-                    <div class="col-md-4">
+                    <div class="col-md-2" style="border: 1px solid black">
                         <img src="..." class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6" style="border: 1px solid black">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${loan.bookVo.name}">title</h5>
-                            <p th:text="${loan.loan_id}"></p>
-                            <p th:text="${loan.loan_state}"></p>
-                            <p th:text="${loan.start_loan_time}"></p>
-                            <p th:text="${loan.book_id}"></p>
+                            <p th:text="${#temporals.format(loan.start_loan_time, 'yyyy-MM-dd')}"></p>
                             <p th:text="${loan.remain_day}"></p>
-                            <p th:text="${loan.overdue_day}"></p>
-                            <p th:text="${loan.use_extension_cnt}"></p>
-                            <p th:text="${loan.bookVo.book_id}"></p>
-
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
+                    </div>
+                    <div class="col-md-2" style="border: 1px solid black;">
+                        <p th:text="${loan.loan_state}"></p>
+                    </div>
+                    <div class="col-md-2" style="border: 1px solid black">
+                        <button th:if="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0"
+                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기
+                        </button>
+                        <button th:unless="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0" disabled
+                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기
+                        </button>
+<!--                        <a th:if="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0"-->
+<!--                           th:href="@{|/member/mypage/delay/${loan.loan_id}|}" class="btn btn-primary">반납연기</a>-->
+<!--                        <a th:unless="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0"-->
+<!--                           th:href="@{|/member/mypage/delay/${loan.loan_id}|}" disabled class="btn btn-primary">반납연기</a>-->
                     </div>
                 </div>
             </div>

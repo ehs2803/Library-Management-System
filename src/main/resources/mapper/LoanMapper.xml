@@ -27,4 +27,10 @@
         from loan l join book b on l.book_id=b.book_id
         where l.member_id=#{member_id} and l.loan_state in ('LOAN','OVERDUE');
     </select>
+
+    <select id="findLoanOverdueList" parameterType = "Long" resultMap="LoanVo">
+        select l.loan_id, l.loan_state, l.start_loan_time, l.remain_day, l.overdue_day, l.use_extension_cnt, b.book_id, b.name
+        from loan l join book b on l.book_id=b.book_id
+        where l.member_id=#{member_id} and l.loan_state='OVERDUE';
+    </select>
 </mapper>

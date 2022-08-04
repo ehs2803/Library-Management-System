@@ -12,4 +12,5 @@ import java.util.List;
 @Mapper
 public interface LoanMapperRepository {
     List<LoanVo> findLoanBookList(Long member_id);
+    List<LoanVo> findLoanOverdueList(Long member_id);
 }

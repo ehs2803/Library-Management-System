@@ -7,12 +7,14 @@ import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.entity.BookImg;
 import com.ehs.library.book.repository.BookImgRepository;
 import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,6 +103,11 @@ public class BookService {
         jo.add("books", ja);
 
         return jo.toString();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Book> searchBookList(String keyword, Pageable pageable) {
+        return bookRepository.findByNameContaining(keyword, pageable);
     }
 
 }

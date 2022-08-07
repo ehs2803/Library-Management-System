@@ -1,5 +1,6 @@
 package com.ehs.library.book.controller;
 
+import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.service.BookService;
 import com.ehs.library.bookhope.dto.BookHopeFormDto;
 import com.ehs.library.bookhope.service.BookHopeService;
@@ -35,15 +36,15 @@ public class BookController {
 
     @GetMapping("/search/result")
     public String bookList(@RequestParam(defaultValue = "") String keyword,
-                             @PageableDefault(sort = "email", direction = Sort.Direction.ASC) Pageable pageable,
+                             @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                              Model model){
-//        Page<Member> memberList = memberService.memberUserLoanList(keyword, pageable);
-//
-//        model.addAttribute("memberList", memberList);
-//        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-//        model.addAttribute("next", pageable.next().getPageNumber());
-//        model.addAttribute("hasNext", memberList.hasNext());
-//        model.addAttribute("hasPrev", memberList.hasPrevious());
+        Page<Book> bookList = bookService.searchBookList(keyword, pageable);
+
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", bookList.hasNext());
+        model.addAttribute("hasPrev", bookList.hasPrevious());
 
         return "book/searchBookList";
     }

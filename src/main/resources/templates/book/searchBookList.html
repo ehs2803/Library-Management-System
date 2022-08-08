@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -89,13 +89,17 @@
                     <div class="col-md-6" style="border: 1px solid black">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${book.name}">title</h5>
-                            <p th:text="${book.name}"></p>
+                            <p th:text="${book.author}"></p>
+                            <p th:text="|${book.publisher}| + '|' + |${book.year}| + '|' + |${book.symbol}|"></p>
+                            <p th:text="${book.location}"></p>
                         </div>
                     </div>
                     <div class="col-md-2" style="border: 1px solid black;">
-                        <p th:text="${book.name}"></p>
+                        <p th:text="${book.state}"></p>
                     </div>
                     <div class="col-md-2" style="border: 1px solid black">
+                        <button sec:authorize="isAnonymous()" onclick="alertLogin()">도서예약</button>
+                        <button sec:authorize="isAnonymous()" onclick="alertLogin()">관심도서담기</button>
 <!--                        <button th:if="${book.name}==0 and ${loan.use_extension_cnt}==0"-->
 <!--                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기-->
 <!--                        </button>-->
@@ -105,26 +109,6 @@
                     </div>
                 </div>
             </div>
-            <!--            <table class="table">-->
-            <!--                <thead class="table-dark">-->
-            <!--                <tr>-->
-            <!--                    <th></th>-->
-            <!--                    <th>아이디(이메일)</th>-->
-            <!--                    <th>이름</th>-->
-            <!--&lt;!&ndash;                    <th>가입날짜</th>&ndash;&gt;-->
-            <!--                </tr>-->
-            <!--                </thead>-->
-            <!--                <tbody>-->
-            <!--                <tr th:each="member, loop : ${bookList}">-->
-            <!--                    <td th:text="${loop.count}"></td>-->
-            <!--                    <td>-->
-            <!--                        <a th:href="@{|/admin/member/${member.id}|}" th:text="${member.id}"></a>-->
-            <!--                    </td>-->
-            <!--                    <td th:text="${member.name}"></td>-->
-            <!--&lt;!&ndash;                    <td th:text="${#temporals.format(member.regTime, 'yyyy-MM-dd HH:mm')}"></td>&ndash;&gt;-->
-            <!--                </tr>-->
-            <!--                </tbody>-->
-            <!--            </table>-->
             <div class="pagination justify-content-center">
                 <a th:if="${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button"
                    class="btn btn-lg bi bi-caret-left-square-fill"></a>
@@ -146,7 +130,11 @@
 <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <div id="preloader"></div>
-
+<script>
+    function alertLogin(){
+        alert("로그인 후 이용가능합니다.");
+    }
+</script>
 <!-- Vendor JS Files -->
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/vendor/purecounter/purecounter_vanilla.js"></script>

@@ -56,7 +56,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>통합검색</h2>
+                        <h2>관심도서</h2>
 
                     </div>
                 </div>
@@ -66,7 +66,8 @@
             <div class="container">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li>통합검색</li>
+                    <li><a href="/member/mypage">마이페이지</a></li>
+                    <li>관심도서</li>
                 </ol>
             </div>
         </nav>
@@ -75,52 +76,30 @@
     <section class="sample-page">
         <div class="content" style="text-align: center">
 
-            <form action="/main/book/search/result" method="GET" class="form-search d-flex align-items-stretch mb-3"
-                  data-aos="fade-up"
-                  data-aos-delay="200" style="width: 70%">
-                <input name="keyword" type="text" class="form-control">
-                <button class="btn btn-primary">Search</button>
-            </form>
-            <div class="card mb-3" style="width: 100%" th:each="book : ${bookList}">
+
+            <div class="card mb-3" style="width: 100%" th:each="book : ${bookInterestList}">
                 <div class="row g-0">
                     <div class="col-md-2" style="border: 1px solid black">
                         <img src="..." class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="col-md-6" style="border: 1px solid black">
+                    <div class="col-md-5" style="border: 1px solid black">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${book.name}">title</h5>
-                            <p th:text="${book.author}"></p>
-                            <p th:text="|${book.publisher}| + '|' + |${book.year}| + '|' + |${book.symbol}|"></p>
-                            <p th:text="${book.location}"></p>
+                            <h5 class="card-title" th:text="${book.book.name}">title</h5>
+                            <p th:text="${book.book.author}"></p>
+                            <p th:text="|${book.book.publisher}| + '|' + |${book.book.year}| + '|' + |${book.book.symbol}|"></p>
+                            <p th:text="${book.book.location}"></p>
                         </div>
                     </div>
-                    <div class="col-md-2" style="border: 1px solid black;">
-                        <p th:text="${book.state}"></p>
+                    <div class="col-md-1" style="border: 1px solid black;">
+                        <p th:text="${book.book.state}"></p>
                     </div>
                     <div class="col-md-2" style="border: 1px solid black">
-                        <button sec:authorize="isAnonymous()" onclick="alertLogin()">도서예약</button>
-                        <button sec:authorize="isAnonymous()" onclick="alertLogin()">관심도서담기</button>
-                        <button sec:authorize="isAuthenticated()"
-                                th:onclick="'location.href=\''+@{|/book/interest/${book.id}|}+'\''">관심도서담기</button>
-
-<!--                        <button th:if="${book.name}==0 and ${loan.use_extension_cnt}==0"-->
-<!--                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기-->
-<!--                        </button>-->
-<!--                        <button th:unless="${loan.overdue_day}==0 and ${loan.use_extension_cnt}==0" disabled-->
-<!--                                th:onclick="'location.href=\''+@{|/member/mypage/delay/${loan.loan_id}|}+'\''">반납연기-->
-<!--                        </button>-->
+                        <p th:text="${book.regTime}"></p>
+                    </div>
+                    <div class="col-md-2" style="border: 1px solid black">
+                        <button th:onclick="'location.href=\''+@{|/book/interest/delete/${book.id}|}+'\''">관심도서 삭제</button>
                     </div>
                 </div>
-            </div>
-            <div class="pagination justify-content-center">
-                <a th:if="${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button"
-                   class="btn btn-lg bi bi-caret-left-square-fill"></a>
-                <a th:if="!${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button"
-                   class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
-                <a th:if="${hasNext}" th:href="@{/admin/book/loan(page = ${next})}" role="button"
-                   class="btn btn-lg bi bi-caret-right-square-fill"></a>
-                <a th:if="!${hasNext}" th:href="@{/admin/book/loan(page = ${next})}" role="button"
-                   class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
             </div>
 
         </div>

@@ -20,7 +20,7 @@ public class BookReservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
 
@@ -29,6 +29,8 @@ public class BookReservation {
     private Member member;
 
     private int remainDay;
+
+    private int sequence;
 
     @CreatedDate
     @Column(updatable = false)

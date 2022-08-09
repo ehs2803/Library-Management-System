@@ -35,4 +35,10 @@ public class BookInterest {
     public BookInterest(){
 
     }
+
+    public BookInterest(Book book, Member member, LocalDateTime regTime) {
+        this.book = book;
+        this.member = member;
+        this.regTime = regTime;
+    }
 }

@@ -35,4 +35,15 @@ public class BookReservation {
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime resTime;
+
+    public BookReservation() {
+    }
+
+    public BookReservation(Book book, Member member, int remainDay, int sequence, LocalDateTime resTime) {
+        this.book = book;
+        this.member = member;
+        this.remainDay = remainDay;
+        this.sequence = sequence;
+        this.resTime = resTime;
+    }
 }

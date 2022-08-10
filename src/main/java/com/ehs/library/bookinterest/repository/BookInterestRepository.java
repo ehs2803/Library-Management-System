@@ -14,5 +14,5 @@ public interface BookInterestRepository extends JpaRepository<BookInterest, Long
     @EntityGraph(attributePaths = {"book"})
     public List<BookInterest> findByMember(Member member);
 
-    public Long countByMemberAndBook(Book book, Member member);
+    public int countBookInterestByMemberAndBook(Book book, Member member);
 }

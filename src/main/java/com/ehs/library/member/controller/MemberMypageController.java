@@ -2,6 +2,8 @@ package com.ehs.library.member.controller;
 
 import com.ehs.library.bookinterest.entity.BookInterest;
 import com.ehs.library.bookinterest.repository.BookInterestRepository;
+import com.ehs.library.bookreservation.entity.BookReservation;
+import com.ehs.library.bookreservation.repository.BookReservationRepository;
 import com.ehs.library.loan.constant.LoanState;
 import com.ehs.library.loan.dto.LoanMapperDto;
 import com.ehs.library.loan.entity.Loan;
@@ -34,6 +36,7 @@ public class MemberMypageController {
     private final LoanService loanService;
     private final LoanMapperRepository loanMapperRepository;
     private final BookInterestRepository bookInterestRepository;
+    private final BookReservationRepository bookReservationRepository;
 
     @GetMapping("")
     public String mypageIndex(Model model, Principal principal){
@@ -114,5 +117,15 @@ public class MemberMypageController {
         model.addAttribute("bookInterestList", bookInterestList);
 
         return "member/memberBookInterestList";
+    }
+
+    @GetMapping("/reservation")
+    public String memberBookReservation(Principal principal, Model model){
+        Member member = memberService.findByemail(principal.getName());
+        List<BookReservation> bookReservationList = bookReservationRepository.findByMember(member);
+
+        model.addAttribute("bookReservationList", bookReservationList);
+
+        return "member/memberBookReservationList";
     }
 }

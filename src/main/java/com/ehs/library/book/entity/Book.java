@@ -62,6 +62,9 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToOne(mappedBy = "book")
+    private BookImg bookImg;
+
     private int loanCnt;
 
     public void updateBook(BookFormDto itemFormDto){

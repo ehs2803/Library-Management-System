@@ -80,7 +80,7 @@
             <div class="card mb-3" style="width: 100%" th:each="book : ${bookInterestList}">
                 <div class="row g-0">
                     <div class="col-md-2" style="border: 1px solid black">
-                        <img th:src="${book.bookImg.imgUrl}" class="img-fluid rounded-start" alt="..."
+                        <img th:src="${book.book.bookImg.imgUrl}" class="img-fluid rounded-start" alt="..."
                              height="200px" width="100px" style="object-fit: cover">
                     </div>
                     <div class="col-md-5" style="border: 1px solid black">

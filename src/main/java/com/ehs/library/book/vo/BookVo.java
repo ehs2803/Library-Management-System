@@ -6,4 +6,6 @@ import lombok.Data;
 public class BookVo {
     private Long book_id;
     private String name;
+
+    private BookImgVo bookImgVo;
 }

@@ -22,5 +22,5 @@ spring:
     cache: false
 
 
-itemImgLocation: C:/library/book
+itemImgLocation: C:/library/item
 uploadPath: file:///C:/library/

@@ -30,14 +30,13 @@ public class BookImgService {
 
         //파일 업로드
         if(!StringUtils.isEmpty(oriImgName)){
-            imgName = fileService.uploadFile(itemImgLocation, oriImgName,
-                    itemImgFile.getBytes());
+            imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
             imgUrl = "/images/item/" + imgName;
         }
 
         //상품 이미지 정보 저장
         itemImg.updateBookImg(oriImgName, imgName, imgUrl);
-        itemImgRepository.save(itemImg);
+        itemImgRepository.save(itemImg);System.out.println("66");
     }
 
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{

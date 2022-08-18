@@ -67,6 +67,9 @@ public class Book extends BaseEntity {
 
     private int loanCnt;
 
+    public Book(){
+
+    }
     public void updateBook(BookFormDto itemFormDto){
 
     }

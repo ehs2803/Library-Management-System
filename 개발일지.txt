@@ -231,3 +231,12 @@ book 테이블까지 fetch join하기 위해서 mybatis 사용함. vo, resultMap
 - ec2, s3, rds, codedeploy 연결해서 git push하면 자동 배포 설정 성공.
 - ec2에서 login 페이지 오류 : return "/member/loginForm"; -> return "member/loginForm";로 수정함.
 
+==============================================================
+2022.08.18.목
+- ec2에서 login 페이지 오류 : return "/member/loginForm"; -> return "member/loginForm";로 수정함. -> 해결완료.
+- ec2에서 책을 추가하려고 했는데 오류 -> local에서 테스트 해봤는데 local도 책 등록이 않됨.
+-> book entity에 bookImg 칼럼을 추가해서 그런거 같음. 원인은 추후 알아낼 예정.
+-> 위 코드변경으로 bookFomrDto.creabook() 메서드가 동작을 하지 않아 임시로 getter, setter로 모두 매핑함.
+-> local에서 책 등록 성공.
+
+

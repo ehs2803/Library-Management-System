@@ -36,8 +36,21 @@ public class BookService {
     private final MemberRepository memberRepository;
 
     public Long saveItem(BookFormDto itemFormDto, MultipartFile itemImgFileList, String email) throws Exception{
+        Book item = new Book(); //itemFormDto.createBook();
+        item.setName(itemFormDto.getName());
+        item.setIsbn(itemFormDto.getIsbn());
+        item.setAuthor(itemFormDto.getAuthor());
+        item.setPublisher(itemFormDto.getPublisher());
+        item.setYear(itemFormDto.getYear());
+        item.setPrice(itemFormDto.getPrice());
+        item.setPage(itemFormDto.getPage());
+        item.setContent(itemFormDto.getContent());
+        item.setRegister_numer(itemFormDto.getRegister_numer());
+        item.setSymbol(itemFormDto.getSymbol());
+        item.setClassification(itemFormDto.getClassification());
+        item.setClassification_detail(itemFormDto.getClassification_detail());
+        item.setLocation(itemFormDto.getLocation());
 
-        Book item = itemFormDto.createBook();
         Member findMember = memberRepository.findByEmail(email);
         item.setMember(findMember);
         item.setState(BookState.AVAILABLE);
@@ -47,7 +60,6 @@ public class BookService {
         //이미지 등록
         BookImg itemImg = new BookImg();
         itemImg.setBook(item);
-
         bookImgService.saveItemImg(itemImg, itemImgFileList);
 
         return item.getId();

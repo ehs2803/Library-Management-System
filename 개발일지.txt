@@ -239,4 +239,7 @@ book 테이블까지 fetch join하기 위해서 mybatis 사용함. vo, resultMap
 -> 위 코드변경으로 bookFomrDto.creabook() 메서드가 동작을 하지 않아 임시로 getter, setter로 모두 매핑함.
 -> local에서 책 등록 성공.
 
+==============================================================
+2022.08.19.금
+- 책 이미지 저장 경로 수정. local, ec2 모두 적용
 

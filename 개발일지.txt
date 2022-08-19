@@ -242,4 +242,6 @@ book 테이블까지 fetch join하기 위해서 mybatis 사용함. vo, resultMap
 ==============================================================
 2022.08.19.금
 - 책 이미지 저장 경로 수정. local, ec2 모두 적용
+- ec2에서 책 이미지 뜨지 않는 문제 해결. 
+uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/image/ 로 수정 후 해결
 

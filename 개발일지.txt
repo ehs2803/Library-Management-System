@@ -245,3 +245,9 @@ book 테이블까지 fetch join하기 위해서 mybatis 사용함. vo, resultMap
 - ec2에서 책 이미지 뜨지 않는 문제 해결. 
 uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/image/ 로 수정 후 해결
 
+==============================================================
+2022.08.20.토
+- github push를 통한 자동 배포과정에서 수정한 내용이 업데이트되지 않는 상황 발생 -> deploy.sh 파일 내에서
+현재 실행 중인 애플리케이션 pid를 찾지 못하고, 현재 실행중인 애플리케이션을 중지하지 못해서 발생한 문제.
+->CURRENT_PID=$(pgrep java) 수정 후 정상적으로 수정사항 반영. 
+

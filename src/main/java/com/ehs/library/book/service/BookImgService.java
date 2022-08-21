@@ -30,7 +30,7 @@ public class BookImgService {
 
         //파일 업로드
         if(!StringUtils.isEmpty(oriImgName)){
-            imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+            imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes(), itemImgFile);
             imgUrl = "/images/book/" + imgName;
         }
 
@@ -51,7 +51,7 @@ public class BookImgService {
             }
 
             String oriImgName = itemImgFile.getOriginalFilename();
-            String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+            String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes(), itemImgFile);
             String imgUrl = "/images/item/" + imgName;
             savedItemImg.updateBookImg(oriImgName, imgName, imgUrl);
         }

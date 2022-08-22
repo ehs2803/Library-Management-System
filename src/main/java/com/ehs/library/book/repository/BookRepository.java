@@ -15,4 +15,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @EntityGraph(attributePaths = {"bookImg"})
     Page<Book> findByNameContaining(String keyword, Pageable pageable);
+
 }

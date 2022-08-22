@@ -1,13 +1,29 @@
 package com.ehs.library.base.controller;
 
+import com.ehs.library.base.service.MainService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
 
+    private final MainService mainService;
+
     @GetMapping("")
-    public String main(){
+    public String main(Model model){
+        mainService.increaseHit();
+
+        int hit = mainService.getHitPerDay();
+        Long userCnt = mainService.getuserMemberCnt();
+        Long bookCnt = mainService.getBookCnt();
+
+        model.addAttribute("hit", hit);
+        model.addAttribute("userCnt", userCnt);
+        model.addAttribute("bookCnt", bookCnt);
+
         return "main/index";
     }
 

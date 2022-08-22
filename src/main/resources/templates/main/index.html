@@ -47,9 +47,9 @@
     <div class="container">
         <div class="row gy-4 d-flex justify-content-between">
             <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <form action="#" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
+                <form action="/main/book/search/result" method="GET" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
                       data-aos-delay="200">
-                    <input type="text" class="form-control" placeholder="ZIP code or CitY">
+                    <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
 
@@ -57,41 +57,38 @@
 
                     <div class="col-lg-3 col-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-                                  class="purecounter"></span>
-                            <p>Clients</p>
+                            <span th:text="${bookCnt}"></span>
+                            <p>소장도서</p>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-                                  class="purecounter"></span>
-                            <p>Projects</p>
+                            <span th:text="${hit}"></span>
+                            <p>방문자수</p>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
-                                  class="purecounter"></span>
-                            <p>Support</p>
+                            <span th:text="${userCnt}"></span>
+                            <p>이용자수</p>
                         </div>
                     </div><!-- End Stats Item -->
 
-                    <div class="col-lg-3 col-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-                                  class="purecounter"></span>
-                            <p>Workers</p>
-                        </div>
-                    </div><!-- End Stats Item -->
+<!--                    <div class="col-lg-3 col-6">-->
+<!--                        <div class="stats-item text-center w-100 h-100">-->
+<!--                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"-->
+<!--                                  class="purecounter"></span>-->
+<!--                            <p>Workers</p>-->
+<!--                        </div>-->
+<!--                    </div>&lt;!&ndash; End Stats Item &ndash;&gt;-->
 
                 </div>
             </div>
 
             <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-                <img src="/img/hero-img.svg" class="img-fluid mb-3 mb-lg-0" alt="">
+                <img src="/img/main/book.png" class="img-fluid mb-3 mb-lg-0" alt="">
             </div>
 
         </div>
@@ -111,27 +108,27 @@
                     <div>
                         <h4 class="title">도서 검색</h4>
                         <p class="description">도서관에 소장중인 도서를 검색합니다. 원하는 책은 예약할 수 있습니다.</p>
-                        <a href="service-details.html" class="readmore stretched-link"><span>Learn More</span><i
+                        <a href="/main/book/search" class="readmore stretched-link"><span>Learn More</span><i
                                 class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <!-- End Service Item -->
 
                 <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon flex-shrink-0"><i class="fa-solid fa-truck"></i></div>
+                    <div class="icon flex-shrink-0"><i class="fa-solid fa-truck-ramp-box"></i></div>
                     <div>
-                        <h4 class="title">도서</h4>
-                        <p class="description">test test test</p>
-                        <a href="service-details.html" class="readmore stretched-link"><span>Learn More</span><i
+                        <h4 class="title">희망도서 신청</h4>
+                        <p class="description">만약 원하는 책이 없다면 희망도서를 신청할 수 있습니다.</p>
+                        <a href="/book/hope/register" class="readmore stretched-link"><span>Learn More</span><i
                                 class="bi bi-arrow-right"></i></a>
                     </div>
                 </div><!-- End Service Item -->
 
                 <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon flex-shrink-0"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <div class="icon flex-shrink-0"><i class="fa-solid fa-truck"></i></div>
                     <div>
-                        <h4 class="title">희망도서 신청</h4>
-                        <p class="description">만약 원하는 책이 없다면 희망도서를 신청할 수 있습니다.</p>
+                        <h4 class="title">택배대출서비스</h4>
+                        <p class="description">원하는 도서를 택배</p>
                         <a href="service-details.html" class="readmore stretched-link"><span>Learn More</span><i
                                 class="bi bi-arrow-right"></i></a>
                     </div>
@@ -157,9 +154,9 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="card">
                         <div class="card-img">
-                            <img src="/img/storage-service.jpg" alt="" class="img-fluid">
+                            <img src="/img/main/search.jpg" alt="" class="img-fluid">
                         </div>
-                        <h3><a href="service-details.html" class="stretched-link">통합자료검색</a></h3>
+                        <h3><a class="stretched-link">통합자료검색</a></h3>
                         <p>도서관에 도서를 검색할 수 있습니다. 키워드, 분류, 출판사, 저자, 출판년도 등을 통해 상세 검색이 가능합니다.</p>
                     </div>
                 </div><!-- End Card Item -->
@@ -167,9 +164,9 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="card">
                         <div class="card-img">
-                            <img src="/img/logistics-service.jpg" alt="" class="img-fluid">
+                            <img src="/img/main/reservation.jpg" alt="" class="img-fluid">
                         </div>
-                        <h3><a href="service-details.html" class="stretched-link">도서 예약</a></h3>
+                        <h3><a class="stretched-link">도서 예약</a></h3>
                         <p>원하는 책이 이미 대출중이라면 홈페이지를 통해 예약할 수 있습니다.</p>
                     </div>
                 </div><!-- End Card Item -->
@@ -177,9 +174,9 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="card">
                         <div class="card-img">
-                            <img src="/img/cargo-service.jpg" alt="" class="img-fluid">
+                            <img src="/img/main/bookhope.jpg" alt="" class="img-fluid">
                         </div>
-                        <h3><a href="service-details.html" class="stretched-link">희망도서 신청</a></h3>
+                        <h3><a class="stretched-link">희망도서 신청</a></h3>
                         <p>원하는 책이 없으면 희망도서 신청을 할 수 있습니다. 관리자 검토 후에 희망도서를 구매합니다.</p>
                     </div>
                 </div><!-- End Card Item -->
@@ -187,9 +184,9 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="card">
                         <div class="card-img">
-                            <img src="/img/trucking-service.jpg" alt="" class="img-fluid">
+                            <img src="/img/main/delivery.jpg" alt="" class="img-fluid">
                         </div>
-                        <h3><a href="service-details.html" class="stretched-link">택배 서비스</a></h3>
+                        <h3><a class="stretched-link">택배 서비스</a></h3>
                         <p>도서관에 소장중인 책을 택배 서비스를 통해 이용할 수 있습니다.</p>
                     </div>
                 </div><!-- End Card Item -->
@@ -197,9 +194,9 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
                         <div class="card-img">
-                            <img src="/img/packaging-service.jpg" alt="" class="img-fluid">
+                            <img src="/img/main/board.jpg" alt="" class="img-fluid">
                         </div>
-                        <h3><a href="service-details.html" class="stretched-link">공지사항</a></h3>
+                        <h3><a class="stretched-link">공지사항</a></h3>
                         <p>공지사항 게시판을 통해 최근 도서관 소식을 알아볼 수 있습니다.</p>
                     </div>
                 </div><!-- End Card Item -->
@@ -207,9 +204,9 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                     <div class="card">
                         <div class="card-img">
-                            <img src="/img/warehousing-service.jpg" alt="" class="img-fluid">
+                            <img src="/img/main/info.jpg" alt="" class="img-fluid">
                         </div>
-                        <h3><a href="service-details.html" class="stretched-link">도서관 정보</a></h3>
+                        <h3><a class="stretched-link">도서관 정보</a></h3>
                         <p>홈페이지에서 도서관 이용시간, 휴관일, 위치, 서비스 이용방법, 정책을 알 수 있습니다.</p>
                     </div>
                 </div><!-- End Card Item -->

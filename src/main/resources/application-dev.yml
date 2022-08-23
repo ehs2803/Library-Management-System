@@ -28,12 +28,11 @@ cloud:
       secretKey:
     s3:
       bucket: library-management-system-deploy
-      dir: real/book/
+      dir: dev/book/
     region:
       static: ap-northeast-2
     stack:
       auto: false
-
 
 itemImgLocation: C:/library/book
 uploadPath: file:///C:/library/

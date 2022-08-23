@@ -24,6 +24,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 @Transactional
 @TestPropertySource(properties = { "spring.config.location=classpath:application-test.yml" })
 class BookRepositoryTest {
+    static {
+        System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");
+    }
 
     @Autowired
     private MemberRepository memberRepository;

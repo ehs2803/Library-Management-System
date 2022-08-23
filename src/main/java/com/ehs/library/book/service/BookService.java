@@ -122,4 +122,11 @@ public class BookService {
         return bookRepository.findByNameContaining(keyword, pageable);
     }
 
+    public Book findBookById(Long id){
+        return bookRepository.findById(id).get();
+    }
+
+    public List<Book> findBookbyISBN(String isbn){
+        return bookRepository.findByIsbn(isbn);
+    }
 }

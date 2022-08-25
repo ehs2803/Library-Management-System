@@ -84,7 +84,7 @@ jobs:
         --application-name library \
         --deployment-group-name library-group \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=storage-ehs-integration-01/deploy,bundleType=zip,key=springboot-library-build.zip \
+        --s3-location bucket=storage-ehs-integration-01/deploy/,bundleType=zip,key=springboot-library-build.zip \
         --region ap-northeast-2
 
 

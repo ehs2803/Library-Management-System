@@ -72,7 +72,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
       run: |
-        aws s3 cp --acl private ./springboot-library-build.zip s3://storage-ehs-integration-01/deploy/
+        aws s3 cp --acl private ./springboot-library-build.zip s3://storage-ehs-integration-01/library/deploy/
 
     # Deploy
     - name: Deploy
@@ -84,7 +84,7 @@ jobs:
         --application-name library \
         --deployment-group-name library-group \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=storage-ehs-integration-01,bundleType=zip,key=deploy/springboot-library-build.zip \
+        --s3-location bucket=storage-ehs-integration-01,bundleType=zip,key=library/deploy/springboot-library-build.zip \
         --region ap-northeast-2
 
 

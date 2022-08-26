@@ -261,3 +261,12 @@ uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/
 - 메인페이지 이미지변경, 각 항목에 url 매핑,  소장도서, 방문자수, 이용자수(유저수) 보여줌.
 - 방문자수를 위한 table hit_per_day 만듬.
 
+==============================================================
+2022.08.26.금
+- 인터셉터 이용해 로그 기능 구현
+- 스프링 시큐리티 설정으로 로그인 안한유저가 접근불가 페이지에 들어오면 로그인페이지로 이동하고, 로그인하면
+그 페이지로 바로 넘어가게 구현.
+- 스터디룸 예약을 위한 constant, controller, entity, repository, service 패키지 만듬.
+- 스터디룸 예약을 위한 entity StudyRoom, StudyRoomReservation 만듬.
+
+

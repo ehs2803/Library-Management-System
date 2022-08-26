@@ -23,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    MemberAuthenticationSuccessHandler memberAuthenticationSuccessHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -33,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/member/login")
+                .successHandler(memberAuthenticationSuccessHandler)
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .failureUrl("/member/login/error")
@@ -41,17 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/");
 
-
-
         http.authorizeRequests()
                 .mvcMatchers("/", "/member/**", "/main/**", "/notice/**", "/images/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
-
-
         http.exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint());
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler());
 
     }
 

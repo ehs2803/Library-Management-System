@@ -66,9 +66,55 @@
 
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
-        <div><a th:href="@{/admin/book/new}" class="btn btn-primary">새로운 책 입고</a></div><br>
-        <div><a th:href="@{/admin/book/hope}" class="btn btn-primary">희망도서신청 관리</a></div><br>
-        <div><a th:href="@{/admin/book/loan}" class="btn btn-primary">대출</a></div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">새로운 책 입고</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a th:href="@{/admin/book/new}" class="btn btn-primary">새로운 책 입고</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">희망도서신청 관리</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a th:href="@{/admin/book/hope}" class="btn btn-primary">희망도서신청 관리</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">대출</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a th:href="@{/admin/book/loan}" class="btn btn-primary">대출</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">스터디룸 예약 관리</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a th:href="@{/admin/reservation/studyroom}" class="btn btn-primary">스터디룸 예약 관리</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+<!--        <div><a th:href="@{/admin/book/new}" class="btn btn-primary">새로운 책 입고</a></div><br>-->
+<!--        <div><a th:href="@{/admin/book/hope}" class="btn btn-primary">희망도서신청 관리</a></div><br>-->
+<!--        <div><a th:href="@{/admin/book/loan}" class="btn btn-primary">대출</a></div>-->
+<!--        <div><a th:href="@{/admin/reservation/studyroom}" class="btn btn-primary">스터디룸 예약 관리</a></div>-->
       </div>
     </section>
 

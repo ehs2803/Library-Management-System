@@ -23,6 +23,8 @@ public class StudyRoom extends BaseEntity {
 
     private int capacity;
 
+    private String location;
+
     @Enumerated(EnumType.STRING)
     private StudyRoomState state;
 }

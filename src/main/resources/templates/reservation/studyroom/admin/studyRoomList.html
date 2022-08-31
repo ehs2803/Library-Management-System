@@ -29,9 +29,6 @@
     <link href="/css/main.css" rel="stylesheet">
 
     <style>
-        .fieldError {
-            color: #bd2130;
-        }
         .content{
             margin-bottom:100px;
             margin-top: 50px;
@@ -40,14 +37,6 @@
         }
     </style>
 </head>
-<!--<script>-->
-<!--    $(document).ready(function(){-->
-<!--        var errorMessage = [[${errorMessage}]];-->
-<!--        if(errorMessage != null){-->
-<!--            alert(errorMessage);-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
 <body>
 
 <!-- Footer-->
@@ -61,7 +50,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>스터디룸 예약</h2>
+                        <h2>스터디룸 관리</h2>
 
                     </div>
                 </div>
@@ -71,7 +60,7 @@
             <div class="container">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li>스터디룸 예약</li>
+                    <li>스터디룸 관리</li>
                 </ol>
             </div>
         </nav>
@@ -80,6 +69,8 @@
     <section class="sample-page">
         <div class="content">
 
+            <a href="/admin/reservation/studyroom/add" class="btn btn-primary">새로운 스터디룸 등록</a><br><br>
+
             <div th:each="studyroom, loop : ${studyRoomList}">
                 <div class="card">
                     <h5 th:text="${studyroom.name}" class="card-header"></h5>
@@ -87,7 +78,9 @@
                         <h5 th:text="|위치 : ${studyroom.location}|" class="card-title"></h5>
                         <h5 th:text="|수용인원 : ${studyroom.capacity}|" class="card-title"></h5>
                         <h5 th:text="|상태 : ${studyroom.state}|" class="card-title"></h5>
-                        <a href="/reservation/studyroom/{}" class="btn btn-primary">예약하기</a>
+                        <a href="/reservation/studyroom/{}" class="btn btn-primary">예약기록 조회</a>
+                        <a href="/reservation/studyroom/{}" class="btn btn-primary">중단하기</a>
+                        <a href="/reservation/studyroom/{}" class="btn btn-primary">수정하기</a>
                     </div>
                 </div>
                 <br>

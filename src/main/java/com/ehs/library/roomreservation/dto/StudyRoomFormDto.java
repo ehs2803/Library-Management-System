@@ -1,13 +1,17 @@
 package com.ehs.library.roomreservation.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+@Builder
 @Getter @Setter
-public class StudyRoomAddFormDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class StudyRoomFormDto {
+    private Long id;
+
     @NotBlank(message = "스터디룸 이름은 필수 입력 값입니다.")
     private String name;
 

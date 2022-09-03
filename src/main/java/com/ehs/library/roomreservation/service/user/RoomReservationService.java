@@ -23,6 +23,10 @@ public class RoomReservationService {
     private final StudyRoomReservationRepository studyRoomReservationRepository;
     private final MemberRepository memberRepository;
 
+    public StudyRoom findById(Long id){
+        return studyRoomRepository.findById(id).get();
+    }
+
     public List<StudyRoom> getStudyRoom(){
         return studyRoomRepository.findAll();
     }

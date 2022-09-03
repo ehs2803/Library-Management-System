@@ -26,12 +26,11 @@ public class RoomReservationService {
             throw new IllegalStateException("존재하는 스터디룸 이름입니다.");
         }
 
-        StudyRoom registerStudyRoom = StudyRoom.builder()
-                .name(studyRoom.getName())
-                .location(studyRoom.getLocation())
-                .capacity(studyRoom.getCapacity())
-                .state(StudyRoomState.AVAILABLE)
-                .build();
+        StudyRoom registerStudyRoom = new StudyRoom();
+        registerStudyRoom.setName(studyRoom.getName());
+        registerStudyRoom.setLocation(studyRoom.getLocation());
+        registerStudyRoom.setCapacity(studyRoom.getCapacity());
+        registerStudyRoom.setState(StudyRoomState.AVAILABLE);
 
         return studyRoomRepository.save(registerStudyRoom);
     }

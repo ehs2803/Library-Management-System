@@ -32,22 +32,23 @@
         .fieldError {
             color: #bd2130;
         }
-        .content{
-            margin-bottom:100px;
+
+        .content {
+            margin-bottom: 100px;
             margin-top: 50px;
             margin-left: 200px;
             margin-right: 200px;
         }
     </style>
 </head>
-<!--<script>-->
-<!--    $(document).ready(function(){-->
-<!--        var errorMessage = [[${errorMessage}]];-->
-<!--        if(errorMessage != null){-->
-<!--            alert(errorMessage);-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
+<script>
+    $(document).ready(function () {
+        var errorMessage = [[${errorMessage}]];
+        if (errorMessage != null) {
+            alert(errorMessage);
+        }
+    });
+</script>
 <body>
 
 <!-- Footer-->
@@ -61,7 +62,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>스터디룸 예약</h2>
+                        <h2>스터디룸 예약 현황</h2>
 
                     </div>
                 </div>
@@ -71,7 +72,8 @@
             <div class="container">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li>스터디룸 예약</li>
+                    <li><a href="/reservation/studyroom">스터디룸</a></li>
+                    <li>스터디룸 예약 현황</li>
                 </ol>
             </div>
         </nav>
@@ -80,25 +82,35 @@
     <section class="sample-page">
         <div class="content">
 
-            <div th:each="studyroom, loop : ${studyRoomList}">
-                <div class="card">
-                    <h5 th:text="${studyroom.name}" class="card-header"></h5>
-                    <div class="card-body">
-                        <h5 th:text="|위치 : ${studyroom.location}|" class="card-title"></h5>
-                        <h5 th:text="|수용인원 : ${studyroom.capacity}|" class="card-title"></h5>
-                        <h5 th:text="|상태 : ${studyroom.state}|" class="card-title"></h5>
-<!--                        <button th:disabled="${studyroom.getState.toString().equals('CLOSE')}"-->
-<!--                                th:onclick="'location.href='' + @{|/reservation/studyroom/${studyroom.id}|} + '''"-->
-<!--                                >예약하기</button>-->
-                        <a th:href="@{|/reservation/studyroom/${studyroom.id}|}" class="btn btn-primary">예약현황</a>
-                        <a th:if="${studyroom.getState.toString().equals('AVAILABLE')}"
-                                th:href="@{|/reservation/studyroom/book/${studyroom.id}|}" class="btn btn-primary">예약하기</a>
-                        <a th:if="${studyroom.getState.toString().equals('CLOSE')}" class="btn btn-secondary">예약하기</a>
-
-                    </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 th:text="|이름 : ${studyRoom.name}|"></h3>
+                    <h3 th:text="|수용인원 : ${studyRoom.capacity}|"></h3>
+                    <h3 th:text="|위치 : ${studyRoom.location}|"></h3>
                 </div>
-                <br>
-            </div>
+            </div><br>
+
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th>번호</th>
+                    <th>예약일시</th>
+                    <th>예약시간</th>
+                    <th>예약인원</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reservation, loop : ${studyRoomReservationList}">
+                    <td th:text="${loop.count}"></td>
+                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    <td th:text="${reservation.use_hour}"></td>
+                    <td th:text="${reservation.person_cnt}"></td>
+                    <td th:text="${reservation.state}"></td>
+                </tr>
+                </tbody>
+            </table>
+
 
         </div>
     </section>

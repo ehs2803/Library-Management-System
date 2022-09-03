@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller("user.RoomReservationController")
@@ -54,6 +55,7 @@ public class RoomReservationController {
         model.addAttribute("maxDate", endDate);
         model.addAttribute("minTime","9:00:00");
         model.addAttribute("maxTime","20:00:00");
+        model.addAttribute("maxCapacity", studyRoom.getCapacity());
 
         return "reservation/studyroom/user/studyRoomBookForm";
     }
@@ -74,5 +76,24 @@ public class RoomReservationController {
         }
 
         return "redirect:/reservation/studyroom";
+    }
+
+    @GetMapping("/reservation/studyroom/{id}")
+    public String getStudyRoomReservationList(@PathVariable Long id, Model model){
+        StudyRoom studyRoom = roomReservationService.getStudyRoomFetchJoin(id);
+        List<StudyRoomReservation> studyRoomReservationList;
+
+        if(studyRoom==null){
+            studyRoom = roomReservationService.findById(id);
+            studyRoomReservationList = new ArrayList<>();
+        }
+        else {
+            studyRoomReservationList = studyRoom.getReservations();
+        }
+
+        model.addAttribute("studyRoom", studyRoom);
+        model.addAttribute("studyRoomReservationList",studyRoomReservationList);
+
+        return "reservation/studyroom/user/studyRoomReservationList";
     }
 }

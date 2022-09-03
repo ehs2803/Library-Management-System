@@ -6,12 +6,13 @@ import com.ehs.library.roomreservation.constant.StudyRoomState;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
 @Table(name="study_room")
 @Getter @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyRoom extends BaseEntity {
@@ -29,4 +30,6 @@ public class StudyRoom extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StudyRoomState state;
 
+    @OneToMany(mappedBy = "room")
+    private List<StudyRoomReservation> reservations = new ArrayList<>();
 }

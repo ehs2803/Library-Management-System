@@ -1,5 +1,5 @@
 package com.ehs.library.roomreservation.constant;
 
 public enum ReservationState {
-    BOOKED, COMPLETE
+    WAIT, REJECT, ALLOW, COMPLETE
 }

@@ -29,14 +29,26 @@
     <link href="/css/main.css" rel="stylesheet">
 
     <style>
-        .content{
-            margin-bottom:100px;
+        .fieldError {
+            color: #bd2130;
+        }
+
+        .content {
+            margin-bottom: 100px;
             margin-top: 50px;
             margin-left: 200px;
             margin-right: 200px;
         }
     </style>
 </head>
+<script>
+    $(document).ready(function () {
+        var errorMessage = [[${errorMessage}]];
+        if (errorMessage != null) {
+            alert(errorMessage);
+        }
+    });
+</script>
 <body>
 
 <!-- Footer-->
@@ -50,7 +62,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>스터디룸 예약 관리</h2>
+                        <h2>스터디룸 예약 승인대기 목록</h2>
 
                     </div>
                 </div>
@@ -60,7 +72,8 @@
             <div class="container">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li>스터디룸 예약 관리</li>
+                    <li><a href="/reservation/studyroom">스터디룸</a></li>
+                    <li>스터디룸 예약 승인대기 목록</li>
                 </ol>
             </div>
         </nav>
@@ -69,29 +82,34 @@
     <section class="sample-page">
         <div class="content">
 
-            <div class="row">
-                <div class="card text-center" style="width: 33%;">
-                    <div class="card-body">
-                        <h5 class="card-title">스터디룸 관리</h5>
-                        <p class="card-text"></p>
-                        <a href="/admin/reservation/studyroom/list" class="btn btn-primary">상세보기</a>
-                    </div>
-                </div>
-                <div class="card text-center" style="width: 33%;">
-                    <div class="card-body">
-                        <h5 class="card-title">승인 대기 중 예약</h5>
-                        <p class="card-text"></p>
-                        <a href="/admin/reservation/studyroom/wait" class="btn btn-primary">상세보기</a>
-                    </div>
-                </div>
-                <div class="card text-center" style="width: 33%;">
-                    <div class="card-body">
-                        <h5 class="card-title">처리완료 예약</h5>
-                       <p class="card-text"></p>
-                        <a href="/admin/book/hope/shipping" class="btn btn-primary">상세보기</a>
-                    </div>
-                </div>
-            </div>
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th>번호</th>
+                    <th>스터디룸</th>
+                    <th>예약일시</th>
+                    <th>예약시간</th>
+                    <th>예약인원</th>
+                    <th>예약회원</th>
+                    <th>예약한 일시</th>
+                    <th>승인</th>
+                    <th>거절</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reservation, loop : ${studyRoomReservationList}">
+                    <td th:text="${loop.count}"></td>
+                    <th th:text="${reservation.room.name}"></th>
+                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    <td th:text="${reservation.use_hour}"></td>
+                    <td th:text="${reservation.person_cnt}"></td>
+                    <td th:text="${reservation.createdBy}"></td>
+                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    <td><a class="btn btn-primary">승인</a></td>
+                    <td><a class="btn btn-primary">거절</a></td>
+                </tr>
+                </tbody>
+            </table>
 
 
         </div>

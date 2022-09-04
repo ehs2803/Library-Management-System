@@ -79,7 +79,7 @@
                         <h5 th:text="|위치 : ${studyroom.location}|" class="card-title"></h5>
                         <h5 th:text="|수용인원 : ${studyroom.capacity}|" class="card-title"></h5>
                         <h5 th:text="|상태 : ${studyroom.state}|" class="card-title"></h5>
-                        <a href="/reservation/studyroom/{}" class="btn btn-primary">예약기록 조회</a>
+                        <a th:href="@{|/admin/reservation/studyroom/book/${studyroom.id}|}" class="btn btn-primary">예약기록 조회</a>
                         <a th:if="${studyroom.getState.toString().equals('AVAILABLE')}"
                            th:href="@{|/admin/reservation/studyroom/state/${studyroom.id}|}" class="btn btn-primary">이용중단하기</a>
 

@@ -4,6 +4,7 @@ import com.ehs.library.member.dto.MemberEditFormDto;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.roomreservation.dto.StudyRoomFormDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
+import com.ehs.library.roomreservation.entity.StudyRoomReservation;
 import com.ehs.library.roomreservation.service.admin.RoomReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -88,5 +89,25 @@ public class RoomReservationController {
         }
 
         return "redirect:/admin/reservation/studyroom/list";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/book/{id}")
+    public String getStudyRoomReservationList(@PathVariable Long id, Model model){
+        StudyRoom studyRoom = roomReservationService.getStudyRoomFetchJoinAll(id);
+        List<StudyRoomReservation> studyRoomReservationList = studyRoom.getReservations();
+
+        model.addAttribute("studyRoom", studyRoom);
+        model.addAttribute("studyRoomReservationList", studyRoomReservationList);
+
+        return "reservation/studyroom/admin/studyRoomReservationListAll";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/wait")
+    public String studyRoomReservationWaitList(Model model){
+        List<StudyRoomReservation> studyRoomReservationList = roomReservationService.findByStateWaitFetchJoin();
+
+        model.addAttribute("studyRoomReservationList", studyRoomReservationList);
+
+        return "reservation/studyroom/admin/studyRoomReservationWaitList";
     }
 }

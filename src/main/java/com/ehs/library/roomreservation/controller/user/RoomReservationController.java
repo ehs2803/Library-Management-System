@@ -38,7 +38,15 @@ public class RoomReservationController {
     @GetMapping("/reservation/studyroom/book/{id}")
     public String reservationStudyRoomForm(@PathVariable Long id, Model model){
         StudyRoom studyRoom = roomReservationService.getStudyRoomFetchJoin(id);
-        List<StudyRoomReservation> studyRoomReservationList = studyRoom.getReservations();
+        List<StudyRoomReservation> studyRoomReservationList;
+
+        if(studyRoom==null){
+            studyRoom = roomReservationService.findById(id);
+            studyRoomReservationList = new ArrayList<>();
+        }
+        else {
+            studyRoomReservationList = studyRoom.getReservations();
+        }
 
         StudyRoomBookFormDto studyRoomBookFormDto = new StudyRoomBookFormDto();
         studyRoomBookFormDto.setId(id);
@@ -69,7 +77,6 @@ public class RoomReservationController {
 
         try {
             roomReservationService.reservationStudyRoom(principal.getName(), studyRoomBookFormDto);
-            //roomReservationService.registerStudyRoom(studyRoomFormDto);
         } catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());
             return "reservation/studyroom/user/studyRoomBookForm";

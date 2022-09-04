@@ -3,7 +3,9 @@ package com.ehs.library.roomreservation.service.admin;
 import com.ehs.library.roomreservation.constant.StudyRoomState;
 import com.ehs.library.roomreservation.dto.StudyRoomFormDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
+import com.ehs.library.roomreservation.entity.StudyRoomReservation;
 import com.ehs.library.roomreservation.repository.StudyRoomRepository;
+import com.ehs.library.roomreservation.repository.StudyRoomReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +17,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoomReservationService {
     private final StudyRoomRepository studyRoomRepository;
+    private final StudyRoomReservationRepository studyRoomReservationRepository;
 
     public List<StudyRoom> getStudyRoom(){
         return studyRoomRepository.findAll();
+    }
+
+    public StudyRoom getStudyRoomFetchJoinAll(Long id){
+        return studyRoomRepository.findByIdFetchJoinAll(id);
+    }
+
+    public List<StudyRoomReservation> findByStateWaitFetchJoin(){
+        return studyRoomReservationRepository.findByStateWaitFetchJoin();
     }
 
     public StudyRoom registerStudyRoom(StudyRoomFormDto studyRoom){

@@ -62,7 +62,7 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>스터디룸 예약 승인대기 목록</h2>
+                        <h2>스터디룸 예약 처리 완료 목록</h2>
 
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <ol>
                     <li><a href="/">Home</a></li>
                     <li><a href="/reservation/studyroom">스터디룸</a></li>
-                    <li>스터디룸 예약 승인대기 목록</li>
+                    <li>스터디룸 예약 처리 완료 목록</li>
                 </ol>
             </div>
         </nav>
@@ -92,8 +92,7 @@
                     <th>예약인원</th>
                     <th>예약회원</th>
                     <th>예약한 일시</th>
-                    <th>승인</th>
-                    <th>거절</th>
+                    <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -105,8 +104,7 @@
                     <td th:text="${reservation.person_cnt}"></td>
                     <td th:text="${reservation.createdBy}"></td>
                     <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td><a th:href="@{|/admin/reservation/studyroom/allow/${reservation.id}|}" class="btn btn-primary">승인</a></td>
-                    <td><a th:href="@{|/admin/reservation/studyroom/reject/${reservation.id}|}" class="btn btn-primary">거절</a></td>
+                    <td th:text="${reservation.state}"></td>
                 </tr>
                 </tbody>
             </table>

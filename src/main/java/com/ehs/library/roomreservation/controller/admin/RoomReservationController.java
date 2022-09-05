@@ -110,4 +110,36 @@ public class RoomReservationController {
 
         return "reservation/studyroom/admin/studyRoomReservationWaitList";
     }
+
+    @GetMapping("/admin/reservation/studyroom/allow")
+    public String studyRoomReservationAllowList(Model model){
+        List<StudyRoomReservation> studyRoomReservationList = roomReservationService.findByStateAllowFetchJoin();
+
+        model.addAttribute("studyRoomReservationList", studyRoomReservationList);
+
+        return "reservation/studyroom/admin/studyRoomReservationAllowList";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/complete")
+    public String studyRoomReservationCompleteList(Model model){
+        List<StudyRoomReservation> studyRoomReservationList = roomReservationService.findByStateCompleteAndRejectFetchJoin();
+
+        model.addAttribute("studyRoomReservationList", studyRoomReservationList);
+
+        return "reservation/studyroom/admin/studyRoomReservationCompleteList";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/allow/{id}")
+    public String studyRoomReservationAllow(@PathVariable Long id){
+        roomReservationService.studyRoomStateSetAllow(id);
+
+        return "redirect:/admin/reservation/studyroom/allow";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/reject/{id}")
+    public String studyRoomReservationReject(@PathVariable Long id){
+        roomReservationService.studyRoomStateSetReject(id);
+
+        return "redirect:/admin/reservation/studyroom/complete";
+    }
 }

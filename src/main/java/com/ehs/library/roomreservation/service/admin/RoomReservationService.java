@@ -1,5 +1,6 @@
 package com.ehs.library.roomreservation.service.admin;
 
+import com.ehs.library.roomreservation.constant.ReservationState;
 import com.ehs.library.roomreservation.constant.StudyRoomState;
 import com.ehs.library.roomreservation.dto.StudyRoomFormDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
@@ -29,6 +30,14 @@ public class RoomReservationService {
 
     public List<StudyRoomReservation> findByStateWaitFetchJoin(){
         return studyRoomReservationRepository.findByStateWaitFetchJoin();
+    }
+
+    public List<StudyRoomReservation> findByStateAllowFetchJoin(){
+        return studyRoomReservationRepository.findByStateAllowFetchJoin();
+    }
+
+    public List<StudyRoomReservation> findByStateCompleteAndRejectFetchJoin(){
+        return studyRoomReservationRepository.findByStateCompleteAndRejectFetchJoin();
     }
 
     public StudyRoom registerStudyRoom(StudyRoomFormDto studyRoom){
@@ -74,5 +83,15 @@ public class RoomReservationService {
         studyRoom.setLocation(studyRoomFormDto.getLocation());
         studyRoom.setCapacity(studyRoomFormDto.getCapacity());
         return studyRoom;
+    }
+
+    public void studyRoomStateSetAllow(Long id){
+        StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
+        studyRoomReservation.setState(ReservationState.ALLOW);
+    }
+
+    public void studyRoomStateSetReject(Long id){
+        StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
+        studyRoomReservation.setState(ReservationState.REJECT);
     }
 }

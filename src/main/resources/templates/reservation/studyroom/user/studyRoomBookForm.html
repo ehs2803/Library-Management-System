@@ -84,6 +84,8 @@
 
             <div class="card">
                 <div class="card-body">
+                    <span th:if="${studyRoom.getState.toString().equals('USE')}"
+                          class="badge rounded-pill bg-primary">현재 사용중</span><br>
                     <h3 th:text="|이름 : ${studyRoom.name}|"></h3>
                     <h3 th:text="|수용인원 : ${studyRoom.capacity}|"></h3>
                     <h3 th:text="|위치 : ${studyRoom.location}|"></h3>

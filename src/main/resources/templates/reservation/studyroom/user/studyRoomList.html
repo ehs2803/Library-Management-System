@@ -84,6 +84,8 @@
                 <div class="card">
                     <h5 th:text="${studyroom.name}" class="card-header"></h5>
                     <div class="card-body">
+                        <span th:if="${studyroom.getState.toString().equals('USE')}"
+                              class="badge rounded-pill bg-primary">현재 사용중</span><br>
                         <h5 th:text="|위치 : ${studyroom.location}|" class="card-title"></h5>
                         <h5 th:text="|수용인원 : ${studyroom.capacity}|" class="card-title"></h5>
                         <h5 th:text="|상태 : ${studyroom.state}|" class="card-title"></h5>
@@ -91,7 +93,7 @@
 <!--                                th:onclick="'location.href='' + @{|/reservation/studyroom/${studyroom.id}|} + '''"-->
 <!--                                >예약하기</button>-->
                         <a th:href="@{|/reservation/studyroom/${studyroom.id}|}" class="btn btn-primary">예약현황</a>
-                        <a th:if="${studyroom.getState.toString().equals('AVAILABLE')}"
+                        <a th:if="${studyroom.getState.toString().equals('AVAILABLE') or studyroom.getState.toString().equals('USE')}"
                                 th:href="@{|/reservation/studyroom/book/${studyroom.id}|}" class="btn btn-primary">예약하기</a>
                         <a th:if="${studyroom.getState.toString().equals('CLOSE')}" class="btn btn-secondary">예약하기</a>
 

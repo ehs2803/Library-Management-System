@@ -142,4 +142,34 @@ public class RoomReservationController {
 
         return "redirect:/admin/reservation/studyroom/complete";
     }
+
+    @GetMapping("/admin/reservation/studyroom/use/{id}")
+    public String studyRoomUse(@PathVariable Long id){
+        roomReservationService.studyRoomStateSetUse(id);
+
+        return "redirect:/admin/reservation/studyroom/use";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/noshow/{id}")
+    public String studyRoomNoShow(@PathVariable Long id){
+        roomReservationService.studyRoomStateSetNoShow(id);
+
+        return "redirect:/admin/reservation/studyroom/complete";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/use")
+    public String studyRoomUse(Model model){
+        List<StudyRoomReservation> studyRoomReservationList = roomReservationService.findByStateUseFetchJoinRoom();
+
+        model.addAttribute("studyRoomReservationList",studyRoomReservationList);
+
+        return "reservation/studyroom/admin/studyRoomReservationUseList";
+    }
+
+    @GetMapping("/admin/reservation/studyroom/complete/{id}")
+    public String studyRoomComplete(@PathVariable Long id){
+        roomReservationService.studyRoomStateSetComplete(id);
+
+        return "redirect:/admin/reservation/studyroom/complete";
+    }
 }

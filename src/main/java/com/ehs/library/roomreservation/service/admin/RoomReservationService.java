@@ -40,6 +40,10 @@ public class RoomReservationService {
         return studyRoomReservationRepository.findByStateCompleteAndRejectFetchJoin();
     }
 
+    public List<StudyRoomReservation> findByStateUseFetchJoinRoom(){
+        return studyRoomReservationRepository.findByStateUseFetchJoinRoom();
+    }
+
     public StudyRoom registerStudyRoom(StudyRoomFormDto studyRoom){
         StudyRoom validStudyRoom = studyRoomRepository.findByName(studyRoom.getName());
         if(validStudyRoom != null){
@@ -93,5 +97,23 @@ public class RoomReservationService {
     public void studyRoomStateSetReject(Long id){
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
         studyRoomReservation.setState(ReservationState.REJECT);
+    }
+
+    public void studyRoomStateSetUse(Long id){
+        StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
+        StudyRoom studyRoom = studyRoomReservation.getRoom();
+        studyRoom.setState(StudyRoomState.USE);
+    }
+
+    public void studyRoomStateSetNoShow(Long id){
+        StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
+        studyRoomReservation.setState(ReservationState.NOSHOW);
+    }
+
+    public void studyRoomStateSetComplete(Long id){
+        StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
+        studyRoomReservation.setState(ReservationState.COMPLETE);
+        StudyRoom studyRoom = studyRoomReservation.getRoom();
+        studyRoom.setState(StudyRoomState.AVAILABLE);
     }
 }

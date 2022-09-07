@@ -29,6 +29,7 @@ public class LogInterceptor implements HandlerInterceptor {
             HandlerMethod hm = (HandlerMethod) handler; //호출할 컨트롤러 메서드모든 정보가 포함되어 있다.
         }
         log.info("REQUEST [{}][{}][{}]", uuid, requestURI, handler);
+        log.info(getClientIP(request));
         return true; //false 진행X
     }
 
@@ -47,5 +48,34 @@ public class LogInterceptor implements HandlerInterceptor {
         if (ex != null) {
             log.error("afterCompletion error!!", ex);
         }
+    }
+
+    public String getClientIP(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        log.info("> X-FORWARDED-FOR : " + ip);
+
+        if (ip == null) {
+            ip = request.getHeader("Proxy-Client-IP");
+            log.info("> Proxy-Client-IP : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+            log.info(">  WL-Proxy-Client-IP : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+            log.info("> HTTP_CLIENT_IP : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+            log.info("> HTTP_X_FORWARDED_FOR : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getRemoteAddr();
+            log.info("> getRemoteAddr : "+ip);
+        }
+        log.info("> Result : IP Address : "+ip);
+
+        return ip;
     }
 }

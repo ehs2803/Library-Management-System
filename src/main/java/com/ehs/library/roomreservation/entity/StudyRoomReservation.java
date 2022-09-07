@@ -31,6 +31,10 @@ public class StudyRoomReservation extends BaseEntity {
 
     private LocalDateTime reservation_time;
 
+    private LocalDateTime start_time;
+
+    private LocalDateTime end_time;
+
     private int use_hour;
 
     private int person_cnt;

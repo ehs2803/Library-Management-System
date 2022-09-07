@@ -1,5 +1,6 @@
 package com.ehs.library.roomreservation.repository;
 
+import com.ehs.library.member.entity.Member;
 import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
 import net.bytebuddy.agent.builder.AgentBuilder;
@@ -27,4 +28,7 @@ public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomR
 
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.id=:id")
     StudyRoomReservation findByIdFetchJoinRoom(@Param("id") Long id);
+
+    @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.member=:member")
+    List<StudyRoomReservation> findByMemberFetchJoinRoom(@Param("member") Member member);
 }

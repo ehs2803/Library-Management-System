@@ -11,11 +11,13 @@ import com.ehs.library.roomreservation.repository.StudyRoomRepository;
 import com.ehs.library.roomreservation.repository.StudyRoomReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Transactional
 @Service("user.RoomReservationService")
 @RequiredArgsConstructor
 public class RoomReservationService {
@@ -33,6 +35,10 @@ public class RoomReservationService {
 
     public StudyRoom getStudyRoomFetchJoin(Long id){
         return studyRoomRepository.findByIdFetchJoin(id);
+    }
+
+    public List<StudyRoomReservation> findByMemberFetchJoinRoom(String email){
+        return studyRoomReservationRepository.findByMemberFetchJoinRoom(memberRepository.findByEmail(email));
     }
 
     public Long reservationStudyRoom(String email, StudyRoomBookFormDto studyRoomBookFormDto){
@@ -53,5 +59,10 @@ public class RoomReservationService {
                 .build();
         studyRoomReservationRepository.save(studyRoomReservation);
         return studyRoomReservation.getId();
+    }
+
+    public void studyRoomStateSetCancel(Long id){
+        StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
+        studyRoomReservation.setState(ReservationState.CANCEL);
     }
 }

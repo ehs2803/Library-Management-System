@@ -28,7 +28,7 @@ public class RoomReservationController {
         return "reservation/studyroom/admin/dashboardStudyRoom";
     }
 
-    @GetMapping("/admin/reservation/studyroom/list")
+    @GetMapping("/admin/studyroom/list")
     public String adminPageStudyRoomList(Model model){
         List<StudyRoom> studyRoomList = roomReservationService.getStudyRoom();
 
@@ -37,14 +37,14 @@ public class RoomReservationController {
         return "reservation/studyroom/admin/studyRoomList";
     }
 
-    @GetMapping("/admin/reservation/studyroom/add")
+    @GetMapping("/admin/studyroom/add")
     public String adminPageStudyRoomRegister(Model model){
         model.addAttribute("studyRoomAddFormDto", new StudyRoomFormDto());
 
         return "reservation/studyroom/admin/studyRoomRegisterForm";
     }
 
-    @PostMapping("/admin/reservation/studyroom/add")
+    @PostMapping("/admin/studyroom/add")
     public String registerStudyRoom(@Valid StudyRoomFormDto studyRoomFormDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "reservation/studyroom/admin/studyRoomRegisterForm";
@@ -57,17 +57,17 @@ public class RoomReservationController {
             return "reservation/studyroom/admin/studyRoomRegisterForm";
         }
 
-        return "redirect:/admin/reservation/studyroom/list";
+        return "redirect:/admin/studyroom/list";
     }
 
-    @GetMapping("/admin/reservation/studyroom/state/{id}")
+    @GetMapping("/admin/studyroom/state/{id}")
     public String changeStateStudyRoom(@PathVariable Long id){
         roomReservationService.changeStateStudyRoom(id);
 
-        return "redirect:/admin/reservation/studyroom/list";
+        return "redirect:/admin/studyroom/list";
     }
 
-    @GetMapping("/admin/reservation/studyroom/edit/{id}")
+    @GetMapping("/admin/studyroom/edit/{id}")
     public String editStudyRoomForm(@PathVariable Long id, Model model){
         StudyRoomFormDto studyRoomFormDto = roomReservationService.getStudyRoom(id);
         model.addAttribute("studyRoomFormDto", studyRoomFormDto);
@@ -75,7 +75,7 @@ public class RoomReservationController {
         return "reservation/studyroom/admin/studyRoomEditForm";
     }
 
-    @PostMapping("/admin/reservation/studyroom/edit")
+    @PostMapping("/admin/studyroom/edit")
     public String editStudyRoom(@Valid StudyRoomFormDto studyRoomFormDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "reservation/studyroom/admin/studyRoomEditForm";
@@ -88,7 +88,7 @@ public class RoomReservationController {
             return "reservation/studyroom/admin/studyRoomEditForm";
         }
 
-        return "redirect:/admin/reservation/studyroom/list";
+        return "redirect:/admin/studyroom/list";
     }
 
     @GetMapping("/admin/reservation/studyroom/book/{id}")

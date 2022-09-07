@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service("admin.RoomReservationService")
@@ -101,6 +102,8 @@ public class RoomReservationService {
 
     public void studyRoomStateSetUse(Long id){
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
+        studyRoomReservation.setStart_time(LocalDateTime.now());
+        studyRoomReservation.setState(ReservationState.USE);
         StudyRoom studyRoom = studyRoomReservation.getRoom();
         studyRoom.setState(StudyRoomState.USE);
     }
@@ -113,6 +116,7 @@ public class RoomReservationService {
     public void studyRoomStateSetComplete(Long id){
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
         studyRoomReservation.setState(ReservationState.COMPLETE);
+        studyRoomReservation.setEnd_time(LocalDateTime.now());
         StudyRoom studyRoom = studyRoomReservation.getRoom();
         studyRoom.setState(StudyRoomState.AVAILABLE);
     }

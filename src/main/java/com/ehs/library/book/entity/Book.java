@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="book")
 @Getter @Setter
-@ToString
 public class Book extends BaseEntity {
     @Id
     @Column(name="book_id")
@@ -39,6 +38,7 @@ public class Book extends BaseEntity {
 
     private int page;
 
+    @Lob
     private String content;
 
     @Column(unique = true, nullable = false)

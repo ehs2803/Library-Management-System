@@ -25,12 +25,15 @@ spring:
 itemImgLocation: C:/library/book
 uploadPath: file:///C:/library/
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+cloud:
+  aws:
+    credentials:
+      accessKey:
+      secretKey:
+    s3:
+      bucket: storage-ehs-integration-01
+      dir: library/storage/dev/book/
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

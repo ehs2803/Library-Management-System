@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="notice")
 @Getter @Setter
-@ToString
 public class Notice extends BaseEntity {
 
     @Id
@@ -23,7 +22,8 @@ public class Notice extends BaseEntity {
     @Column(length = 200)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+//    @Column(columnDefinition = "TEXT")
+    @Lob
     private String content;
 
     private int hit;

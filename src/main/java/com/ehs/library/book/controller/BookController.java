@@ -50,8 +50,10 @@ public class BookController {
     @GetMapping("/{id}")
     public String bookDetail(@PathVariable Long id, Model model){
         Book book = bookService.findBookById(id);
+        String content = book.getContent().replace("\r\n","<br>");
         List<Book> bookList= bookService.findBookbyISBN(book.getIsbn());
 
+        model.addAttribute("content", content);
         model.addAttribute("book", book);
         model.addAttribute("bookList", bookList);
 

@@ -36,6 +36,9 @@ public class NoticeController {
     @GetMapping("/detail/{id}")
     public String noticeDetail(@PathVariable Long id, Model model){
         Notice notice = noticeService.noticeDetail(id);
+        String content = notice.getContent().replace("\r\n","<br>");
+
+        model.addAttribute("content", content);
         model.addAttribute("notice", notice);
         return "notice/noticeDetail";
     }

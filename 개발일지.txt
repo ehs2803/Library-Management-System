@@ -309,4 +309,10 @@ uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/
 - 유저 마이페이지에서 스터디룸 예약목록 확인가능(각 상태별 표로 볼 수 있음.)
 - 사용자 예약취소 버튼 기능 구현.
 
+==============================================================
+2022.09.08.목
+- book entity의 content 칼럼 @Lob 추가
+- notice entity의 content 칼럼 @Lob 추가
+- book detail 페이지에서 content 출력
+- test 오류나는거 해결 -> test.yml에 cloud 설정 코드 넣어줌.
 

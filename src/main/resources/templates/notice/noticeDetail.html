@@ -84,9 +84,6 @@
 
             <h5 class="my-3 border-bottom pb-2">공지사항</h5>
             <table class ="table table-bordered">
-                <thead>
-                <caption>공지사항</caption>
-                </thead>
                 <tbody>
                 <tr>
                     <th>제목</th>
@@ -98,8 +95,12 @@
                     <td th:inline="text">[[${#temporals.format(notice.getRegTime(), 'yyyy-MM-dd HH:mm')}]]</td>
                 </tr>
                 <tr>
+                    <th>조회수</th>
+                    <td th:text="${notice.hit}"></td>
+                </tr>
+                <tr>
                     <th>본문 내용</th>
-                    <td th:text="${notice.content}"></td>
+                    <td th:utext="${content}"></td>
                 </tr>
                 </tbody>
             </table>

@@ -35,6 +35,6 @@ class AdminControllerTest {
     public void itemFormNotAdminTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/admin/book/new"))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().is3xxRedirection());
     }
 }

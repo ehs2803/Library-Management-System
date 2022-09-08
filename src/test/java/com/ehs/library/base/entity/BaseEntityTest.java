@@ -16,10 +16,14 @@ import javax.persistence.PersistenceContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @TestPropertySource(properties = { "spring.config.location=classpath:application-test.yml" })
 class BaseEntityTest {
+//    static {
+//        System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");
+//    }
+
     @Autowired
     MemberRepository memberRepository;
 

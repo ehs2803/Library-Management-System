@@ -1,5 +1,11 @@
 package com.ehs.library.member.service;
 
+import com.ehs.library.bookinterest.entity.BookInterest;
+import com.ehs.library.bookinterest.repository.BookInterestRepository;
+import com.ehs.library.bookreservation.entity.BookReservation;
+import com.ehs.library.bookreservation.repository.BookReservationRepository;
+import com.ehs.library.loan.repository.LoanMapperRepository;
+import com.ehs.library.loan.vo.LoanVo;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
@@ -21,6 +27,9 @@ import java.util.List;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final LoanMapperRepository loanMapperRepository;
+    private final BookInterestRepository bookInterestRepository;
+    private final BookReservationRepository bookReservationRepository;
 
     // 회원가입
     public Member saveMember(Member member){
@@ -50,6 +59,8 @@ public class MemberService implements UserDetailsService {
 
     // 멤버 정보 수정
     public Long updateMember(Member member){
+        validateDuplicateMember(member); // 이메일 중복 검증. 이메일도 수정 가능.
+
         Member updateMember = memberRepository.findByEmail(member.getEmail());
         updateMember.setName(member.getName());
         updateMember.setEmail(member.getEmail());
@@ -59,11 +70,29 @@ public class MemberService implements UserDetailsService {
         return updateMember.getId();
     }
 
-//    @Transactional(readOnly = true)
-//    public List<Member> findByRole(Role role){
-//        return memberRepository.findByRole(role);
-//    }
+    // 로그인한 사용자의 대출 내역 조회
+    @Transactional(readOnly = true)
+    public List<LoanVo> findLoanBookList(Member member){
+        return loanMapperRepository.findLoanBookList(member.getId());
+    }
 
+    // 로그인한 사용자의 연체 내역 조회
+    @Transactional(readOnly = true)
+    public List<LoanVo> findLoanOverdueList(Member member){
+        return loanMapperRepository.findLoanOverdueList(member.getId());
+    }
+
+    // 로그인한 사용자의 관심도서 목록 조회
+    @Transactional(readOnly = true)
+    public List<BookInterest> findByMemberBookInterestList(Member member){
+        return bookInterestRepository.findByMember(member);
+    }
+
+    // 로그인한 사용자의 도서예약 목록 조회
+    @Transactional(readOnly = true)
+    public List<BookReservation> findByMemberBookReservation(Member member){
+        return bookReservationRepository.findByMember(member);
+    }
     @Transactional(readOnly = true)
     public Page<Member> memberUserLoanList(String email, Pageable pageable) {
         return memberRepository.findByRoleAndEmailContaining(Role.USER, email, pageable);

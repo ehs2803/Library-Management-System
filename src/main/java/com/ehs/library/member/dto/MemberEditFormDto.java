@@ -30,6 +30,7 @@ public class MemberEditFormDto {
     @NotEmpty(message = "주소는 필수 입력 값입니다.")
     private String address;
 
+    @NotEmpty(message = "필수 선택값 입니다.")
     private String role;
 
     public MemberEditFormDto() {

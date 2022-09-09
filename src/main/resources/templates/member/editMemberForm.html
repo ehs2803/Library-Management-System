@@ -42,14 +42,6 @@
         }
     </style>
 </head>
-<script>
-    $(document).ready(function () {
-        var errorMessage = [[${errorMessage}]];
-        if (errorMessage != null) {
-            alert(errorMessage);
-        }
-    });
-</script>
 <body>
 
 <!-- Footer-->
@@ -117,8 +109,8 @@
                 <div class="form-group">
                     <label th:for="role">역할</label>
                     <input type="text" th:field="*{role}" class="form-control"  th:disabled="true">
-                    <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="fieldError">Incorrect data</p>
                 </div>
+                <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-primary" style="">정보수정</button>
                 </div>

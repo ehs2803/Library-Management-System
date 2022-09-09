@@ -30,6 +30,9 @@
     <link href="/css/main.css" rel="stylesheet">
 
     <style>
+        .fieldError {
+            color: #bd2130;
+        }
         .content {
             margin-bottom: 100px;
             margin-top: 50px;
@@ -71,6 +74,7 @@
 
     <section class="sample-page">
         <div class="content">
+            <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
             <div class="card mb-3" style="width: 100%" th:each="loan : ${loanList}">
                 <div class="row g-0">
                     <div class="col-md-2" style="border: 1px solid black">
@@ -101,6 +105,7 @@
                     </div>
                 </div>
             </div>
+
 
 
         </div>

@@ -41,14 +41,7 @@
         }
     </style>
 </head>
-<script>
-    $(document).ready(function () {
-        var errorMessage = [[${errorMessage}]];
-        if (errorMessage != null) {
-            alert(errorMessage);
-        }
-    });
-</script>
+
 <body>
 
 <!-- Footer-->
@@ -81,6 +74,7 @@
 
     <section class="sample-page">
         <div class="content">
+            <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
             <h1>승인 대기 목록</h1>
             <table class="table">
                 <thead class="table-dark">

@@ -107,9 +107,13 @@ public class LoanService {
         }
     }
 
-    public void delayLoan(Long id){
+    // 대출도서 대출기간 연장
+    public void delayLoan(Long id) throws Exception {
         Loan loan = loanRepository.findById(id).get();
-        loan.setUseExtensionCnt(1);
+        if(loan.getUseExtensionCnt()==Policy.LOAN_BOOK_EXTENSION_CNT){
+            throw new Exception("도서 연장횟수가 초과되었습니다.");
+        }
+        loan.setUseExtensionCnt(loan.getUseExtensionCnt()+1);
         loan.setRemainDay(loan.getRemainDay()+Policy.LOAN_BOOK_EXTENSION_DAY);
     }
 }

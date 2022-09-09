@@ -13,8 +13,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Member findByEmail(String email);
 
-//    List<Member> findByRole(Role role);
-
     Page<Member> findByRoleAndEmailContaining(Role role, String keyword, Pageable pageable);
 
     Long countByRole(Role role);

@@ -87,5 +87,3 @@ jobs:
         --s3-location bucket=storage-ehs-integration-01,bundleType=zip,key=library/deploy/springboot-library-build.zip \
         --region ap-northeast-2
 
-
-

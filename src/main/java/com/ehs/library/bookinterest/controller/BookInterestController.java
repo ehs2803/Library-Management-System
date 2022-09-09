@@ -13,6 +13,7 @@ import java.security.Principal;
 public class BookInterestController {
     private final BookInterestService bookInterestService;
 
+    // 관심도서에 추가
     @GetMapping("/book/interest/{id}")
     public String insertBookInterest(@PathVariable Long id, Principal principal){
         bookInterestService.insertBookInterest(principal.getName(), id);
@@ -20,6 +21,7 @@ public class BookInterestController {
         return "book/searchBookList";
     }
 
+    // 관심도서에서 삭제하기
     @GetMapping("/book/interest/delete/{id}")
     public String deleteBookInterest(@PathVariable Long id){
         bookInterestService.deleteBookInterest(id);

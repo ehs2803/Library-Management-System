@@ -21,5 +21,5 @@ public interface BookInterestRepository extends JpaRepository<BookInterest, Long
     @Query("select bi from BookInterest  bi join fetch bi.book b join fetch b.bookImg where bi.member=:member")
     public List<BookInterest> findByMember(@Param("member") Member member);
 
-    public int countBookInterestByMemberAndBook(Book book, Member member);
+    public int countBookInterestByMemberAndBook(Member member, Book book);
 }

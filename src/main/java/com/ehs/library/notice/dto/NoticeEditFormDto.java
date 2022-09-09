@@ -1,11 +1,13 @@
 package com.ehs.library.notice.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 public class NoticeEditFormDto {
     private Long id;

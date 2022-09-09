@@ -2,6 +2,8 @@ package com.ehs.library.notice.service;
 
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
+import com.ehs.library.notice.dto.NoticeAddFormDto;
+import com.ehs.library.notice.dto.NoticeDto;
 import com.ehs.library.notice.dto.NoticeEditFormDto;
 import com.ehs.library.notice.dto.NoticeFormDto;
 import com.ehs.library.notice.entity.Notice;
@@ -22,6 +24,8 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final MemberRepository memberRepository;
 
+    // 모든 공지사항 조회
+    @Transactional(readOnly = true)
     public List<NoticeFormDto> findAllNoticeList(){
         List<Notice> notices= noticeRepository.findAll();
         List<NoticeFormDto> noticeFormDtoList = new ArrayList<>();
@@ -40,46 +44,62 @@ public class NoticeService {
         return noticeFormDtoList;
     }
 
-    public Notice saveNewNotice(String title, String content, String email){
-        Member findMember = memberRepository.findByEmail(email);
-        Notice notice = new Notice();
-        notice.setMember(findMember);
-        notice.setTitle(title);
-        notice.setContent(content);
-        notice.setHit(0);
+    // 특정 공지사항 조회
+    public NoticeDto noticeDetail(Long id){
+        Notice notice = noticeRepository.findById(id).get();
+
+        notice.setHit(notice.getHit()+1); // 조회수 1 증가
+        String content = notice.getContent().replace("\r\n","<br>"); // 컨텐츠 내용 줄바꿈 가능하게하기...
+
+        NoticeDto noticeDto = NoticeDto.builder()
+                .id(notice.getId())
+                .title(notice.getTitle())
+                .hit(notice.getHit())
+                .content(content)
+                .build();
+
+        return noticeDto;
+    }
+
+    // 공지사항 수정
+    public Long editNotice(NoticeEditFormDto noticeEditFormDto){
+        Notice notice = noticeRepository.findById(noticeEditFormDto.getId()).get();
+        notice.setTitle(noticeEditFormDto.getTitle());
+        notice.setContent(noticeEditFormDto.getContent());
+
+        return notice.getId();
+    }
+
+    // 공지사항 삭제
+    public void deleteNotice(Long id){
+        noticeRepository.deleteById(id);
+    }
+
+    // 공지사항 등록
+    public Notice saveNewNotice(NoticeAddFormDto noticeAddFormDto){
+        Notice notice = Notice.builder()
+                .title(noticeAddFormDto.getTitle())
+                .content(noticeAddFormDto.getContent())
+                .hit(0).build();
 
         noticeRepository.save(notice);
 
         return notice;
     }
 
-    public Notice noticeDetail(Long id){
-        Notice notice = noticeRepository.findById(id).get();
-        notice.setHit(notice.getHit()+1);
-        return notice;
-    }
-
-    public void deleteNotice(Long id){
-        noticeRepository.deleteById(id);
-    }
-
+    // 수정하기 기능을 위한 db에 저장된 정보 불러오기
+    @Transactional(readOnly = true)
     public NoticeEditFormDto editFormDto(Long id){
         Notice notice = noticeRepository.findById(id).get();
-        NoticeEditFormDto noticeEditFormDto = new NoticeEditFormDto();
-        noticeEditFormDto.setId(notice.getId());
-        noticeEditFormDto.setTitle(notice.getTitle());
-        noticeEditFormDto.setContent(notice.getContent());
+
+        NoticeEditFormDto noticeEditFormDto = NoticeEditFormDto.builder()
+                .id(notice.getId())
+                .title(notice.getTitle())
+                .content(notice.getContent())
+                .build();
+
         return noticeEditFormDto;
     }
 
-    public Long editNotice(NoticeEditFormDto noticeEditFormDto, String email){
-        Notice notice = noticeRepository.findById(noticeEditFormDto.getId()).get();
-        notice.setTitle(noticeEditFormDto.getTitle());
-        notice.setContent(noticeEditFormDto.getContent());
-        Member editMember = memberRepository.findByEmail(email);
-        notice.setMember(editMember);
-
-        return notice.getId();
-    }
 
 }

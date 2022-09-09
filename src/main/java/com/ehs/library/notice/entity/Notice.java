@@ -3,14 +3,15 @@ package com.ehs.library.notice.entity;
 import com.ehs.library.base.entity.BaseEntity;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.member.entity.Member;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="notice")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class Notice extends BaseEntity {
 
@@ -27,9 +28,5 @@ public class Notice extends BaseEntity {
     private String content;
 
     private int hit;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
 
 }

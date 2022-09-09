@@ -16,10 +16,17 @@ import java.util.List;
 public interface BookReservationRepository extends JpaRepository<BookReservation, Long>{
     public int countBookReservationByBook(Book book);
 
+    public int countBookReservationByMember(Member member);
+
+    @EntityGraph(attributePaths = {"book"})
+    public List<BookReservation> findAll();
+
 //    @EntityGraph(attributePaths = {"book"})
 //    public List<BookReservation> findByMember(Member member);
 
     @Query("select br from BookReservation br join fetch br.book b join fetch b.bookImg where br.member=:member")
     public List<BookReservation> findByMember(@Param("member") Member member);
+
+    boolean existsByMemberAndBook(Member member, Book book);
 
 }

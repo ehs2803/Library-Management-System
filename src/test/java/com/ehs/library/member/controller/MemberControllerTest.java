@@ -44,20 +44,20 @@ class MemberControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+//    @Autowired
+//    private ObjectMapper objectMapper;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @BeforeEach
-    void before(WebApplicationContext was) {
-        mockMvc = MockMvcBuilders.webAppContextSetup(was)
-                .alwaysDo(print())
-                .addFilters(new CharacterEncodingFilter("UTF-8", true))
-                .build();
-
-    }
+//    @BeforeEach
+//    void before(WebApplicationContext was) {
+//        mockMvc = MockMvcBuilders.webAppContextSetup(was)
+//                .alwaysDo(print())
+//                .addFilters(new CharacterEncodingFilter("UTF-8", true))
+//                .build();
+//
+//    }
 
     public Member createMember(String email, String password){
         MemberFormDto memberFormDto = new  MemberFormDto();

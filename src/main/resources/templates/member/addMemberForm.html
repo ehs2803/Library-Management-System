@@ -42,6 +42,7 @@
         }
     </style>
 </head>
+<body>
 <script>
     $(document).ready(function () {
         var errorMessage = [[${errorMessage}]];
@@ -50,8 +51,6 @@
         }
     });
 </script>
-<body>
-
 <!-- Footer-->
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 
@@ -93,6 +92,7 @@
                     <label th:for="email">이메일주소</label>
                     <input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+                    <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
                 </div>
                 <br>
                 <div class="form-group">

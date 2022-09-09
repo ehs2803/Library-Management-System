@@ -5,17 +5,17 @@ import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.dto.MemberEditFormDto;
 import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.base.entity.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Table(name="member")
 @Getter @Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member extends BaseTimeEntity {
 
     @Id

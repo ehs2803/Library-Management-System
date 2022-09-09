@@ -1,5 +1,6 @@
 package com.ehs.library.member.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -28,4 +29,6 @@ public class MemberFormDto {
     private String address;
 
     private String role;
+
+    public MemberFormDto(){}
 }

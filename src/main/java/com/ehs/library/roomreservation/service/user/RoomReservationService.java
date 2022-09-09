@@ -13,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -61,8 +64,12 @@ public class RoomReservationService {
         return studyRoomReservation.getId();
     }
 
-    public void studyRoomStateSetCancel(Long id){
+    // 스터디룸 예약 취소
+    public void studyRoomStateSetCancel(Long id) throws Exception {
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
+        if(ChronoLocalDate.from(studyRoomReservation.getReservation_time()).isEqual(LocalDate.now())){
+            throw new Exception("당일 예약 취소는 불가능합니다.");
+        }
         studyRoomReservation.setState(ReservationState.CANCEL);
     }
 }

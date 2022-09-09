@@ -129,6 +129,7 @@
                     <label th:for="gridRadios2" class="form-check-label" for="gridRadios2">
                         도서관 직원
                     </label>
+                    <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="fieldError">Incorrect data</p>
 
                 </div>
                 <div style="text-align: center">

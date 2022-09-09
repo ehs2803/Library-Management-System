@@ -316,3 +316,7 @@ uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/
 - book detail 페이지에서 content 출력
 - test 오류나는거 해결 -> test.yml에 cloud 설정 코드 넣어줌.
 
+==============================================================
+2022.09.09.금
+- member 패키지 dto, 리팩토링, 예외, 트랜잭션 설정.
+

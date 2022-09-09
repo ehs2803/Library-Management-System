@@ -2,6 +2,7 @@ package com.ehs.library.notice.controller;
 
 import com.ehs.library.book.dto.BookFormDto;
 import com.ehs.library.notice.dto.NoticeAddFormDto;
+import com.ehs.library.notice.dto.NoticeDto;
 import com.ehs.library.notice.dto.NoticeEditFormDto;
 import com.ehs.library.notice.dto.NoticeFormDto;
 import com.ehs.library.notice.entity.Notice;
@@ -26,6 +27,7 @@ public class NoticeController {
 
     private final NoticeService noticeService;
 
+    // 공지사항 게시판
     @GetMapping("")
     public String noticeList(Model model){
         List<NoticeFormDto> noticeFormDtoList = noticeService.findAllNoticeList();
@@ -33,16 +35,16 @@ public class NoticeController {
         return "notice/noticeBoard";
     }
 
+    // 특정한 공지사항 선택
     @GetMapping("/detail/{id}")
     public String noticeDetail(@PathVariable Long id, Model model){
-        Notice notice = noticeService.noticeDetail(id);
-        String content = notice.getContent().replace("\r\n","<br>");
+        NoticeDto notice = noticeService.noticeDetail(id);
 
-        model.addAttribute("content", content);
         model.addAttribute("notice", notice);
         return "notice/noticeDetail";
     }
 
+    // 공지사항 수정폼
     @GetMapping("/edit/{id}")
     public String noticeEditForm(@PathVariable Long id, Model model){
         NoticeEditFormDto noticeEditFormDto = noticeService.editFormDto(id);
@@ -50,39 +52,42 @@ public class NoticeController {
         return "notice/noticeEditForm";
     }
 
+    // 공지사항 수정
     @PostMapping("/edit/{id}")
-    public String editNotice(@Valid NoticeEditFormDto noticeEditFormDto, BindingResult bindingResult, Principal principal){
+    public String editNotice(@Valid NoticeEditFormDto noticeEditFormDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return "notice/noticeEditForm";
         }
-        String email = principal.getName();
-        Long editId = noticeService.editNotice(noticeEditFormDto, email);
+
+        Long editId = noticeService.editNotice(noticeEditFormDto);
 
         return "redirect:/notice/detail/"+editId;
     }
 
+    // 공지사항 삭제
     @GetMapping("/delete/{id}")
     public String noticeDelete(@PathVariable Long id){
         noticeService.deleteNotice(id);
         return "notice/noticeBoard";
     }
 
+    // 새로운 공지사항 등록폼
     @GetMapping("/new")
     public String addNoticeForm(Model model){
         model.addAttribute("noticeAddForm", new NoticeAddFormDto());
         return "notice/noticeAddForm";
     }
 
+    // 새로운 공지사항 등록
     @PostMapping("/new")
-    public String addNotice(@Valid NoticeAddFormDto noticeAddFormDto, BindingResult bindingResult, Principal principal){
+    public String addNotice(@Valid NoticeAddFormDto noticeAddFormDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return "notice/noticeAddForm";
         }
-        String email = principal.getName();
-        noticeService.saveNewNotice(noticeAddFormDto.getTitle(), noticeAddFormDto.getContent(), email);
+
+        noticeService.saveNewNotice(noticeAddFormDto);
 
         return "redirect:/notice";
     }
 
-    // edit, delete
 }

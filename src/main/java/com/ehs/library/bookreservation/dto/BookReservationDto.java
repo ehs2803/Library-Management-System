@@ -14,5 +14,5 @@ import java.time.LocalDateTime;
 public class BookReservationDto {
     private Long id;
     private BookDto book;
-    private LocalDateTime regTime;
+    private LocalDateTime resTime;
 }

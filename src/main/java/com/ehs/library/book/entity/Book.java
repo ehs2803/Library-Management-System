@@ -4,15 +4,16 @@ import com.ehs.library.book.constant.BookState;
 import com.ehs.library.base.entity.BaseEntity;
 import com.ehs.library.book.dto.BookFormDto;
 import com.ehs.library.member.entity.Member;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Table(name="book")
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book extends BaseEntity {
     @Id
     @Column(name="book_id")
@@ -67,9 +68,6 @@ public class Book extends BaseEntity {
 
     private int loanCnt;
 
-    public Book(){
-
-    }
     public void updateBook(BookFormDto itemFormDto){
 
     }

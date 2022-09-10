@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
@@ -20,4 +21,5 @@ public class BookDto {
     private String state;
     private String location;
     private BookImgSimpleDto bookImg;
+    private String isbn;
 }

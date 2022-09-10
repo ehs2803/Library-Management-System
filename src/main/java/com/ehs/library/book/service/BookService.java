@@ -1,12 +1,14 @@
 package com.ehs.library.book.service;
 
 import com.ehs.library.book.constant.BookState;
-import com.ehs.library.book.dto.BookFormDto;
-import com.ehs.library.book.dto.BookImgDto;
+import com.ehs.library.book.dto.*;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.entity.BookImg;
 import com.ehs.library.book.repository.BookImgRepository;
 import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.loan.constant.LoanState;
+import com.ehs.library.loan.entity.Loan;
+import com.ehs.library.loan.repository.LoanRepository;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
@@ -20,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -28,33 +32,33 @@ import java.util.List;
 public class BookService {
 
     private final BookRepository bookRepository;
-
     private final BookImgService bookImgService;
-
     private final BookImgRepository bookImgRepository;
-
     private final MemberRepository memberRepository;
+    private final LoanRepository loanRepository;
 
+    // 새로운 책 등록
     public Long saveItem(BookFormDto itemFormDto, MultipartFile itemImgFileList, String email) throws Exception{
-        Book item = new Book(); //itemFormDto.createBook();
-        item.setName(itemFormDto.getName());
-        item.setIsbn(itemFormDto.getIsbn());
-        item.setAuthor(itemFormDto.getAuthor());
-        item.setPublisher(itemFormDto.getPublisher());
-        item.setYear(itemFormDto.getYear());
-        item.setPrice(itemFormDto.getPrice());
-        item.setPage(itemFormDto.getPage());
-        item.setContent(itemFormDto.getContent());
-        item.setRegister_numer(itemFormDto.getRegister_numer());
-        item.setSymbol(itemFormDto.getSymbol());
-        item.setClassification(itemFormDto.getClassification());
-        item.setClassification_detail(itemFormDto.getClassification_detail());
-        item.setLocation(itemFormDto.getLocation());
-
         Member findMember = memberRepository.findByEmail(email);
-        item.setMember(findMember);
-        item.setState(BookState.AVAILABLE);
-        item.setLoanCnt(0);
+        Book item = Book.builder()
+                .name(itemFormDto.getName())
+                .isbn(itemFormDto.getIsbn())
+                .author(itemFormDto.getAuthor())
+                .publisher(itemFormDto.getPublisher())
+                .year(itemFormDto.getYear())
+                .price(itemFormDto.getPrice())
+                .page(itemFormDto.getPage())
+                .content(itemFormDto.getContent())
+                .register_numer(itemFormDto.getRegister_numer())
+                .symbol(itemFormDto.getSymbol())
+                .classification(itemFormDto.getClassification())
+                .classification_detail(itemFormDto.getClassification_detail())
+                .location(itemFormDto.getLocation())
+                .loanCnt(0)
+                .member(findMember)
+                .state(BookState.AVAILABLE)
+                .build();
+
         bookRepository.save(item);
 
         //이미지 등록
@@ -63,6 +67,49 @@ public class BookService {
         bookImgService.saveItemImg(itemImg, itemImgFileList);
 
         return item.getId();
+    }
+
+    // 키워드로 페이징 검색
+    @Transactional(readOnly = true)
+    public Page<Book> searchBookList(String keyword, Pageable pageable) {
+        return bookRepository.findByNameContaining(keyword, pageable);
+    }
+
+    // 도서 id 기반 검색 -> BookDto 변환
+    @Transactional(readOnly = true)
+    public BookDto findBookById(Long id){
+        Book book = bookRepository.findById(id).get();
+        String content = book.getContent().replace("\r\n","<br>");
+
+        BookDto bookDto = BookDto.builder()
+                .name(book.getName())
+                .author(book.getAuthor())
+                .publisher(book.getPublisher())
+                .year(book.getYear())
+                .symbol(book.getSymbol())
+                .state(book.getState().toString())
+                .location(book.getLocation())
+                .bookImg(new BookImgSimpleDto(book.getBookImg().getImgUrl()))
+                .isbn(book.getIsbn())
+                .build();
+
+        return bookDto;
+    }
+
+    // 도서 isbn 기반 조회
+    @Transactional(readOnly = true)
+    public List<Book> findBookbyISBN(String isbn){
+        return bookRepository.findByIsbn(isbn);
+    }
+
+    // 도서 반납예정일 dto에 입력
+    public void setReturnDay(List<BookListDto> bookList){
+        for(int i=0;i<bookList.size();i++){
+            Loan loan = loanRepository.findByBookAndLoanState(bookRepository.findById(bookList.get(i).getId()).get(),LoanState.LOAN);
+            if(loan!=null){
+                bookList.get(i).setReturn_day(LocalDate.now().plus(loan.getRemainDay(), ChronoUnit.DAYS));
+            }
+        }
     }
 
     @Transactional(readOnly = true)
@@ -117,16 +164,4 @@ public class BookService {
         return jo.toString();
     }
 
-    @Transactional(readOnly = true)
-    public Page<Book> searchBookList(String keyword, Pageable pageable) {
-        return bookRepository.findByNameContaining(keyword, pageable);
-    }
-
-    public Book findBookById(Long id){
-        return bookRepository.findById(id).get();
-    }
-
-    public List<Book> findBookbyISBN(String isbn){
-        return bookRepository.findByIsbn(isbn);
-    }
 }

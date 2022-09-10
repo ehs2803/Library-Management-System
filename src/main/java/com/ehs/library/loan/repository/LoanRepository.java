@@ -1,5 +1,6 @@
 package com.ehs.library.loan.repository;
 
+import com.ehs.library.book.entity.Book;
 import com.ehs.library.loan.constant.LoanState;
 import com.ehs.library.loan.entity.Loan;
 import com.ehs.library.member.entity.Member;
@@ -19,4 +20,8 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     Loan findByIdFetchJoin(@Param("id") Long id);
 
     List<Loan> findByLoanState(LoanState loanState);
+
+    Loan findByBookAndLoanState(Book book, LoanState loanState);
+
+    Boolean existsLoanByBookAndLoanState(Book book, LoanState loanState);
 }

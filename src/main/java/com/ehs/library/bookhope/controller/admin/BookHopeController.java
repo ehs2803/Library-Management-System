@@ -25,37 +25,6 @@ public class BookHopeController {
     private final BookService bookService;
     private final BookHopeService bookHopeService;
 
-    @GetMapping("/book/new")
-    public String bookForm(Model model){
-        model.addAttribute("bookFormDto", new BookFormDto());
-        return "admin/addBookForm";
-    }
-
-    @PostMapping(value = "/book/new")
-    public String addNewBook(@Valid BookFormDto bookFormDto, BindingResult bindingResult,
-                             Model model, @RequestParam("bookImgFile") MultipartFile bookImgFile,
-                             Principal principal){
-
-        if(bindingResult.hasErrors()){
-            return "admin/addBookForm";
-        }
-
-        if(bookImgFile.isEmpty()){
-            model.addAttribute("errorMessage", "이미지는 필수 입력 값 입니다.");
-            return "admin/addBookForm";
-        }
-
-        try {
-            String email = principal.getName();
-            bookService.saveItem(bookFormDto, bookImgFile, email);
-        } catch (Exception e){
-            model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
-            return "admin/addBookForm";
-        }
-
-        return "redirect:/";
-    }
-
     @GetMapping("mypage")
     public String adminPage(){
         return "admin/mypage";

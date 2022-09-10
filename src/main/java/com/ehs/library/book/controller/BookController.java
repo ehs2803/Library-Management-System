@@ -1,11 +1,16 @@
 package com.ehs.library.book.controller;
 
+import com.ehs.library.book.dto.BookDto;
+import com.ehs.library.book.dto.BookFormDto;
+import com.ehs.library.book.dto.BookListDto;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.service.BookService;
 import com.ehs.library.bookhope.dto.BookHopeFormDto;
 import com.ehs.library.bookhope.service.BookHopeService;
 import com.ehs.library.member.entity.Member;
+import com.ehs.library.roomreservation.dto.StudyRoomReservationDto;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,28 +19,63 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value = "/main/book")
+@RequestMapping
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping(value = "/search")
+    // 새로운 책 등록 폼
+    @GetMapping("/admin/book/new")
+    public String bookForm(Model model){
+        model.addAttribute("bookFormDto", new BookFormDto());
+        return "admin/addBookForm";
+    }
+
+    // 새로운 책 등록
+    @PostMapping(value = "/admin/book/new")
+    public String addNewBook(@Valid BookFormDto bookFormDto, BindingResult bindingResult,
+                             Model model, @RequestParam("bookImgFile") MultipartFile bookImgFile,
+                             Principal principal){
+
+        if(bindingResult.hasErrors()){
+            return "admin/addBookForm";
+        }
+
+        if(bookImgFile.isEmpty()){
+            model.addAttribute("errorMessage", "이미지는 필수 입력 값 입니다.");
+            return "admin/addBookForm";
+        }
+
+        try {
+            String email = principal.getName();
+            bookService.saveItem(bookFormDto, bookImgFile, email);
+        } catch (Exception e){
+            model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
+            return "admin/addBookForm";
+        }
+
+        return "redirect:/";
+    }
+
+    // 도서 통합검색 페이지
+    @GetMapping(value = "/main/book/search")
     public String searchBookList(){
-
-
         return "book/searchBook";
     }
 
-    @GetMapping("/search/result")
+    // 도서 검색 (키워드 검색, 페이징 처리)
+    @GetMapping("/main/book/search/result")
     public String bookList(@RequestParam(defaultValue = "") String keyword,
-                             @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
-                             Model model){
+                           @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
+                           Model model){
         Page<Book> bookList = bookService.searchBookList(keyword, pageable);
 
         model.addAttribute("bookList", bookList);
@@ -47,13 +87,20 @@ public class BookController {
         return "book/searchBookList";
     }
 
-    @GetMapping("/{id}")
+    // 도서 상세 정보
+    @GetMapping("/main/book/{id}")
     public String bookDetail(@PathVariable Long id, Model model){
-        Book book = bookService.findBookById(id);
-        String content = book.getContent().replace("\r\n","<br>");
-        List<Book> bookList= bookService.findBookbyISBN(book.getIsbn());
+        BookDto book = bookService.findBookById(id);
 
-        model.addAttribute("content", content);
+        List<Book> bookList_temp= bookService.findBookbyISBN(book.getIsbn());
+
+        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        List<BookListDto> bookList = bookList_temp.stream()
+                .map(books->modelMapper.map(books, BookListDto.class))
+                .collect(Collectors.toList());
+
+        bookService.setReturnDay(bookList);
+
         model.addAttribute("book", book);
         model.addAttribute("bookList", bookList);
 

@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="loan_wait_list")
 @Getter @Setter
-@ToString
 public class LoanWaitList {
     @Id
     @Column(name="loan_wait_id")

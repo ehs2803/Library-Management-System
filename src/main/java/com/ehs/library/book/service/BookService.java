@@ -139,6 +139,7 @@ public class BookService {
         return item.getId();
     }
 
+    // 책 이름 키워드로 도서 검색(json 반환)
     public String findByNameContainingRetrunJson(String keyword){
         List<Book> bookList = bookRepository.findByNameContaining(keyword);
 

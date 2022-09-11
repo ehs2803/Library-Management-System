@@ -15,5 +15,5 @@ public interface LoanWaitListRepository extends JpaRepository<LoanWaitList, Long
     LoanWaitList findByIdFetchJoin(@Param("id")Long id);
 
     @Query("select wait from LoanWaitList wait join fetch wait.book where wait.member=:member")
-    List<LoanWaitList> findByMember(@Param("member") Member member);
+    List<LoanWaitList> findByMemberFetchJoinBook(@Param("member") Member member);
 }

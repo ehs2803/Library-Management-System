@@ -30,33 +30,49 @@ public class LoanService {
     private final LoanWaitListRepository loanWaitListRepository;
     private final LoanRepository loanRepository;
 
+    // 도서 ID : bid 도서 waitList로 이동
     public void moveWaitList(Member member, Long bid){
         Book book = bookRepository.findById(bid).get();
-        book.setState(BookState.WAIT);
-        LoanWaitList loanWaitList = new LoanWaitList(member, book);
+        book.setState(BookState.WAIT); // 책 상태 WAIT로 설정
 
+        LoanWaitList loanWaitList = new LoanWaitList(member, book);
         loanWaitListRepository.save(loanWaitList);
     }
 
+    // 대출대기 목록에 있는 도서 삭제하기
     public void deleteWaitList(Long wid){
         LoanWaitList loanWaitList = loanWaitListRepository.findByIdFetchJoin(wid);
         Book book = loanWaitList.getBook();
-        book.setState(BookState.AVAILABLE);
+        book.setState(BookState.AVAILABLE); // 도서상태 AVAILABLE로 변경
 
         loanWaitListRepository.delete(loanWaitList);
     }
 
+    // 특정 일반 유저 대출 대기 목록 조회
     public List<LoanWaitList> findByMember(Member member){
-        return loanWaitListRepository.findByMember(member);
+        return loanWaitListRepository.findByMemberFetchJoinBook(member);
     }
 
+    // 대출 대기 목록 조회 by 유저, loanstate
     public List<Loan> findByMemberAndLoan(Member member, LoanState loanState){
-        return loanRepository.findByMemberAndLoan(member, loanState);
+        return loanRepository.findByMemberAndLoanFetchJoinBook(member, loanState);
     }
 
-    public void loanWatiBookList(Member member){
-        List<LoanWaitList> loanWaitListList = loanWaitListRepository.findByMember(member);
-        // loan wati list
+    // 대출 대기 목록에 있는 도서 대출처리
+    public void loanWatiBookList(Member member) throws Exception {
+        List<LoanWaitList> loanWaitListList = loanWaitListRepository.findByMemberFetchJoinBook(member);
+
+        // 제재 중일 때
+
+        // 만약 연체중인 책이 있을 때
+        if(loanRepository.existsLoanByMemberAndLoanState(member, LoanState.OVERDUE)){
+            throw new Exception("현재 연체된 책이 있습니다. 도서 대출이 불가능합니다.");
+        }
+        // 빌릴 수 있는 책의 최대 개수를 초과할 때
+        if(loanWaitListList.size()>Policy.LOAN_BOOK_CNT-loanRepository.countLoanByMemberAndLoanState(member, LoanState.LOAN)){
+            throw new Exception("빌릴 수 있는 책의 최대 개수를 초과했습니다.");
+        }
+
         for(int i=0;i<loanWaitListList.size();i++){
             Book book = loanWaitListList.get(i).getBook();
             book.setState(BookState.LOAN);
@@ -70,41 +86,24 @@ public class LoanService {
         }
     }
 
+    // 도서 반납하기
     public Long loanReturn(Long id){
         Loan loan = loanRepository.findByIdFetchJoin(id);
 
-        // book
+        // 도서 상태 변경
         Book book = loan.getBook();
         book.setState(BookState.AVAILABLE);
 
-        // loan state
-        if(loan.getLoanState().toString().equals("LOAN")){
+        // loan state 설정
+        if(loan.getLoanState().toString().equals("LOAN")){ // 정상 반납
             loan.setLoanState(LoanState.NORMAL_RETURN);
         }
         else{
-            loan.setLoanState(LoanState.OVERDUE_RETURN);
+            loan.setLoanState(LoanState.OVERDUE_RETURN); // 연체 반납
         }
-        loan.setReturnTime(LocalDateTime.now());
+        loan.setReturnTime(LocalDateTime.now()); // 반납시간 현재 시간 설정
 
         return loan.getMember().getId();
-    }
-
-    public void updateLoanState(){
-        List<Loan> loanList_LOAN = loanRepository.findByLoanState(LoanState.LOAN);
-        List<Loan> loanList_OVERDUE = loanRepository.findByLoanState(LoanState.OVERDUE);
-
-        for(int i=0;i<loanList_LOAN.size();i++){
-            Loan loan = loanList_LOAN.get(i);
-            loan.setRemainDay(loan.getRemainDay()-1);
-            if(loan.getRemainDay()==0){
-                loan.setLoanState(LoanState.OVERDUE);
-            }
-        }
-
-        for(int i=0;i<loanList_OVERDUE.size();i++){
-            Loan loan = loanList_OVERDUE.get(i);
-            loan.setOverdueDay(loan.getOverdueDay()+1);
-        }
     }
 
     // 대출도서 대출기간 연장
@@ -115,5 +114,27 @@ public class LoanService {
         }
         loan.setUseExtensionCnt(loan.getUseExtensionCnt()+1);
         loan.setRemainDay(loan.getRemainDay()+Policy.LOAN_BOOK_EXTENSION_DAY);
+    }
+
+    // 대출 상태 변경
+    public void updateLoanState(){
+        List<Loan> loanList_LOAN = loanRepository.findByLoanState(LoanState.LOAN);
+        List<Loan> loanList_OVERDUE = loanRepository.findByLoanState(LoanState.OVERDUE);
+
+        // 대출 중인 건에 대해서...
+        for(int i=0;i<loanList_LOAN.size();i++){
+            Loan loan = loanList_LOAN.get(i);
+            loan.setRemainDay(loan.getRemainDay()-1); // RemainDay -1하기.
+            if(loan.getRemainDay()==0){ // RemainDay가 0일 경우
+                loan.setLoanState(LoanState.OVERDUE); // 대출상태 연체 상태로 변경
+                loan.setOverdueDay(1); // 연체일 수 1로 설정
+            }
+        }
+
+        // 이미 연체 중인 대출 건에 대해서...
+        for(int i=0;i<loanList_OVERDUE.size();i++){
+            Loan loan = loanList_OVERDUE.get(i);
+            loan.setOverdueDay(loan.getOverdueDay()+1); // 연체일수 +1
+        }
     }
 }

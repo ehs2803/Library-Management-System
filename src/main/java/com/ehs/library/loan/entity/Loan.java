@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="loan")
 @Getter @Setter
-@ToString
 public class Loan {
     @Id
     @Column(name="loan_id")

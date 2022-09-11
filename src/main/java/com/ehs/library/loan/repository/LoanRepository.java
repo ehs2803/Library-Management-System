@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
     @Query("select l from Loan l join fetch l.book where l.member=:member and l.loanState=:loanState")
-    List<Loan> findByMemberAndLoan(@Param("member") Member member, @Param("loanState") LoanState loanState);
+    List<Loan> findByMemberAndLoanFetchJoinBook(@Param("member") Member member, @Param("loanState") LoanState loanState);
 
     @Query("select l from Loan l join fetch l.book join fetch l.member where l.id=:id")
     Loan findByIdFetchJoin(@Param("id") Long id);
@@ -23,5 +23,9 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     Loan findByBookAndLoanState(Book book, LoanState loanState);
 
+    Boolean existsLoanByMemberAndLoanState(Member member, LoanState loanState);
+
     Boolean existsLoanByBookAndLoanState(Book book, LoanState loanState);
+
+    int countLoanByMemberAndLoanState(Member member, LoanState loanState);
 }

@@ -13,11 +13,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter @Setter
 public class BookDto {
+    private Long id;
     private String name;
     private String author;
     private String publisher;
     private int year;
     private String symbol;
+    private String register_numer;
     private String state;
     private String location;
     private BookImgSimpleDto bookImg;

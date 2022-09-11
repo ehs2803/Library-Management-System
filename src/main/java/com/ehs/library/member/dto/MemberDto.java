@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class MemberDto {
     private String tel;
     private String address;
     private String role;
+    private LocalDateTime regTime;
 }

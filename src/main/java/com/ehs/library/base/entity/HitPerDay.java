@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="hit_per_day")
 @Getter @Setter
-@ToString
 public class HitPerDay {
     @Id
     @Column(name="hit_id")

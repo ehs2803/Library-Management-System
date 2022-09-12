@@ -82,6 +82,8 @@
     <section class="sample-page">
         <div class="content">
 
+            <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
+
             <table class="table">
                 <thead class="table-dark">
                 <tr>

@@ -18,6 +18,7 @@ public class BookDto {
     private String author;
     private String publisher;
     private int year;
+    private String content;
     private String symbol;
     private String register_numer;
     private String state;

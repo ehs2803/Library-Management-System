@@ -91,6 +91,7 @@ public class BookService {
                 .location(book.getLocation())
                 .bookImg(new BookImgSimpleDto(book.getBookImg().getImgUrl()))
                 .isbn(book.getIsbn())
+                .content(content)
                 .build();
 
         return bookDto;

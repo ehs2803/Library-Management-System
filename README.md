@@ -1,25 +1,23 @@
 # Library-Management-System
 
+소요시간: 2022.06.20 ~ 개발중(80%)
 
-Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
-소요시간: 2022.06.20 ~ 개발중
 유형: 개인프로젝트
 
-[GitHub - ehs2803/Library-Management-System: 도서관 시스템(웹) - spring boot 개인 프로젝트](https://github.com/ehs2803/Library-Management-System)
 
 # 배포주소
 
 [http://54.180.182.109:8080](http://54.180.182.109:8080/)
 
-## **작품 주제**
+# **작품 주제**
 
 스프링부트를 이용한 도서관리 시스템
 
-## **개발기간**
+# **개발기간**
 
 2022.06.20 ~ 개발 중
 
-## **작품 구성도**
+# **작품 구성도**
 
 1. 시스템 구성도
 

@@ -23,11 +23,17 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 1. 시스템 구성도
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled.png)
+![Untitled](docs/images/Untitled.png)
 
 1. CI/CD 구성도
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%201.png)
+![Untitled](docs/images/Untitled%201.png)
+
+# 데이터베이스
+
+![Untitled](docs/images/Untitled%2030.png)
+
+![Untitled](docs/images/Untitled%2031.png)
 
 # 기능
 
@@ -35,9 +41,9 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%202.png)
+![Untitled](docs/images/Untitled%202.png)
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%203.png)
+![Untitled](docs/images/Untitled%203.png)
 
 회원가입 시 이메일 주소는 유일해야 합니다.
 
@@ -47,7 +53,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%204.png)
+![Untitled](docs/images/Untitled%204.png)
 
 일반 유저 마이페이지 입니다. 기본적인 정보가 출력되고, 회원정보 수정 버튼을 클릭하면 회원정보를 수정할 수 있습니다.
 
@@ -57,7 +63,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%205.png)
+![Untitled](docs/images/Untitled%205.png)
 
 도서관 직원으로 로그인하면 관리자페이지에 접근할 수 있습니다. 관리자페이지에서는 새로운 책 입고, 희망도서 신청 관리, 도서 대출,반납, 스터디룸 관리할 수 있습니다.
 
@@ -65,7 +71,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%206.png)
+![Untitled](docs/images/Untitled%206.png)
 
 도서관 직원은 새로운 책을 등록할 수 있습니다. 책을 등록할 때 도서 이미지를 첨부할 수 있습니다.
 
@@ -73,13 +79,13 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%207.png)
+![Untitled](docs/images/Untitled%207.png)
 
 도서관직원으로 로그인하면 일반 유저에 대해 도서 대출, 반납 처리를 할 수 있습니다. 
 
 대출, 반납 페이지에서는 현재 가입한 일반 유저 목록을 볼 수 있고 검색 기능을 통해서 유저를 찾을 수 있습니다. 유저 이메일을 클릭하면 아래 사진 페이지로 이동합니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%208.png)
+![Untitled](docs/images/Untitled%208.png)
 
 멤버 상세 정보구간은 클릭한 멤버 정보를 표시합니다. 
 
@@ -89,7 +95,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 도서검색 구간에서는 도서관에 등록된 책을 검색을 통해 조회할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%209.png)
+![Untitled](docs/images/Untitled%209.png)
 
 위 사진처럼 도서를 검색 후 대출대기 버튼을 누르면 대출대기 구역으로 책이 이동하고, 대출대기를 누르면 해당 도서가 대출처리 됩니다.
 
@@ -97,7 +103,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2010.png)
+![Untitled](docs/images/Untitled%2010.png)
 
 통합검색에서는 도서 이름 키워드로 도서를 검색할 수 있습니다.
 
@@ -107,7 +113,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2011.png)
+![Untitled](docs/images/Untitled%2011.png)
 
 통합검색 결과로 나온 도서 책이름을 클릭하면 다음과 같이 도서 상세 페이지로 이동합니다.
 
@@ -122,15 +128,15 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2012.png)
+![Untitled](docs/images/Untitled%2012.png)
 
 일반 유저는 희망도서를 신청할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2013.png)
+![Untitled](docs/images/Untitled%2013.png)
 
 마이페이지에서는 희망도서 신청내역을 확인할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2014.png)
+![Untitled](docs/images/Untitled%2014.png)
 
 희망도서 신청 진행상황에 대한 현재 상태, 각 상태별 시간을 확인할 수 있습니다.
 
@@ -140,19 +146,19 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2015.png)
+![Untitled](docs/images/Untitled%2015.png)
 
 ① 도서관 직원은 관리자페이지에서 희망도서 신청을 처리할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2016.png)
+![Untitled](docs/images/Untitled%2016.png)
 
 ② 검토, 승인, 배송, 정리, 완료, 거부 상태를 설정할 수 있습니다. 거절 시 거절사유를 적어야 합니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2017.png)
+![Untitled](docs/images/Untitled%2017.png)
 
 ③ 마지막 완료 상태를 설정하기 전에 책추가하기 버튼을 클릭해 책을 추가할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2018.png)
+![Untitled](docs/images/Untitled%2018.png)
 
 ④ 이때 일반 사용자가 희망도서를 신청할 때 입력한 책이름, ISBN, 저자, 출판사, 출판년도가 자동으로 입력됩니다.
 
@@ -160,11 +166,11 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2019.png)
+![Untitled](docs/images/Untitled%2019.png)
 
 스터디룸 예약페이지에서 사용자는 상태가 CLOSE가 아닌 원하는 스터디룸을 선택해 예약할 수 있습니다. 예약현황 버튼을 클릭하면 현재 예약현황을 볼 수 있고, 예약하기 버튼을 클릭하면 아래 사진 페이지로 이동합니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2020.png)
+![Untitled](docs/images/Untitled%2020.png)
 
 스터디룸의 기본적인 정보, 해당 스터디룸 예약현황을 볼 수 있고, 예약날짜는 당일 예약은 불가능하고 +7일까지 예약날짜 선택이 가능합니다. 이용시간과 예약인원은 도서관 정책, 해당 스터디룸 수용인원에 따라 입력이 제한됩니다. 예약하기 버튼을 누르면 예약이 완료되고, 도서관 직원이 해당 예약을 승인해야 합니다.
 
@@ -172,7 +178,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2021.png)
+![Untitled](docs/images/Untitled%2021.png)
 
 도서관 직원은 스터디룸 예약 관리페이지에서 스터디룸 관리, 승인 대기중예약, 입실대기, 사용중스터디룸, 처리완료예약 페이지에 접근할 수 있습니다.
 
@@ -195,7 +201,7 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2022.png)
+![Untitled](docs/images/Untitled%2022.png)
 
 스터디룸 관리 페이지에서는 스터디룸을 관리할 수 있습니다. 등록된 스터디룸 리스트가 출력됩니다.
 
@@ -207,15 +213,15 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 수정하기 버튼을 누르면 해당 스터디룸의 이름, 위치, 수용인원을 수정할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2023.png)
+![Untitled](docs/images/Untitled%2023.png)
 
 일반유저가 스터디룸을 예약하면 도서관직원은 관리자페이지에서 승인, 거절 두가지를 선택할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2024.png)
+![Untitled](docs/images/Untitled%2024.png)
 
 승인완료된 예약은 승인완료목록 페이지에서 확인이 가능하고 입실, 예약취소, 무단처리 버튼을 통해 입실 처리, 예약취소, 무단 No-Show 처리를 할 수 있습니다.
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2025.png)
+![Untitled](docs/images/Untitled%2025.png)
 
 입실처리한 예약에 대해서는 사용중인 스터디룸 목록에서 확인이 가능합니다. 퇴실 버튼을 클릭하면 DB에 퇴실 시간이 저장됩니다.
 
@@ -223,9 +229,9 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2026.png)
+![Untitled](docs/images/Untitled%2026.png)
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2027.png)
+![Untitled](docs/images/Untitled%2027.png)
 
 도서관 직원의 경우 공지사항 등록 권한이 있습니다. 도서관 직책으로 로그인 후 공지사항 페이지에 들어가면 공지사항 추가하기 버튼이 있고, 공지사항 등록이 가능합니다.
 
@@ -235,16 +241,11 @@ Role: Back-end Dev, Front-end Dev, JPA, MySQL, SpringBoot
 
 ---
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2028.png)
+![Untitled](docs/images/Untitled%2028.png)
 
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2029.png)
+![Untitled](docs/images/Untitled%2029.png)
 
 도서관직원이 등록한 공지사항, 도서관 위치, 도서관 정책 등을 볼 수 있습니다.
 
 도서관 위치는 네이버 지도 API를 이용했습니다.
 
-# 데이터베이스
-
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2030.png)
-
-![Untitled](%5B2022%5D%20%E1%84%83%E1%85%A9%E1%84%89%E1%85%A5%E1%84%80%E1%85%AA%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%2065845f534e8240ef88b189574717d662/Untitled%2031.png)

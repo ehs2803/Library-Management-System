@@ -103,6 +103,7 @@
                         data</p>
                 </div>
                 <br>
+                <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
 
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-primary" style="">스터디룸 수정</button>

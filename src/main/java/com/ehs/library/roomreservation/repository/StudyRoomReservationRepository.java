@@ -23,7 +23,7 @@ public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomR
             "where sr.state='COMPLETE' or sr.state='REJECT' order by sr.reservation_time")
     List<StudyRoomReservation> findByStateCompleteAndRejectFetchJoin();
 
-    @Query("select sr from StudyRoomReservation sr join fetch sr.room r where r.state='USE'")
+    @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.state='USE'")
     List<StudyRoomReservation> findByStateUseFetchJoinRoom();
 
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.id=:id")

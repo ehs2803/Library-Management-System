@@ -41,14 +41,7 @@
         }
     </style>
 </head>
-<script>
-    $(document).ready(function () {
-        var errorMessage = [[${errorMessage}]];
-        if (errorMessage != null) {
-            alert(errorMessage);
-        }
-    });
-</script>
+
 <body>
 
 <!-- Footer-->
@@ -101,6 +94,7 @@
                     <p th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}" class="fieldError">Incorrect
                         data</p>
                 </div>
+                <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
                 <br>
 
                 <div style="text-align: center">

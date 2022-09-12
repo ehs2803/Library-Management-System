@@ -12,4 +12,6 @@ import javax.persistence.Enumerated;
 @Getter @Setter
 public class StudyRoomDto {
     private String name;
+    private String location;
+    private int capacity;
 }

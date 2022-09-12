@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Entity
 @Table(name="study_room")
 @Getter @Setter

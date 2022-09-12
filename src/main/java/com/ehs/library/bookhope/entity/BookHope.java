@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="book_hope")
 @Getter @Setter
-@ToString
 public class BookHope extends BaseTimeEntity {
     @Id
     @Column(name="book_hope_id")

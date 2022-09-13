@@ -172,11 +172,63 @@ public class MemberMypageController {
 
     // 스터디룸 예약 신청 취소
     @GetMapping("/reservation/studyroom/cancel/{id}")
-    public String memberReservationStudyRoomCancel(@PathVariable Long id, Model model){
+    public String memberReservationStudyRoomCancel(@PathVariable Long id, Principal principal, Model model){
         try {
             roomReservationService.studyRoomStateSetCancel(id);
         } catch (Exception e){
+            List<StudyRoomReservation> ReservationList = roomReservationService.findByMemberFetchJoinRoom(principal.getName());
+
+            List<StudyRoomReservation> reservationList_wait_temp = new ArrayList<>();
+            List<StudyRoomReservation> reservationList_reject_temp = new ArrayList<>();
+            List<StudyRoomReservation> reservationList_allow_temp = new ArrayList<>();
+            List<StudyRoomReservation> reservationList_use_temp = new ArrayList<>();
+            List<StudyRoomReservation> reservationList_cancel_temp = new ArrayList<>();
+            List<StudyRoomReservation> reservationList_complete_temp = new ArrayList<>();
+            List<StudyRoomReservation> reservationList_noshow_temp = new ArrayList<>();
+            // 예약 상태로 분류
+            for(int i=0;i<ReservationList.size();i++){
+                if(ReservationList.get(i).getState().toString().equals("WAIT")) reservationList_wait_temp.add(ReservationList.get(i));
+                else if(ReservationList.get(i).getState().toString().equals("REJECT")) reservationList_reject_temp.add(ReservationList.get(i));
+                else if(ReservationList.get(i).getState().toString().equals("ALLOW")) reservationList_allow_temp.add(ReservationList.get(i));
+                else if(ReservationList.get(i).getState().toString().equals("USE")) reservationList_use_temp.add(ReservationList.get(i));
+                else if(ReservationList.get(i).getState().toString().equals("CANCEL")) reservationList_cancel_temp.add(ReservationList.get(i));
+                else if(ReservationList.get(i).getState().toString().equals("COMPLETE")) reservationList_complete_temp.add(ReservationList.get(i));
+                else if(ReservationList.get(i).getState().toString().equals("NOSHOW")) reservationList_noshow_temp.add(ReservationList.get(i));
+            }
+
+            ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+
+            List<StudyRoomReservationDto> reservationList_wait = reservationList_wait_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+            List<StudyRoomReservationDto> reservationList_reject = reservationList_reject_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+            List<StudyRoomReservationDto> reservationList_allow = reservationList_allow_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+            List<StudyRoomReservationDto> reservationList_use = reservationList_use_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+            List<StudyRoomReservationDto> reservationList_cancel = reservationList_cancel_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+            List<StudyRoomReservationDto> reservationList_complete = reservationList_complete_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+            List<StudyRoomReservationDto> reservationList_noshow = reservationList_noshow_temp.stream()
+                    .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
+                    .collect(Collectors.toList());
+
+            model.addAttribute("reservationList_wait",reservationList_wait);
+            model.addAttribute("reservationList_reject",reservationList_reject);
+            model.addAttribute("reservationList_allow",reservationList_allow);
+            model.addAttribute("reservationList_use",reservationList_use);
+            model.addAttribute("reservationList_cancel",reservationList_cancel);
+            model.addAttribute("reservationList_complete",reservationList_complete);
+            model.addAttribute("reservationList_noshow",reservationList_noshow);
             model.addAttribute("errorMessage", e.getMessage());
+
             return "member/memberStudyRoomReservationList";
         }
 

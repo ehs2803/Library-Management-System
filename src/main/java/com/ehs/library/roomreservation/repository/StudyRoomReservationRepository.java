@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomReservation, Long> {
@@ -31,4 +32,6 @@ public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomR
 
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.member=:member")
     List<StudyRoomReservation> findByMemberFetchJoinRoom(@Param("member") Member member);
+
+    //List<StudyRoomReservation> findByRoomAndReservation_time(StudyRoom room, LocalDate localDate);
 }

@@ -61,16 +61,6 @@ public class BookHopeController {
         List<BookHope> bookHopeListReject = bookHopeService.findByMemberAndState(email, BookHopeState.REJECT);
         List<BookHopeMapperDto> bookHopeMapperDtoList = bookHopeMapperRepository.findProgressBookHope(memberId);
 
-//        for(int i=0;i<bookHopeMapperDtoList.size();i++){
-//            System.out.println(bookHopeMapperDtoList.get(i).getBook_hope_id());
-//        }
-//        for(int i=0;i<bookHopeListComplete.size();i++){
-//            System.out.println(bookHopeListComplete.get(i).getName());
-//        }
-//        for(int i=0;i<bookHopeListReject.size();i++){
-//            System.out.println(bookHopeListReject.get(i).getName());
-//        }
-
         model.addAttribute("bookHopeListComplete", bookHopeListComplete);
         model.addAttribute("bookHopeListReject", bookHopeListReject);
         model.addAttribute("bookHopeListProgress", bookHopeMapperDtoList);

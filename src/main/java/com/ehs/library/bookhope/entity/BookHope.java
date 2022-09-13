@@ -23,7 +23,7 @@ public class BookHope extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String isbn;
 
     @Column(nullable = false)

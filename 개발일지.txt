@@ -334,4 +334,4 @@ uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/
 
 ==============================================================
 2022.09.13.화
-- roomreservation-user 패키지 dto, 리팩토링, 예외, 트랜잭션 설정.
+- roomreservation-user, bookhope-admin 패키지 dto, 리팩토링, 예외, 트랜잭션 설정.

@@ -29,21 +29,25 @@ public class RoomReservationService {
     private final MemberRepository memberRepository;
 
     // id로 스터디룸 조회
+    @Transactional(readOnly = true)
     public StudyRoom findById(Long id){
         return studyRoomRepository.findById(id).get();
     }
 
     // 모든 스터디룸 조회
+    @Transactional(readOnly = true)
     public List<StudyRoom> getStudyRoom(){
         return studyRoomRepository.findAll();
     }
 
     // 스터디룸 id State가 wait or allow인 것 reservations까지 fetch join
+    @Transactional(readOnly = true)
     public StudyRoom findByIdAndStateWaitOrAllowFetchJoi(Long id){
         return studyRoomRepository.findByIdAndStateWaitOrAllowFetchJoin(id);
     }
 
     // 특정 유저의 스터디룸예약 목록 조회
+    @Transactional(readOnly = true)
     public List<StudyRoomReservation> findByMemberFetchJoinRoom(String email){
         return studyRoomReservationRepository.findByMemberFetchJoinRoom(memberRepository.findByEmail(email));
     }

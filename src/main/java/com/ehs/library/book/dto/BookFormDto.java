@@ -2,14 +2,16 @@ package com.ehs.library.book.dto;
 
 import com.ehs.library.book.constant.BookState;
 import com.ehs.library.book.entity.Book;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class BookFormDto {
     private Long id;

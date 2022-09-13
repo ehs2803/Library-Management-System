@@ -19,24 +19,32 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 public class BookHopeService {
-    private final MemberRepository memberRepository;
     private final BookHopeRepository bookHopeRepository;
 
+    // 상태별 BookHope 반환
+    @Transactional(readOnly = true)
     public List<BookHope> findByState(BookHopeState bookHopeState){
         return bookHopeRepository.findByState(bookHopeState);
     }
 
+    // 상태별 BookHope 개수 반환
+    @Transactional(readOnly = true)
     public int countByState(BookHopeState bookHopeState){
         return bookHopeRepository.countBookHopeByState(bookHopeState);
     }
 
+    // id로 bookhope 찾기
+    @Transactional(readOnly = true)
     public Optional<BookHope> findById(Long id){
         return bookHopeRepository.findById(id);
     }
 
+    // bookhope state update
     public Long updateState(BookHopeUpdateDto bookHopeUpdateDto){
         BookHope bookHope = bookHopeRepository.findById(bookHopeUpdateDto.getId()).get();
-        bookHope.setState(bookHopeUpdateDto.getState());
+        bookHope.setState(bookHopeUpdateDto.getState()); // state update
+
+        // 각 상태별 시간 업데이트
         if(bookHopeUpdateDto.getState().toString().equals("ALLOW")){
             bookHope.setAllowTime(LocalDateTime.now());
         }

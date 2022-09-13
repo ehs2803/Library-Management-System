@@ -28,29 +28,42 @@ public class RoomReservationService {
     private final StudyRoomReservationRepository studyRoomReservationRepository;
     private final MemberRepository memberRepository;
 
+    // id로 스터디룸 조회
     public StudyRoom findById(Long id){
         return studyRoomRepository.findById(id).get();
     }
 
+    // 모든 스터디룸 조회
     public List<StudyRoom> getStudyRoom(){
         return studyRoomRepository.findAll();
     }
 
-    public StudyRoom getStudyRoomFetchJoin(Long id){
-        return studyRoomRepository.findByIdFetchJoin(id);
+    // 스터디룸 id State가 wait or allow인 것 reservations까지 fetch join
+    public StudyRoom findByIdAndStateWaitOrAllowFetchJoi(Long id){
+        return studyRoomRepository.findByIdAndStateWaitOrAllowFetchJoin(id);
     }
 
+    // 특정 유저의 스터디룸예약 목록 조회
     public List<StudyRoomReservation> findByMemberFetchJoinRoom(String email){
         return studyRoomReservationRepository.findByMemberFetchJoinRoom(memberRepository.findByEmail(email));
     }
 
+    // 스터디룸 예약하기
     public Long reservationStudyRoom(String email, StudyRoomBookFormDto studyRoomBookFormDto){
         Member member = memberRepository.findByEmail(email);
         StudyRoom studyRoom = studyRoomRepository.findById(studyRoomBookFormDto.getId()).get();
 
+        // 입력 예약날짜 포맷팅
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
         String inputDate = studyRoomBookFormDto.getBookLocalDate()+"-"+studyRoomBookFormDto.getTime();
         LocalDateTime localDateTime = LocalDateTime.parse(inputDate, formatter);
+
+        // 제재
+
+        // 예약시간이 겹치는 경우
+//        List<StudyRoomReservation> validateTime =
+//                studyRoomReservationRepository.findByRoomAndReservation_time(studyRoom, LocalDate.now());
+//        System.out.println(validateTime.size());
 
         StudyRoomReservation studyRoomReservation = StudyRoomReservation.builder()
                 .room(studyRoom)
@@ -67,6 +80,7 @@ public class RoomReservationService {
     // 스터디룸 예약 취소
     public void studyRoomStateSetCancel(Long id) throws Exception {
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
+        // 예약날짜와 현재날짜가 같을 경우
         if(ChronoLocalDate.from(studyRoomReservation.getReservation_time()).isEqual(LocalDate.now())){
             throw new Exception("당일 예약 취소는 불가능합니다.");
         }

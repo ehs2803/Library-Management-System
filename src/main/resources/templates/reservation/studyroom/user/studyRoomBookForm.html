@@ -144,6 +144,7 @@
                     <p th:if="${#fields.hasErrors('person_cnt')}" th:errors="*{person_cnt}" class="fieldError">Incorrect data</p>
                 </div>
                 <br>
+                <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
 
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-primary" style="">스터디룸 예약</button>

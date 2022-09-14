@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class BookHopeDto {
     private Long id;
     private String name;
+    private String isbn;
     private LocalDateTime regTime;
     private MemberSimpleDto user;
 }

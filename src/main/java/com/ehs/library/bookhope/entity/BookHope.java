@@ -3,9 +3,7 @@ package com.ehs.library.bookhope.entity;
 import com.ehs.library.base.entity.BaseTimeEntity;
 import com.ehs.library.bookhope.constant.BookHopeState;
 import com.ehs.library.member.entity.Member;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="book_hope")
 @Getter @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookHope extends BaseTimeEntity {
     @Id
     @Column(name="book_hope_id")

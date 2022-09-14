@@ -20,30 +20,39 @@ public class BookHopeService {
     private final MemberRepository memberRepository;
     private final BookHopeRepository bookHopeRepository;
 
+    // 희망도서 신청
     public Long registerBookHope(BookHopeFormDto bookHopeFormDto, String email){
-        BookHope bookHope = new BookHope();
-        bookHope.setName(bookHopeFormDto.getName());
-        bookHope.setIsbn(bookHopeFormDto.getIsbn());
-        bookHope.setAuthor(bookHopeFormDto.getAuthor());
-        bookHope.setPublisher(bookHopeFormDto.getPublisher());
-        bookHope.setYear(bookHopeFormDto.getYear());
-        bookHope.setState(BookHopeState.REVIEW);
         Member findMember = memberRepository.findByEmail(email);
-        bookHope.setUser(findMember);
+        BookHope bookHope = BookHope.builder()
+                .name(bookHopeFormDto.getName())
+                .isbn(bookHopeFormDto.getIsbn())
+                .author(bookHopeFormDto.getAuthor())
+                .publisher(bookHopeFormDto.getPublisher())
+                .year(bookHopeFormDto.getYear())
+                .state(BookHopeState.REVIEW)
+                .user(findMember)
+                .build();
+
         bookHopeRepository.save(bookHope);
 
         return bookHope.getId();
     }
 
+    // 멤버, bookhope state 기반 bookhope 목록 조회
+    @Transactional(readOnly = true)
     public List<BookHope> findByMemberAndState(String email, BookHopeState bookHopeState){
         Member member = memberRepository.findByEmail(email);
         return bookHopeRepository.findByIdAndState(member.getId(), bookHopeState);
     }
 
+    // 이메일 기반 멤버 아이디 조회
+    @Transactional(readOnly = true)
     public Long getMemberId(String email){
         return memberRepository.findByEmail(email).getId();
     }
 
+    // id bookhope 조회
+    @Transactional(readOnly = true)
     public BookHope findById(Long id){
         return bookHopeRepository.findById(id).get();
     }

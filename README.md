@@ -21,9 +21,9 @@
 
 1. 시스템 구성도
 
-![image](https://user-images.githubusercontent.com/65898555/190887103-16282f96-5d95-4139-9344-abfbd6da7a7a.png)
+![image](https://user-images.githubusercontent.com/65898555/190890357-b84d2318-0cf1-43d7-884f-f37fe65969ca.png)
 
-1. CI/CD 구성도
+2. CI/CD 구성도
 
 ![Untitled](docs/images/Untitled%201.png)
 
@@ -31,7 +31,18 @@
 
 ![Untitled](docs/images/Untitled%2030.png)
 
-![Untitled](docs/images/Untitled%2031.png)
+- member : 사용자 정보 저장
+- book : 책 정보
+- book_imt : 책 이미지 정보
+- book_interest : 관심도서 등록 정보
+- book_reservation : 도서예약 정보
+- book_hope : 희망도서 신청 정보
+- loan : 도서 대출정보
+- loan_wait_list : 
+- studyroom : 스터디룸 정보
+- study_room_reservation : 스터디룸 예약 정보
+- notice : 공지사항 정보
+- hit_per_day : 일별 방문횟수 저장
 
 # 기능
 

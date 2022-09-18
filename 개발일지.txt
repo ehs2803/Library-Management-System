@@ -360,4 +360,4 @@ uploadPath: /home/ec2-user/app/image/ -> uploadPath: file:////home/ec2-user/app/
 ==============================================================
 2022.09.18.일
 - 테이블 모바일에서 잘 보일 수 있게 table 처리 / style="overflow-x:auto;"
-
+- ec2에서 nginx이용해 80번포트->8000번 포트

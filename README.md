@@ -21,7 +21,7 @@
 
 1. 시스템 구성도
 
-![Untitled](docs/images/Untitled.png)
+![image](https://user-images.githubusercontent.com/65898555/190887103-16282f96-5d95-4139-9344-abfbd6da7a7a.png)
 
 1. CI/CD 구성도
 

@@ -31,6 +31,7 @@ public class StudyRoom extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StudyRoomState state;
 
+    @Builder.Default
     @OneToMany(mappedBy = "room")
     private List<StudyRoomReservation> reservations = new ArrayList<>();
 }

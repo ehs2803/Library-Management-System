@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class BookHopeController {
 
     private final BookHopeService bookHopeService;
+    private final ModelMapper modelMapper;
 
     // 도서관 직원 관리자페이지
     @GetMapping("mypage")
@@ -61,7 +62,7 @@ public class BookHopeController {
     public String manageBookHopeReview(Model model){
         List<BookHope> bookHopeReviewList_entity = bookHopeService.findByState(BookHopeState.REVIEW);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeReviewList = bookHopeReviewList_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());
@@ -140,7 +141,7 @@ public class BookHopeController {
     public String manageBookHopeReject(Model model){
         List<BookHope> bookHopeRejectList_entity = bookHopeService.findByState(BookHopeState.REJECT);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeRejectList = bookHopeRejectList_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());
@@ -154,7 +155,7 @@ public class BookHopeController {
     public String manageBookHopeAllow(Model model){
         List<BookHope> bookHopeAllowList_entity = bookHopeService.findByState(BookHopeState.ALLOW);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeAllowList = bookHopeAllowList_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());
@@ -168,7 +169,7 @@ public class BookHopeController {
     public String manageBookHopeShpping(Model model){
         List<BookHope> bookHopeShippingList_entity = bookHopeService.findByState(BookHopeState.SHIPPING);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeShippingList = bookHopeShippingList_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());
@@ -182,7 +183,7 @@ public class BookHopeController {
     public String manageBookHopeArrange(Model model){
         List<BookHope> bookHopeArrangeList_entity = bookHopeService.findByState(BookHopeState.ARRANGE);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeArrangeList = bookHopeArrangeList_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());
@@ -196,7 +197,7 @@ public class BookHopeController {
     public String manageBookHopeComplete(Model model){
         List<BookHope> bookHopeCompleteList_entity = bookHopeService.findByState(BookHopeState.COMPLETE);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeCompleteList = bookHopeCompleteList_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());

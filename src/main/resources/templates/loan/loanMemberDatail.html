@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>[Template] Sample Inner Page</title>
+    <title>Spring Library</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/img/favicon.png" rel="icon">
-    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="/img/spring.png" rel="icon">
+    <link href="/img/spring.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -215,6 +215,7 @@
                 <ol>
                     <li><a href="/">Home</a></li>
                     <li><a href="/admin/mypage">관리자 페이지</a></li>
+                    <li><a href="/admin/book/loan">멤버 리스트</a></li>
                     <li>대출</li>
                 </ol>
             </div>
@@ -251,7 +252,7 @@
                     <div class="row">
                         <h2 style="display:inline">대출 현황</h2>
                     </div>
-                    <div class="row">
+                    <div style="overflow-x:auto;" class="row">
                         <table class="tblBackground" cellspacing="0">
                             <tr>
                                 <td>
@@ -328,7 +329,7 @@
                         <h2 style="display:inline">대출 대기</h2>
                         <a style="display:inline" th:href="@{|/admin/book/loan/${member.id}|}" class="btn btn-primary">대출하기</a>
                     </div>
-                    <div class="row">
+                    <div class="row" style="overflow-x:auto;">
                         <table class="tblBackground" cellspacing="0">
                             <tr>
                                 <td>
@@ -413,7 +414,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="overflow-x:auto;">
                         <table class="tblBackground" cellspacing="0">
                             <tr>
                                 <td>

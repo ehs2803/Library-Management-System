@@ -33,5 +33,7 @@ public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomR
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.member=:member")
     List<StudyRoomReservation> findByMemberFetchJoinRoom(@Param("member") Member member);
 
+    int countByRoom(StudyRoom room);
+
     //List<StudyRoomReservation> findByRoomAndReservation_time(StudyRoom room, LocalDate localDate);
 }

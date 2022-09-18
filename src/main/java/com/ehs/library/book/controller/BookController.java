@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
+    private final ModelMapper modelMapper;
 
     // 새로운 책 등록 폼
     @GetMapping("/admin/book/new")
@@ -90,7 +91,7 @@ public class BookController {
 
         List<Book> bookList_temp= bookService.findBookbyISBN(book.getIsbn());
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookListDto> bookList = bookList_temp.stream()
                 .map(books->modelMapper.map(books, BookListDto.class))
                 .collect(Collectors.toList());

@@ -45,6 +45,7 @@ public class MemberMypageController {
     private final PasswordEncoder passwordEncoder;
     private final LoanService loanService;
     private final RoomReservationService roomReservationService;
+    private final ModelMapper modelMapper;
 
     // 일반 유저 마이페이지
     @GetMapping("")
@@ -144,7 +145,7 @@ public class MemberMypageController {
         Member member = memberService.findByemail(principal.getName());
         List<BookInterest> bookInterestList_temp = memberService.findByMemberBookInterestList(member);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        //ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookInterestDto> bookInterestList = bookInterestList_temp.stream()
                 .map(book-> modelMapper.map(book, BookInterestDto.class))
                 .collect(Collectors.toList());
@@ -160,7 +161,7 @@ public class MemberMypageController {
         Member member = memberService.findByemail(principal.getName());
         List<BookReservation> bookReservationList_temp = memberService.findByMemberBookReservation(member);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookReservationDto> bookReservationList = bookReservationList_temp.stream()
                 .map(reservation-> modelMapper.map(reservation, BookReservationDto.class))
                 .collect(Collectors.toList());
@@ -196,8 +197,7 @@ public class MemberMypageController {
                 else if(ReservationList.get(i).getState().toString().equals("NOSHOW")) reservationList_noshow_temp.add(ReservationList.get(i));
             }
 
-            ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
-
+            // ModelMapper이용해 List<Entity> -> List<Dto>
             List<StudyRoomReservationDto> reservationList_wait = reservationList_wait_temp.stream()
                     .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
                     .collect(Collectors.toList());
@@ -258,8 +258,7 @@ public class MemberMypageController {
             else if(ReservationList.get(i).getState().toString().equals("NOSHOW")) reservationList_noshow_temp.add(ReservationList.get(i));
         }
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
-
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<StudyRoomReservationDto> reservationList_wait = reservationList_wait_temp.stream()
                         .map(reservation-> modelMapper.map(reservation, StudyRoomReservationDto.class))
                         .collect(Collectors.toList());

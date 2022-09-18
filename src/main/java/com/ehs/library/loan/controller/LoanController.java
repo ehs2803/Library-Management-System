@@ -40,6 +40,7 @@ public class LoanController {
     private final MemberService memberService;
     private final BookService bookService;
     private final LoanService loanService;
+    private final ModelMapper modelMapper;
 
     // 일반 유저 검색(키워드, 페이징)
     @GetMapping("/admin/book/loan")
@@ -73,7 +74,7 @@ public class LoanController {
         List<LoanWaitList> loanWaitList_entity = loanService.findByMember(member_entity);
         List<Loan> loanList_entity = loanService.findByMemberAndLoan(member_entity, LoanState.LOAN);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<LoanDto> loanList = loanList_entity.stream()
                 .map(loan->modelMapper.map(loan, LoanDto.class))
                 .collect(Collectors.toList());

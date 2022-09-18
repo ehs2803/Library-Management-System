@@ -23,25 +23,30 @@ public class MainService {
     private final BookRepository bookRepository;
     private final HitPerDayRepository hitPerDayRepository;
 
-    EntityManager em;
+    //EntityManager em;
 
+    // 일반 유저수 조회
+    @Transactional(readOnly = true)
     public Long getuserMemberCnt(){
         return memberRepository.countByRole(Role.USER);
     }
 
+    // 도서수 조회
+    @Transactional(readOnly = true)
     public Long getBookCnt(){
         return bookRepository.count();
     }
 
+    // 당일 조회수 조회
+    @Transactional(readOnly = true)
     public int getHitPerDay(){
         return hitPerDayRepository.findByDay(LocalDate.now()).getHit();
     }
 
+    // 당일 조회수 증가
     public Long increaseHit(){
-        System.out.println(11);
-        Long cnt = hitPerDayRepository.countByDay(LocalDate.now());
-        if(cnt==0){
-            System.out.println(11);
+        HitPerDay hitPerDay = hitPerDayRepository.findByDay(LocalDate.now());
+        if(hitPerDay==null){ // 당일 날짜의 HipPerDay가 없는 경우
             HitPerDay newHitPerDay = new HitPerDay();
             newHitPerDay.setDay(LocalDate.now());
             newHitPerDay.setHit(1);
@@ -49,7 +54,6 @@ public class MainService {
             return newHitPerDay.getId();
         }
         else{
-            HitPerDay hitPerDay = hitPerDayRepository.findByDay(LocalDate.now());
             hitPerDay.setHit(hitPerDay.getHit()+1);
             return hitPerDay.getId();
         }

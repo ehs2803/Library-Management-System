@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoomReservationController {
     private final RoomReservationService roomReservationService;
+    private final ModelMapper modelMapper;
 
     // 관리자페이지 스터디룸 관리 데시보드 페이지
     @GetMapping("/admin/reservation/studyroom")
@@ -39,7 +41,7 @@ public class RoomReservationController {
     public String adminPageStudyRoomList(Model model){
         List<StudyRoom> studyRoomList_entity = roomReservationService.getStudyRoom();
 
-       ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+       // ModelMapper이용해 List<Entity> -> List<Dto>
        List<StudyRoomListDto> studyRoomList = studyRoomList_entity.stream()
                .map(studyroom->modelMapper.map(studyroom, StudyRoomListDto.class))
                .collect(Collectors.toList());
@@ -108,18 +110,38 @@ public class RoomReservationController {
         return "redirect:/admin/studyroom/list";
     }
 
-    // 스터디룸 id 정보 및 예약 기록 조회
+    // 스터디룸 id 정보 및 예약 기록 조회 ** NPE 문제 있음.. 임시적으로 해결함. 추후 고칠예정..
     @GetMapping("/admin/reservation/studyroom/book/{id}")
     public String getStudyRoomReservationList(@PathVariable Long id, Model model){
-        StudyRoom studyRoom_entity = roomReservationService.getStudyRoomFetchJoinAll(id);
-        List<StudyRoomReservation> studyRoomReservationList_entity = studyRoom_entity.getReservations();
+        StudyRoom studyRoom_entity_check = roomReservationService.getStudyRoomFetchJoinAll(id);
+        StudyRoom studyRoom_entity;
+        List<StudyRoomReservation> studyRoomReservationList_entity;
+        StudyRoomDto studyRoom;
+        if(studyRoom_entity_check==null){
+            studyRoom_entity = roomReservationService.findStudyRoomById(id);
+            studyRoom = StudyRoomDto.builder()
+                    .name(studyRoom_entity.getName())
+                    .location(studyRoom_entity.getLocation())
+                    .capacity(studyRoom_entity.getCapacity())
+                    .build();
+            studyRoomReservationList_entity=new ArrayList<>();
+        }
+        else{
+            studyRoomReservationList_entity = studyRoom_entity_check.getReservations();
+            studyRoom = StudyRoomDto.builder()
+                    .name(studyRoom_entity_check.getName())
+                    .location(studyRoom_entity_check.getLocation())
+                    .capacity(studyRoom_entity_check.getCapacity())
+                    .build();
+        }
 
-        StudyRoomDto studyRoom = StudyRoomDto.builder()
-                .name(studyRoom_entity.getName())
-                .location(studyRoom_entity.getLocation())
-                .capacity(studyRoom_entity.getCapacity())
-                .build();
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+
+//        studyRoom = StudyRoomDto.builder()
+//                .name(studyRoom_entity.getName())
+//                .location(studyRoom_entity.getLocation())
+//                .capacity(studyRoom_entity.getCapacity())
+//                .build();
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<StudyRoomReservationDto> studyRoomReservationList = studyRoomReservationList_entity.stream()
                 .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
                 .collect(Collectors.toList());
@@ -135,7 +157,7 @@ public class RoomReservationController {
     public String studyRoomReservationWaitList(Model model){
         List<StudyRoomReservation> studyRoomReservationList_entity = roomReservationService.findByStateWaitFetchJoin();
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<StudyRoomReservationDto> studyRoomReservationList = studyRoomReservationList_entity.stream()
                 .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
                 .collect(Collectors.toList());
@@ -150,7 +172,7 @@ public class RoomReservationController {
     public String studyRoomReservationAllowList(Model model){
         List<StudyRoomReservation> studyRoomReservationList_entity = roomReservationService.findByStateAllowFetchJoin();
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<StudyRoomReservationDto> studyRoomReservationList = studyRoomReservationList_entity.stream()
                 .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
                 .collect(Collectors.toList());
@@ -165,7 +187,7 @@ public class RoomReservationController {
     public String studyRoomReservationCompleteList(Model model){
         List<StudyRoomReservation> studyRoomReservationList_entity = roomReservationService.findByStateCompleteAndRejectFetchJoin();
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<StudyRoomReservationDto> studyRoomReservationList = studyRoomReservationList_entity.stream()
                 .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
                 .collect(Collectors.toList());
@@ -180,7 +202,7 @@ public class RoomReservationController {
     public String studyRoomUse(Model model){
         List<StudyRoomReservation> studyRoomReservationList_entity = roomReservationService.findByStateUseFetchJoinRoom();
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<StudyRoomReservationDto> studyRoomReservationList = studyRoomReservationList_entity.stream()
                 .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
                 .collect(Collectors.toList());

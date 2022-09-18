@@ -8,5 +8,5 @@ public class Policy {
 
     public final static int RESERVATION_LIMIT_BOOK = 3; // 도서는 최대 3명의 회원이 예약할 수 있음
     public final static int RESERVATION_LIMIT_MEMBER = 3; // 회원은 최대 3개의 도서를 예약할 수 있음
-    public final static int RESERVATION_DAY = 3;
+    public final static int RESERVATION_DAY = 3; // 도서예약 후 도서대출가능 시 우선대출가능일수
 }

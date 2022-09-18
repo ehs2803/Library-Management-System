@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class BookHopeController {
     private final BookHopeService bookHopeService;
     private final BookHopeMapperRepository bookHopeMapperRepository;
+    private final ModelMapper modelMapper;
 
     // 희망도서 신청 폼
     @GetMapping("/book/hope/register")
@@ -65,7 +66,7 @@ public class BookHopeController {
         List<BookHope> bookHopeListReject_entity = bookHopeService.findByMemberAndState(email, BookHopeState.REJECT);
         List<BookHopeMapperDto> bookHopeMapperDtoList = bookHopeMapperRepository.findProgressBookHope(memberId);
 
-        ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+        // ModelMapper이용해 List<Entity> -> List<Dto>
         List<BookHopeDto> bookHopeListComplete = bookHopeListComplete_entity.stream()
                 .map(bookHope->modelMapper.map(bookHope, BookHopeDto.class))
                 .collect(Collectors.toList());

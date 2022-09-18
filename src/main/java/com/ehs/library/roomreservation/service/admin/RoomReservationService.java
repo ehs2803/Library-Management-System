@@ -25,6 +25,17 @@ public class RoomReservationService {
     private final StudyRoomRepository studyRoomRepository;
     private final StudyRoomReservationRepository studyRoomReservationRepository;
 
+    @Transactional(readOnly = true)
+    public StudyRoom findStudyRoomById(Long id){
+        return studyRoomRepository.findById(id).get();
+    }
+
+    // 스터디룸 id 예약건수
+    @Transactional(readOnly = true)
+    public int countByStudyRoom(Long id){
+        return studyRoomReservationRepository.countByRoom(studyRoomRepository.findById(id).get());
+    }
+
     // db에 등록된 스터디룸 조회
     @Transactional(readOnly = true)
     public List<StudyRoom> getStudyRoom(){

@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>[Template] Sample Inner Page</title>
+    <title>Spring Library</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/img/favicon.png" rel="icon">
-    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+    <link href="/img/spring.png" rel="icon">
+    <link href="/img/spring.png" rel="apple-touch-icon">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,10 +33,10 @@
         }
 
         .content {
-            margin-bottom: 100px;
-            margin-top: 50px;
-            margin-left: 200px;
-            margin-right: 200px;
+            margin-bottom:10%;
+            margin-top: 10%;
+            margin-left: 10%;
+            margin-right: 10%;
         }
     </style>
 </head>
@@ -76,190 +75,212 @@
         <div class="content">
             <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
             <h1>승인 대기 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                    <th>예약취소</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_wait}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td><a th:href="@{|/member/mypage/reservation/studyroom/cancel/${reservation.id}|}" class="btn btn-primary">예약취소</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                        <th>예약취소</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_wait}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td><a th:href="@{|/member/mypage/reservation/studyroom/cancel/${reservation.id}|}" class="btn btn-primary">예약취소</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <h1>승인 거절 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_reject}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_reject}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <h1>승인 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                    <th>예약취소</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_allow}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td><a th:href="@{|/member/mypage/reservation/studyroom/cancel/${reservation.id}|}" class="btn btn-primary">예약취소</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                        <th>예약취소</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_allow}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td><a th:href="@{|/member/mypage/reservation/studyroom/cancel/${reservation.id}|}" class="btn btn-primary">예약취소</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <h1>현재 이용중인 예약 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_use}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_use}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
 
             <h1>완료 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_complete}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_complete}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <h1>예약 취소 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_cancel}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_cancel}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <h1>NOSHOW 목록</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>스터디룸</th>
-                    <th>예약일시</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약회원</th>
-                    <th>예약한 일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="reservation, loop : ${reservationList_noshow}">
-                    <td th:text="${loop.count}"></td>
-                    <th th:text="${reservation.room.name}"></th>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
-                    <td th:text="${reservation.createdBy}"></td>
-                    <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>스터디룸</th>
+                        <th>예약일시</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약회원</th>
+                        <th>예약한 일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation, loop : ${reservationList_noshow}">
+                        <td th:text="${loop.count}"></td>
+                        <th th:text="${reservation.room.name}"></th>
+                        <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${reservation.use_hour}"></td>
+                        <td th:text="${reservation.person_cnt}"></td>
+                        <td th:text="${reservation.createdBy}"></td>
+                        <td th:text="${#temporals.format(reservation.regTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </section>
 

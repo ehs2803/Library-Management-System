@@ -27,8 +27,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -68,6 +68,14 @@ class MemberControllerTest {
         memberFormDto.setRole("ADMIN");
         Member member = Member.createMember(memberFormDto, passwordEncoder);
         return memberService.saveMember(member);
+    }
+
+    @Test
+    @DisplayName("로그인 페이지")
+    public void loginPageAccess() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("member/loginForm"));
     }
 
     @Test

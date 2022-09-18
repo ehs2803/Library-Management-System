@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>[Template] Sample Inner Page</title>
+    <title>Spring Library</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/img/favicon.png" rel="icon">
-    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="/img/spring.png" rel="icon">
+    <link href="/img/spring.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,14 @@
     <!-- Template Main CSS File -->
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/list.css" rel="stylesheet">
+    <style>
+        .content {
+            margin-bottom:10%;
+            margin-top: 10%;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,7 +61,7 @@
                 <ol>
                     <li><a href="/">Home</a></li>
                     <li><a href="/admin/mypage">관리자 페이지</a></li>
-                    <li>대출</li>
+                    <li>멤버 리스트</li>
                 </ol>
             </div>
         </nav>
@@ -67,26 +75,29 @@
                     <button class="btn btn-secondary">검색</button>
                 </div>
             </form><br>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th></th>
-                    <th>아이디(이메일)</th>
-                    <th>이름</th>
-                    <th>가입날짜</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="member, loop : ${memberList}">
-                    <td th:text="${loop.count}"></td>
-                    <td>
-                        <a th:href="@{|/admin/member/${member.id}|}" th:text="${member.email}"></a>
-                    </td>
-                    <td th:text="${member.name}"></td>
-                    <td th:text="${#temporals.format(member.regTime, 'yyyy-MM-dd HH:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th></th>
+                        <th>아이디(이메일)</th>
+                        <th>이름</th>
+                        <th>가입날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="member, loop : ${memberList}">
+                        <td th:text="${loop.count}"></td>
+                        <td>
+                            <a th:href="@{|/admin/member/${member.id}|}" th:text="${member.email}"></a>
+                        </td>
+                        <td th:text="${member.name}"></td>
+                        <td th:text="${#temporals.format(member.regTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div class="pagination justify-content-center">
                 <a th:if="${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>
                 <a th:if="!${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button" class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>

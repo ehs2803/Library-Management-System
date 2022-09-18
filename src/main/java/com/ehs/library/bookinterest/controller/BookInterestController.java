@@ -2,6 +2,7 @@ package com.ehs.library.bookinterest.controller;
 
 import com.ehs.library.bookinterest.service.BookInterestService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

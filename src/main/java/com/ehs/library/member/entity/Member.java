@@ -37,6 +37,12 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "sanction_book_day")
+    private int sanctionBookDay;
+
+    @Column(name = "sanction_studyroom_day")
+    private int sanctionStudyRoomDay;
+
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto.getName());

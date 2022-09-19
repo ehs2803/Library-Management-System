@@ -9,6 +9,9 @@ import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
 import com.ehs.library.roomreservation.repository.StudyRoomRepository;
 import com.ehs.library.roomreservation.repository.StudyRoomReservationRepository;
+import com.ehs.library.sanction.constant.SanctionState;
+import com.ehs.library.sanction.constant.SanctionType;
+import com.ehs.library.sanction.repository.SanctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,7 @@ public class RoomReservationService {
     private final StudyRoomRepository studyRoomRepository;
     private final StudyRoomReservationRepository studyRoomReservationRepository;
     private final MemberRepository memberRepository;
+    private final SanctionRepository sanctionRepository;
 
     // id로 스터디룸 조회
     @Transactional(readOnly = true)
@@ -53,7 +57,7 @@ public class RoomReservationService {
     }
 
     // 스터디룸 예약하기
-    public Long reservationStudyRoom(String email, StudyRoomBookFormDto studyRoomBookFormDto){
+    public Long reservationStudyRoom(String email, StudyRoomBookFormDto studyRoomBookFormDto) throws Exception {
         Member member = memberRepository.findByEmail(email);
         StudyRoom studyRoom = studyRoomRepository.findById(studyRoomBookFormDto.getId()).get();
 
@@ -63,6 +67,9 @@ public class RoomReservationService {
         LocalDateTime localDateTime = LocalDateTime.parse(inputDate, formatter);
 
         // 제재
+        if(member.getSanctionStudyRoomDay()>0){
+            throw new Exception("현재 제재중입니다. 스터디룸 예약이 불가능합니다.");
+        }
 
         // 예약시간이 겹치는 경우
 //        List<StudyRoomReservation> validateTime =

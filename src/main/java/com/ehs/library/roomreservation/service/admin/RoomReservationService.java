@@ -1,5 +1,8 @@
 package com.ehs.library.roomreservation.service.admin;
 
+import com.ehs.library.base.constant.Policy;
+import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.repository.MemberRepository;
 import com.ehs.library.roomreservation.constant.ReservationState;
 import com.ehs.library.roomreservation.constant.StudyRoomState;
 import com.ehs.library.roomreservation.dto.StudyRoomFormDto;
@@ -7,6 +10,10 @@ import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
 import com.ehs.library.roomreservation.repository.StudyRoomRepository;
 import com.ehs.library.roomreservation.repository.StudyRoomReservationRepository;
+import com.ehs.library.sanction.constant.SanctionState;
+import com.ehs.library.sanction.constant.SanctionType;
+import com.ehs.library.sanction.entity.Sanction;
+import com.ehs.library.sanction.repository.SanctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
@@ -24,6 +31,8 @@ import java.util.List;
 public class RoomReservationService {
     private final StudyRoomRepository studyRoomRepository;
     private final StudyRoomReservationRepository studyRoomReservationRepository;
+    private final SanctionRepository sanctionRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
     public StudyRoom findStudyRoomById(Long id){
@@ -169,9 +178,18 @@ public class RoomReservationService {
     }
 
     // 스터디룸 예약 상태 NOSHOW로 변경
-    public void studyRoomStateSetNoShow(Long id){
+    public void studyRoomStateSetNoShow(Long id, String email){
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
         studyRoomReservation.setState(ReservationState.NOSHOW);
+        Member member = memberRepository.findByEmail(email);
+        Sanction sanction = Sanction.builder()
+                .member(member)
+                .sanctionDay(Policy.SANCTION_DAY_STUDYROOM)
+                .type(SanctionType.STUDYROOM)
+                .studyRoomReservation(studyRoomReservation)
+                .build();
+        sanctionRepository.save(sanction);
+        member.setSanctionStudyRoomDay(member.getSanctionStudyRoomDay()+Policy.SANCTION_DAY_STUDYROOM);
     }
 
     // 스터디룸 예약 상태 COMPLETE로 변경

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -257,8 +258,8 @@ public class RoomReservationController {
 
     // 스터디룸 예약 상태 NOSHOW로 설정
     @GetMapping("/admin/reservation/studyroom/noshow/{id}")
-    public String studyRoomNoShow(@PathVariable Long id){
-        roomReservationService.studyRoomStateSetNoShow(id);
+    public String studyRoomNoShow(@PathVariable Long id, Principal principal){
+        roomReservationService.studyRoomStateSetNoShow(id, principal.getName());
 
         return "redirect:/admin/reservation/studyroom/complete";
     }

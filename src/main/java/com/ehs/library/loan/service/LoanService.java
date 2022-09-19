@@ -12,6 +12,10 @@ import com.ehs.library.loan.repository.LoanWaitListRepository;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
+import com.ehs.library.sanction.constant.SanctionState;
+import com.ehs.library.sanction.constant.SanctionType;
+import com.ehs.library.sanction.entity.Sanction;
+import com.ehs.library.sanction.repository.SanctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,10 +29,11 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class LoanService {
-
     private final BookRepository bookRepository;
     private final LoanWaitListRepository loanWaitListRepository;
     private final LoanRepository loanRepository;
+    private final SanctionRepository sanctionRepository;
+    private final MemberRepository memberRepository;
 
     // 도서 ID : bid 도서 waitList로 이동
     public void moveWaitList(Member member, Long bid){
@@ -63,6 +68,9 @@ public class LoanService {
         List<LoanWaitList> loanWaitListList = loanWaitListRepository.findByMemberFetchJoinBook(member);
 
         // 제재 중일 때
+        if(member.getSanctionBookDay()>0){
+            throw new Exception("현재 제재중입니다. 도서 대출이 불가능합니다.");
+        }
 
         // 만약 연체중인 책이 있을 때
         if(loanRepository.existsLoanByMemberAndLoanState(member, LoanState.OVERDUE)){
@@ -118,8 +126,8 @@ public class LoanService {
 
     // 대출 상태 변경
     public void updateLoanState(){
-        List<Loan> loanList_LOAN = loanRepository.findByLoanState(LoanState.LOAN);
-        List<Loan> loanList_OVERDUE = loanRepository.findByLoanState(LoanState.OVERDUE);
+        List<Loan> loanList_LOAN = loanRepository.findByLoanStateFetchJoinMember(LoanState.LOAN);
+        List<Loan> loanList_OVERDUE = loanRepository.findByLoanStateFetchJoinMember(LoanState.OVERDUE);
 
         // 대출 중인 건에 대해서...
         for(int i=0;i<loanList_LOAN.size();i++){
@@ -128,6 +136,15 @@ public class LoanService {
             if(loan.getRemainDay()==0){ // RemainDay가 0일 경우
                 loan.setLoanState(LoanState.OVERDUE); // 대출상태 연체 상태로 변경
                 loan.setOverdueDay(1); // 연체일 수 1로 설정
+                Sanction sanction = Sanction.builder()
+                        .member(loan.getMember())
+                        .sanctionDay(Policy.SANCTION_DAY_BOOK)
+                        .type(SanctionType.BOOK)
+                        .loan(loan)
+                        .build();
+                sanctionRepository.save(sanction);
+                Member member = loan.getMember();
+                member.setSanctionBookDay(member.getSanctionBookDay()+Policy.SANCTION_DAY_BOOK);
             }
         }
 
@@ -135,6 +152,12 @@ public class LoanService {
         for(int i=0;i<loanList_OVERDUE.size();i++){
             Loan loan = loanList_OVERDUE.get(i);
             loan.setOverdueDay(loan.getOverdueDay()+1); // 연체일수 +1
+
+            Sanction sanction = sanctionRepository.findByLoan(loan);
+            sanction.setSanctionDay(sanction.getSanctionDay()+Policy.SANCTION_DAY_BOOK);
+
+            Member member = loan.getMember();
+            member.setSanctionBookDay(member.getSanctionBookDay()+Policy.SANCTION_DAY_BOOK);
         }
     }
 }

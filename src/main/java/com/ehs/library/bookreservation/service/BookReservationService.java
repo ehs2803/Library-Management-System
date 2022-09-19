@@ -7,6 +7,9 @@ import com.ehs.library.bookreservation.entity.BookReservation;
 import com.ehs.library.bookreservation.repository.BookReservationRepository;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
+import com.ehs.library.sanction.constant.SanctionState;
+import com.ehs.library.sanction.constant.SanctionType;
+import com.ehs.library.sanction.repository.SanctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,7 @@ public class BookReservationService {
     private final BookReservationRepository bookReservationRepository;
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
+    private final SanctionRepository sanctionRepository;
 
     // 도서 예약하기
     public Long reservationBook(String email, Long bid) throws Exception {
@@ -29,6 +33,9 @@ public class BookReservationService {
 
         int reservationCnt_member = bookReservationRepository.countBookReservationByMember(member);
         int reservationCnt_book = bookReservationRepository.countBookReservationByBook(book);
+        if(member.getSanctionBookDay()>0){
+            throw new Exception("회원님은 현재 도서연체로 제재중입니다. 도서 예약이 불가능합니다.");
+        }
         if(bookReservationRepository.existsByMemberAndBook(member, book)){
             throw new Exception("회원님은 이미 해당 도서를 예약했습니다.");
         }

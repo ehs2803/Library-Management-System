@@ -20,6 +20,9 @@ import com.ehs.library.member.service.MemberService;
 import com.ehs.library.roomreservation.dto.StudyRoomReservationDto;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
 import com.ehs.library.roomreservation.service.user.RoomReservationService;
+import com.ehs.library.sanction.dto.SanctionDto;
+import com.ehs.library.sanction.entity.Sanction;
+import com.ehs.library.sanction.service.SanctionService;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -45,6 +48,7 @@ public class MemberMypageController {
     private final PasswordEncoder passwordEncoder;
     private final LoanService loanService;
     private final RoomReservationService roomReservationService;
+    private final SanctionService sanctionService;
     private final ModelMapper modelMapper;
 
     // 일반 유저 마이페이지
@@ -290,5 +294,25 @@ public class MemberMypageController {
         model.addAttribute("reservationList_noshow",reservationList_noshow);
 
         return "member/memberStudyRoomReservationList";
+    }
+
+
+    @GetMapping("/sanction/list")
+    public String getSanctionList(Model model, Principal principal){
+        List<Sanction> sanctionList_book_entity = sanctionService.findBookSanctionsByMemberFetchJoin(principal.getName());
+        List<Sanction> sanctionList_studyroom_entity = sanctionService.findStudyRoomSanctionsByMemberFetchJoin(principal.getName());
+
+        // List<Entity> -> List<Dto>
+        List<SanctionDto> sanctionList_book = sanctionList_book_entity.stream()
+                .map(sanction -> modelMapper.map(sanction, SanctionDto.class))
+                .collect(Collectors.toList());
+        List<SanctionDto> sanctionList_studyroom = sanctionList_studyroom_entity.stream()
+                .map(sanction -> modelMapper.map(sanction, SanctionDto.class))
+                .collect(Collectors.toList());
+
+        model.addAttribute("sanctionList_book",sanctionList_book);
+        model.addAttribute("sanctionList_studyroom",sanctionList_studyroom);
+
+        return "member/memberSanctionList";
     }
 }

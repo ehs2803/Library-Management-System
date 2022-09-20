@@ -2,6 +2,7 @@ package com.ehs.library.service;
 
 import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.exception.UserAlreadyExistException;
 import com.ehs.library.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ class MemberServiceTest {
         Member member1 = createMember();
         Member member2 = createMember();
         memberService.saveMember(member1);
-        Throwable e = assertThrows(IllegalStateException.class, () -> {
+        Throwable e = assertThrows(UserAlreadyExistException.class, () -> {
             memberService.saveMember(member2);});
         assertEquals("이미 존재하는 이메일입니다", e.getMessage());
     }

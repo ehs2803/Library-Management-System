@@ -8,6 +8,7 @@ import com.ehs.library.loan.repository.LoanMapperRepository;
 import com.ehs.library.loan.vo.LoanVo;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.exception.UserAlreadyExistException;
 import com.ehs.library.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -41,7 +42,7 @@ public class MemberService implements UserDetailsService {
     private void validateDuplicateMember(Member member){
         Member findMember = memberRepository.findByEmail(member.getEmail());
         if(findMember != null){
-            throw new IllegalStateException("이미 존재하는 이메일입니다");
+            throw new UserAlreadyExistException("이미 존재하는 이메일입니다");
         }
     }
 

@@ -7,6 +7,7 @@ import com.ehs.library.roomreservation.constant.StudyRoomState;
 import com.ehs.library.roomreservation.dto.StudyRoomBookFormDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
+import com.ehs.library.roomreservation.exception.RoomReservationSanctionException;
 import com.ehs.library.roomreservation.repository.StudyRoomRepository;
 import com.ehs.library.roomreservation.repository.StudyRoomReservationRepository;
 import com.ehs.library.sanction.constant.SanctionState;
@@ -57,7 +58,7 @@ public class RoomReservationService {
     }
 
     // 스터디룸 예약하기
-    public Long reservationStudyRoom(String email, StudyRoomBookFormDto studyRoomBookFormDto) throws Exception {
+    public Long reservationStudyRoom(String email, StudyRoomBookFormDto studyRoomBookFormDto) {
         Member member = memberRepository.findByEmail(email);
         StudyRoom studyRoom = studyRoomRepository.findById(studyRoomBookFormDto.getId()).get();
 
@@ -68,7 +69,7 @@ public class RoomReservationService {
 
         // 제재
         if(member.getSanctionStudyRoomDay()>0){
-            throw new Exception("현재 제재중입니다. 스터디룸 예약이 불가능합니다.");
+            throw new RoomReservationSanctionException("현재 제재중입니다. 스터디룸 예약이 불가능합니다.");
         }
 
         // 예약시간이 겹치는 경우

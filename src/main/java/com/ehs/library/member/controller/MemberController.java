@@ -2,6 +2,7 @@ package com.ehs.library.member.controller;
 
 import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.exception.UserAlreadyExistException;
 import com.ehs.library.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +44,7 @@ public class MemberController {
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
-        } catch (IllegalStateException e){
+        } catch (UserAlreadyExistException e){
             log.debug("회원가입 실패 : 이미존재하는 이메일");
             model.addAttribute("errorMessage", e.getMessage());
             return "member/addMemberForm";

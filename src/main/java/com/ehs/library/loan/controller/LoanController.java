@@ -122,7 +122,7 @@ public class LoanController {
 
         try {
             loanService.loanWatiBookList(member);
-        } catch (Exception e){
+        } catch (RuntimeException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "loan/loanMemberDatail";
         }

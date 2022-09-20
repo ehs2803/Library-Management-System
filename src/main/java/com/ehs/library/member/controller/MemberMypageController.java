@@ -9,6 +9,7 @@ import com.ehs.library.bookreservation.repository.BookReservationRepository;
 import com.ehs.library.loan.constant.LoanState;
 import com.ehs.library.loan.dto.LoanMapperDto;
 import com.ehs.library.loan.entity.Loan;
+import com.ehs.library.loan.exception.BookLoanExtensionLimitException;
 import com.ehs.library.loan.repository.LoanMapperRepository;
 import com.ehs.library.loan.service.LoanService;
 import com.ehs.library.loan.vo.LoanVo;
@@ -16,6 +17,7 @@ import com.ehs.library.member.dto.MemberDto;
 import com.ehs.library.member.dto.MemberEditFormDto;
 import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.member.entity.Member;
+import com.ehs.library.member.exception.UserAlreadyExistException;
 import com.ehs.library.member.service.MemberService;
 import com.ehs.library.roomreservation.dto.StudyRoomReservationDto;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
@@ -99,7 +101,7 @@ public class MemberMypageController {
         try {
             Member member = Member.createMember(memberEditFormDto, passwordEncoder);
             memberService.updateMember(member);
-        } catch (IllegalStateException e){
+        } catch (UserAlreadyExistException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "member/editMemberForm";
         }
@@ -134,7 +136,7 @@ public class MemberMypageController {
     public String memberBookLoanDelay(@PathVariable Long id, Model model){
         try {
             loanService.delayLoan(id);
-        } catch (Exception e){
+        } catch (BookLoanExtensionLimitException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "member/memberLoanList";
         }

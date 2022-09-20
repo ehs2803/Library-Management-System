@@ -8,6 +8,9 @@ import com.ehs.library.roomreservation.constant.StudyRoomState;
 import com.ehs.library.roomreservation.dto.StudyRoomFormDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
+import com.ehs.library.roomreservation.exception.RoomNameAlreadyExistException;
+import com.ehs.library.roomreservation.exception.RoomReservationOverAllowTimeException;
+import com.ehs.library.roomreservation.exception.RoomReservationUseException;
 import com.ehs.library.roomreservation.repository.StudyRoomRepository;
 import com.ehs.library.roomreservation.repository.StudyRoomReservationRepository;
 import com.ehs.library.sanction.constant.SanctionState;
@@ -85,7 +88,7 @@ public class RoomReservationService {
     public StudyRoom registerStudyRoom(StudyRoomFormDto studyRoom){
         StudyRoom validStudyRoom = studyRoomRepository.findByName(studyRoom.getName());
         if(validStudyRoom != null){ // 스터디룸 이름이 이미 존재하는 경우
-            throw new IllegalStateException("존재하는 스터디룸 이름입니다.");
+            throw new RoomNameAlreadyExistException("존재하는 스터디룸 이름입니다.");
         }
 
         StudyRoom registerStudyRoom = StudyRoom.builder()
@@ -128,7 +131,7 @@ public class RoomReservationService {
     public StudyRoom editStudyRoom(StudyRoomFormDto studyRoomFormDto){
         StudyRoom validStudyRoom = studyRoomRepository.findByName(studyRoomFormDto.getName());
         if(validStudyRoom != null){ // 스터디룸 이름이 이미 존재하는 경우
-            throw new IllegalStateException("존재하는 스터디룸 이름입니다.");
+            throw new RoomNameAlreadyExistException("존재하는 스터디룸 이름입니다.");
         }
 
         StudyRoom studyRoom = studyRoomRepository.findById(studyRoomFormDto.getId()).get();
@@ -139,7 +142,7 @@ public class RoomReservationService {
     }
 
     // 스터디룸 예약 상태 ALLOW로 변경
-    public void studyRoomStateSetAllow(Long id) throws Exception {
+    public void studyRoomStateSetAllow(Long id) {
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
 
         LocalDateTime now = LocalDateTime.now();
@@ -147,7 +150,7 @@ public class RoomReservationService {
         // 예약승인 시간(현재시간)이 예약시간보다 늦은 경우
         if(now.isAfter(studyRoomReservation.getReservation_time())){
             studyRoomReservation.setState(ReservationState.REJECT);
-            throw new Exception("예약한 시간을 이미 지났습니다. 해당 예약은 거절처리 됩니다.");
+            throw new RoomReservationOverAllowTimeException("예약한 시간을 이미 지났습니다. 해당 예약은 거절처리 됩니다.");
         }
         studyRoomReservation.setState(ReservationState.ALLOW);
     }
@@ -159,7 +162,7 @@ public class RoomReservationService {
     }
 
     // 스터디룸 예약 상태 USE로 변경
-    public void studyRoomStateSetUse(Long id) throws Exception {
+    public void studyRoomStateSetUse(Long id) {
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime enterAvailable = studyRoomReservation.getReservation_time().minus(10, ChronoUnit.MINUTES);
@@ -168,7 +171,7 @@ public class RoomReservationService {
         if(now.isBefore(enterAvailable)){
            String errorMsg = studyRoomReservation.getCreatedBy()+"가 예약한 "+studyRoomReservation.getRoom().getName()+
                     "예약은 예약시간인 "+studyRoomReservation.getReservation_time()+" 10분전부터 입실처리가 가능합니다.";
-            throw new Exception(errorMsg);
+            throw new RoomReservationUseException(errorMsg);
         }
 
         studyRoomReservation.setStart_time(LocalDateTime.now()); // 입실시간 설정

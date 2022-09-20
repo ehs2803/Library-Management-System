@@ -3,11 +3,9 @@ package com.ehs.library.sanction.service;
 import com.ehs.library.member.constant.Role;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
-import com.ehs.library.sanction.constant.SanctionState;
 import com.ehs.library.sanction.entity.Sanction;
 import com.ehs.library.sanction.repository.SanctionRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.LifecycleState;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +19,14 @@ public class SanctionService {
     private final MemberRepository memberRepository;
 
 
-    // 특정 멤버의 제재 내역 조회
+    // 특정 멤버의 도서 대출 제재 내역 조회
+    @Transactional(readOnly = true)
     public List<Sanction> findBookSanctionsByMemberFetchJoin(String email){
         return sanctionRepository.findBookSanctionsByMemberFetchJoin(memberRepository.findByEmail(email));
     }
 
+    // 특정 멤버의 스터디룸 예약 제재 내역 조회
+    @Transactional(readOnly = true)
     public List<Sanction> findStudyRoomSanctionsByMemberFetchJoin(String email){
         return sanctionRepository.findStudyRoomSanctionsByMemberFetchJoin(memberRepository.findByEmail(email));
     }

@@ -9,6 +9,9 @@ import com.ehs.library.roomreservation.dto.StudyRoomListDto;
 import com.ehs.library.roomreservation.dto.StudyRoomReservationDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
+import com.ehs.library.roomreservation.exception.RoomNameAlreadyExistException;
+import com.ehs.library.roomreservation.exception.RoomReservationOverAllowTimeException;
+import com.ehs.library.roomreservation.exception.RoomReservationUseException;
 import com.ehs.library.roomreservation.service.admin.RoomReservationService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -69,7 +72,7 @@ public class RoomReservationController {
 
         try {
             roomReservationService.registerStudyRoom(studyRoomFormDto);
-        } catch (IllegalStateException e){
+        } catch (RoomNameAlreadyExistException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "reservation/studyroom/admin/studyRoomRegisterForm";
         }
@@ -103,7 +106,7 @@ public class RoomReservationController {
 
         try {
             roomReservationService.editStudyRoom(studyRoomFormDto);
-        } catch (Exception e){
+        } catch (RoomNameAlreadyExistException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "reservation/studyroom/admin/studyRoomEditForm";
         }
@@ -218,7 +221,7 @@ public class RoomReservationController {
     public String studyRoomReservationAllow(@PathVariable Long id, Model model){
         try{
             roomReservationService.studyRoomStateSetAllow(id);
-        } catch (Exception e){
+        } catch (RoomReservationOverAllowTimeException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/reservation/studyroom/complete";
         }
@@ -239,7 +242,7 @@ public class RoomReservationController {
     public String studyRoomUse(@PathVariable Long id, Model model){
         try{
             roomReservationService.studyRoomStateSetUse(id);
-        } catch (Exception e){
+        } catch (RoomReservationUseException e){
             List<StudyRoomReservation> studyRoomReservationList_entity = roomReservationService.findByStateAllowFetchJoin();
 
             ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>

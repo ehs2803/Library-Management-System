@@ -113,7 +113,7 @@ public class RoomReservationController {
 
         try {
             roomReservationService.reservationStudyRoom(principal.getName(), studyRoomBookFormDto);
-        } catch (Exception e){
+        } catch (RuntimeException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "reservation/studyroom/user/studyRoomBookForm";
         }

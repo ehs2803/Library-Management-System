@@ -7,6 +7,10 @@ import com.ehs.library.book.repository.BookRepository;
 import com.ehs.library.loan.constant.LoanState;
 import com.ehs.library.loan.entity.Loan;
 import com.ehs.library.loan.entity.LoanWaitList;
+import com.ehs.library.loan.exception.BookLoanExtensionLimitException;
+import com.ehs.library.loan.exception.BookLoanLimitException;
+import com.ehs.library.loan.exception.BookLoanOverdueException;
+import com.ehs.library.loan.exception.BookLoanSanctionException;
 import com.ehs.library.loan.repository.LoanRepository;
 import com.ehs.library.loan.repository.LoanWaitListRepository;
 import com.ehs.library.member.constant.Role;
@@ -64,21 +68,21 @@ public class LoanService {
     }
 
     // 대출 대기 목록에 있는 도서 대출처리
-    public void loanWatiBookList(Member member) throws Exception {
+    public void loanWatiBookList(Member member) {
         List<LoanWaitList> loanWaitListList = loanWaitListRepository.findByMemberFetchJoinBook(member);
 
         // 제재 중일 때
         if(member.getSanctionBookDay()>0){
-            throw new Exception("현재 제재중입니다. 도서 대출이 불가능합니다.");
+            throw new BookLoanSanctionException("현재 제재중입니다. 도서 대출이 불가능합니다.");
         }
 
         // 만약 연체중인 책이 있을 때
         if(loanRepository.existsLoanByMemberAndLoanState(member, LoanState.OVERDUE)){
-            throw new Exception("현재 연체된 책이 있습니다. 도서 대출이 불가능합니다.");
+            throw new BookLoanOverdueException("현재 연체된 책이 있습니다. 도서 대출이 불가능합니다.");
         }
         // 빌릴 수 있는 책의 최대 개수를 초과할 때
         if(loanWaitListList.size()>Policy.LOAN_BOOK_CNT-loanRepository.countLoanByMemberAndLoanState(member, LoanState.LOAN)){
-            throw new Exception("빌릴 수 있는 책의 최대 개수를 초과했습니다.");
+            throw new BookLoanLimitException("빌릴 수 있는 책의 최대 개수를 초과했습니다.");
         }
 
         for(int i=0;i<loanWaitListList.size();i++){
@@ -115,10 +119,10 @@ public class LoanService {
     }
 
     // 대출도서 대출기간 연장
-    public void delayLoan(Long id) throws Exception {
+    public void delayLoan(Long id) {
         Loan loan = loanRepository.findById(id).get();
         if(loan.getUseExtensionCnt()==Policy.LOAN_BOOK_EXTENSION_CNT){
-            throw new Exception("도서 연장횟수가 초과되었습니다.");
+            throw new BookLoanExtensionLimitException("도서 연장횟수가 초과되었습니다.");
         }
         loan.setUseExtensionCnt(loan.getUseExtensionCnt()+1);
         loan.setRemainDay(loan.getRemainDay()+Policy.LOAN_BOOK_EXTENSION_DAY);

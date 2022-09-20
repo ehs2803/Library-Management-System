@@ -22,7 +22,7 @@ public class BookReservationController {
     public String insertBookReservation(@PathVariable Long id, Principal principal, Model model){
         try {
             bookReservationService.reservationBook(principal.getName(), id);
-        } catch (Exception e){
+        } catch (RuntimeException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "book/searchBookList";
         }

@@ -90,7 +90,7 @@ public class RoomReservationService {
         if(validStudyRoom != null){ // 스터디룸 이름이 이미 존재하는 경우
             throw new RoomNameAlreadyExistException("존재하는 스터디룸 이름입니다.");
         }
-
+        System.out.println(11);
         StudyRoom registerStudyRoom = StudyRoom.builder()
                 .name(studyRoom.getName())
                 .location(studyRoom.getLocation())

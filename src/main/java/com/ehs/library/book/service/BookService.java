@@ -69,10 +69,22 @@ public class BookService {
         return item.getId();
     }
 
-    // 키워드로 페이징 검색
+    // 검색 v1
     @Transactional(readOnly = true)
     public Page<Book> searchBookList(String keyword, Pageable pageable) {
         return bookRepository.findByNameContaining(keyword, pageable);
+    }
+
+    // 검색 v2
+    @Transactional(readOnly = true)
+    public List<Book> searchBookCondition(BookSearchCondition condition){
+        return bookRepository.searchBook(condition);
+    }
+
+    // 검색 v3
+    @Transactional(readOnly = true)
+    public Page<Book> searchBookConditionPage(BookSearchCondition condition, Pageable pageable){
+        return bookRepository.searchBookPageSimple(condition, pageable);
     }
 
     // 도서 id 기반 검색 -> BookDto 변환

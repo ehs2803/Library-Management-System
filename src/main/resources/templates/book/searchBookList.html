@@ -75,12 +75,45 @@
     <section class="sample-page">
         <div class="content" style="text-align: center">
 
-            <form action="/main/book/search/result" method="GET" class="form-search d-flex align-items-stretch mb-3"
-                  data-aos="fade-up"
-                  data-aos-delay="200" style="width: 70%">
-                <input name="keyword" type="text" class="form-control">
-                <button class="btn btn-primary">Search</button>
-            </form>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            통합검색
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form action="/main/book/search/result" method="GET" style="width: 100%">
+
+                                <div class="input-group">
+                                    <div class="input-group-text" id="btnGroupAddon2">책이름</div>
+                                    <input name="keyword" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                </div><br>
+
+                                <div class="input-group">
+                                    <div class="input-group-text" id="btnGroupAddon2">ISBN</div>
+                                    <input name="isbn" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                </div><br>
+
+                                <div class="input-group">
+                                    <div class="input-group-text" id="btnGroupAddon2">저자</div>
+                                    <input name="author" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                </div><br>
+                                <div class="input-group">
+                                    <div class="input-group-text" id="btnGroupAddon2">출판사</div>
+                                    <input name="publisher" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                </div><br>
+                                <div class="input-group">
+                                    <div class="input-group-text" id="btnGroupAddon2">출판년도</div>
+                                    <input name="year" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                </div><br>
+                                <button class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
             <div class="card mb-3" style="width: 100%" th:each="book : ${bookList}">
                 <div class="row g-0">
@@ -128,13 +161,13 @@
                 </div>
             </div>
             <div class="pagination justify-content-center">
-                <a th:if="${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button"
+                <a th:if="${hasPrev}" th:href="@{/main/book/search/result(page = ${previous})}" role="button"
                    class="btn btn-lg bi bi-caret-left-square-fill"></a>
-                <a th:if="!${hasPrev}" th:href="@{/admin/book/loan(page = ${previous})}" role="button"
+                <a th:if="!${hasPrev}" th:href="@{/main/book/search/result(page = ${previous})}" role="button"
                    class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
-                <a th:if="${hasNext}" th:href="@{/admin/book/loan(page = ${next})}" role="button"
+                <a th:if="${hasNext}" th:href="@{/main/book/search/result(page = ${next})}" role="button"
                    class="btn btn-lg bi bi-caret-right-square-fill"></a>
-                <a th:if="!${hasNext}" th:href="@{/admin/book/loan(page = ${next})}" role="button"
+                <a th:if="!${hasNext}" th:href="@{/main/book/search/result(page = ${next})}" role="button"
                    class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
             </div>
 

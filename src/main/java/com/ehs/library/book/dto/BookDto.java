@@ -25,4 +25,7 @@ public class BookDto {
     private String location;
     private BookImgSimpleDto bookImg;
     private String isbn;
+
+//    @QueryProjection
+//    public BookDto(Long id, String name,)
 }

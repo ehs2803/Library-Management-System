@@ -3,6 +3,7 @@ package com.ehs.library.book.controller;
 import com.ehs.library.book.dto.BookDto;
 import com.ehs.library.book.dto.BookFormDto;
 import com.ehs.library.book.dto.BookListDto;
+import com.ehs.library.book.dto.BookSearchCondition;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -68,12 +69,48 @@ public class BookController {
         return "book/searchBook";
     }
 
-    // 도서 검색 (키워드 검색, 페이징 처리)
+    // 도서 검색 v1 - 키워드검색, 페이징 처리
+//    @GetMapping("/main/book/search/result")
+//    public String bookList(@RequestParam(defaultValue = "") String keyword,
+//                           @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
+//                           Model model){
+//        Page<Book> bookList = bookService.searchBookList(keyword, pageable);
+//
+//        model.addAttribute("bookList", bookList);
+//        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+//        model.addAttribute("next", pageable.next().getPageNumber());
+//        model.addAttribute("hasNext", bookList.hasNext());
+//        model.addAttribute("hasPrev", bookList.hasPrevious());
+//
+//        return "book/searchBookList";
+//    }
+
+    // 도서 검색 v2 - 통합검색, 동적쿼리
+//    @GetMapping("/main/book/search/result")
+//    public String bookList(@RequestParam(defaultValue = "") String keyword,
+//                           @RequestParam(defaultValue = "") String isbn,
+//                           @RequestParam(defaultValue = "") String author,
+//                           @RequestParam(defaultValue = "") String publisher,
+//                           @RequestParam(defaultValue = "") Integer year,
+//                           Model model){
+//        List<Book> books = bookService.searchBookCondition(new BookSearchCondition(keyword,isbn,author,publisher,year));
+//        System.out.println(books.size());
+//
+//        model.addAttribute("bookList", bookList);
+//
+//        return "book/searchBookList";
+//    }
+
+    // 도서 검색 v3 - 통합검색, 동적쿼리, 페이징처리
     @GetMapping("/main/book/search/result")
-    public String bookList(@RequestParam(defaultValue = "") String keyword,
+    public String searchbookList(@RequestParam(defaultValue = "") String keyword,
+                           @RequestParam(defaultValue = "") String isbn,
+                           @RequestParam(defaultValue = "") String author,
+                           @RequestParam(defaultValue = "") String publisher,
+                           @RequestParam(defaultValue = "") Integer year,
                            @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                            Model model){
-        Page<Book> bookList = bookService.searchBookList(keyword, pageable);
+        Page<Book> bookList = bookService.searchBookConditionPage(new BookSearchCondition(keyword,isbn,author,publisher,year), pageable);
 
         model.addAttribute("bookList", bookList);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());

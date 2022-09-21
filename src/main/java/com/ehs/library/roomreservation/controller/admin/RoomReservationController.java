@@ -58,7 +58,7 @@ public class RoomReservationController {
     // 스터디룸 등록 폼
     @GetMapping("/admin/studyroom/add")
     public String adminPageStudyRoomRegister(Model model){
-        model.addAttribute("studyRoomAddFormDto", new StudyRoomFormDto());
+        model.addAttribute("studyRoomFormDto", new StudyRoomFormDto());
 
         return "reservation/studyroom/admin/studyRoomRegisterForm";
     }

@@ -37,3 +37,6 @@ cloud:
 
 itemImgLocation: C:/library/book
 uploadPath: file:///C:/library/
+
+clientId :
+clientSecret :

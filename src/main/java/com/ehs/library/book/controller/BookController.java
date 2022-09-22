@@ -6,6 +6,10 @@ import com.ehs.library.book.dto.BookListDto;
 import com.ehs.library.book.dto.BookSearchCondition;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.service.BookService;
+import com.ehs.library.bookapi.dto.BookApiResultDto;
+import com.ehs.library.bookapi.paging.Criteria;
+import com.ehs.library.bookapi.paging.PageMaker;
+import com.ehs.library.bookapi.service.BookApiService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -29,6 +33,8 @@ import java.util.stream.Collectors;
 public class BookController {
     private final BookService bookService;
     private final ModelMapper modelMapper;
+
+    private final BookApiService bookApiService;
 
     // 새로운 책 등록 폼
     @GetMapping("/admin/book/new")
@@ -119,6 +125,29 @@ public class BookController {
         model.addAttribute("hasPrev", bookList.hasPrevious());
 
         return "book/searchBookList";
+    }
+
+    // 네이버 API BOOK 검색 폼
+    @GetMapping("/main/book/search/api")
+    public String searchBookAPIForm(){
+        return "book/api/searchBook";
+    }
+
+    // 네이버 API BOOK 검색 결과
+    @GetMapping("/main/book/search/api/result")
+    public String searchBookAPIList(@RequestParam(defaultValue = "") String keyword,
+                                    //Criteria cri,
+                                    Model model){
+
+//        PageMaker pageMaker = new PageMaker();
+//        pageMaker.setCri(cri);
+//        pageMaker.setTotalCount(100);
+
+        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword);
+
+        model.addAttribute("books", books);
+
+        return "book/api/searchBookResult";
     }
 
     // 도서 상세 정보

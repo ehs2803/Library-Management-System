@@ -1,6 +1,8 @@
 package com.ehs.library.bookhope.controller.user;
 
 import com.ehs.library.book.entity.Book;
+import com.ehs.library.bookapi.dto.BookApiResultDto;
+import com.ehs.library.bookapi.service.BookApiService;
 import com.ehs.library.bookhope.constant.BookHopeState;
 import com.ehs.library.bookhope.dto.BookHopeDetailDto;
 import com.ehs.library.bookhope.dto.BookHopeDto;
@@ -9,6 +11,7 @@ import com.ehs.library.bookhope.dto.BookHopeMapperDto;
 import com.ehs.library.bookhope.entity.BookHope;
 import com.ehs.library.bookhope.repository.BookHopeMapperRepository;
 import com.ehs.library.bookhope.service.user.BookHopeService;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -29,6 +33,24 @@ public class BookHopeController {
     private final BookHopeService bookHopeService;
     private final BookHopeMapperRepository bookHopeMapperRepository;
     private final ModelMapper modelMapper;
+
+    private final BookApiService bookApiService;
+
+    // 네이버 book api 검색 폼
+    @GetMapping("/book/hope/search")
+    public String searchBookAPIForm(){
+        return "book/api/searchBookHope";
+    }
+
+    // 네이버 book api 검색 결과
+    @GetMapping("/book/hope/search/list")
+    public String seachBookAPI(@RequestParam(defaultValue = "") String keyword, Model model){
+        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword);
+
+        model.addAttribute("books", books);
+
+        return "book/api/searchBookHopeResult";
+    }
 
     // 희망도서 신청 폼
     @GetMapping("/book/hope/register")

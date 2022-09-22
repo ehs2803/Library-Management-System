@@ -42,8 +42,14 @@
             <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <form action="/main/book/search/result" method="GET" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
                       data-aos-delay="200">
-                    <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력">
+                    <input type="text" name="keyword" class="form-control" placeholder="소장중인 도서 검색">
                     <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <form action="/main/book/search/api/result" method="GET" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
+                      data-aos-delay="200">
+                    <input type="text" name="keyword" class="form-control" placeholder="네이버 Book 검색">
+                    <button type="submit" class="btn btn-success">Search</button>
                 </form>
 
                 <div class="row gy-4" data-aos="fade-up" data-aos-delay="400">

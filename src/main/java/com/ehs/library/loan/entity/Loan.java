@@ -4,6 +4,7 @@ import com.ehs.library.book.entity.Book;
 import com.ehs.library.loan.constant.LoanState;
 import com.ehs.library.member.entity.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="loan")
 @Getter @Setter
+@NoArgsConstructor
 public class Loan {
     @Id
     @Column(name="loan_id")
@@ -43,14 +45,15 @@ public class Loan {
 
     private int overdueDay;
 
-    public Loan(){
-
-    }
-
     public Loan(Book book, Member member, LoanState loanState, LocalDateTime startLoanTime) {
         this.book = book;
         this.member = member;
         this.loanState = loanState;
         this.startLoanTime = startLoanTime;
     }
+
+//    @PrePersist
+//    void setLoanTime(){
+//        this.startLoanTime=LocalDateTime.now();
+//    }
 }

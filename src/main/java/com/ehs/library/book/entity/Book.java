@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="book")
 @Getter @Setter
-@NoArgsConstructor
+@NoArgsConstructor // JPA에서는 개체가 없는 인자 없는 생성자를 가져야한다.
 @AllArgsConstructor
 public class Book extends BaseEntity {
     @Id

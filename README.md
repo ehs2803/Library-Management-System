@@ -46,6 +46,10 @@
 
 # 기능
 
+### **메인**
+
+<img width="1229" alt="image" src="https://user-images.githubusercontent.com/65898555/191660215-840394b8-c3e2-429c-ba50-d0dbbb1a0f93.png">
+
 ### **기능 - 계정기능**
 
 ---
@@ -62,11 +66,11 @@
 
 ---
 
-![Untitled](docs/images/Untitled%204.png)
+<img width="1231" alt="image" src="https://user-images.githubusercontent.com/65898555/191661515-1d7ec113-18c9-4f46-8217-3e841e935caf.png">
 
 일반 유저 마이페이지 입니다. 기본적인 정보가 출력되고, 회원정보 수정 버튼을 클릭하면 회원정보를 수정할 수 있습니다.
 
-대출중인 도서, 연체중인 도서, 예약중인 도서, 나의서제(관심도서), 희망도서신청, 대출이력, 스터디룸 예약현황을 볼 수 있습니다.
+대출중인 도서, 연체중인 도서, 예약중인 도서, 나의서제(관심도서), 희망도서신청, 대출이력, 스터디룸 예약현황, 제재 현황을 볼 수 있습니다.
 
 ### **기능 - 마이페이지(도서관 직원)**
 
@@ -111,12 +115,20 @@
 ### **기능 - 통합자료검색**
 
 ---
+<img width="1262" alt="image" src="https://user-images.githubusercontent.com/65898555/191661965-79564f03-6262-404c-82af-f5d4306e3ee8.png">
 
 ![Untitled](docs/images/Untitled%2010.png)
 
-통합검색에서는 도서 이름 키워드로 도서를 검색할 수 있습니다.
+통합검색에서 도서이름, isbn, 저자, 출판사, 출판년도를 입력해 도서를 검색할 수 있습니다. Isbn, 저자, 출판사, 출판년도는 선택 입력란 입니다.
 
-*상세검색(출판년도, 출판사, 저자 검색)은 구현중입니다.
+QueryDSL을 사용해 동적쿼리를 구현했습니다.
+
+
+### **기능 - 네이버 검색 API로 도서 검색하기**
+
+<img width="1055" alt="image" src="https://user-images.githubusercontent.com/65898555/191663037-1330011c-70a5-4ff2-ae87-a6a7e7f947e0.png">
+
+네이버 검색 API를 통해 책 이름으로 도서를 검색할 수 있습니다.
 
 ### **기능 - 도서예약, 관심도서 담기(일반유저)**
 
@@ -137,9 +149,16 @@
 
 ---
 
-![Untitled](docs/images/Untitled%2012.png)
+<img width="1220" alt="image" src="https://user-images.githubusercontent.com/65898555/191663199-95feb699-1b4e-4df4-a02c-cfbd8efa692b.png">
 
-일반 유저는 희망도서를 신청할 수 있습니다.
+일반 유저는 희망도서를 신청할 수 있습니다. 희망도서를 신청할 때 두가지 방법이 있습니다.
+
+첫번째 방법은 직접 책이름, ISBN, 저자, 출판사, 출판년도를 입력하는 방법.
+두번째 방법은 네이버 검색 api를 이용해 원하는 도서를 검색 후 해당 해당 도서를 클릭해 책이름, ISBN, 저자, 출판사 직접 입력없이 바로 신청하는 방법.
+
+<img width="1246" alt="image" src="https://user-images.githubusercontent.com/65898555/191663875-589718da-4e77-44e9-926e-3717da00f211.png">
+
+네이버 검색 api를 통해 도서를 검색 후 원하는 책이 있으면 희망도서 신청하기 버튼을 누르면 사용자가 직접 책이름, ISBN, 저자, 출판사, 출판년도를 입력하지 않고 희망도서 신청이 가능합니다.
 
 ![Untitled](docs/images/Untitled%2013.png)
 

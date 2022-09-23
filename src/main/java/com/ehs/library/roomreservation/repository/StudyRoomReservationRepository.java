@@ -13,15 +13,15 @@ import java.util.List;
 
 public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomReservation, Long> {
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r " +
-            "where sr.state='WAIT' order by sr.reservation_time")
+            "where sr.state='WAIT' order by sr.reservationTime")
     List<StudyRoomReservation> findByStateWaitFetchJoin();
 
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r " +
-            "where sr.state='ALLOW' order by sr.reservation_time")
+            "where sr.state='ALLOW' order by sr.reservationTime")
     List<StudyRoomReservation> findByStateAllowFetchJoin();
 
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r " +
-            "where sr.state='COMPLETE' or sr.state='REJECT' order by sr.reservation_time")
+            "where sr.state='COMPLETE' or sr.state='REJECT' order by sr.reservationTime")
     List<StudyRoomReservation> findByStateCompleteAndRejectFetchJoin();
 
     @Query("select sr from StudyRoomReservation sr join fetch sr.room r where sr.state='USE'")
@@ -35,5 +35,5 @@ public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomR
 
     int countByRoom(StudyRoom room);
 
-    //List<StudyRoomReservation> findByRoomAndReservation_time(StudyRoom room, LocalDate localDate);
+    List<StudyRoomReservation> findByRoomAndReservationTimeEquals(StudyRoom room, LocalDate localDate);
 }

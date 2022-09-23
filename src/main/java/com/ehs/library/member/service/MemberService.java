@@ -60,7 +60,7 @@ public class MemberService implements UserDetailsService {
 
     // 멤버 정보 수정
     public Long updateMember(Member member){
-        validateDuplicateMember(member); // 이메일 중복 검증. 이메일도 수정 가능.
+        //validateDuplicateMember(member); // 이메일 중복 검증.
 
         Member updateMember = memberRepository.findByEmail(member.getEmail());
         updateMember.setName(member.getName());

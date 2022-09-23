@@ -36,7 +36,6 @@
 
         .content {
             margin-bottom:10%;
-            margin-top: 10%;
             margin-left: 10%;
             margin-right: 10%;
         }
@@ -109,7 +108,7 @@
                 <br>
                 <div class="form-group">
                     <label th:for="role">역할</label>
-                    <input type="text" th:field="*{role}" class="form-control"  th:disabled="true">
+                    <input type="text" th:field="*{role}" class="form-control" readonly>
                 </div>
                 <p th:class="fieldError" th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
                 <div style="text-align: center">

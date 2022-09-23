@@ -29,15 +29,20 @@ public class StudyRoomReservation extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private LocalDateTime reservation_time;
+    @JoinColumn(name = "reservation_time")
+    private LocalDateTime reservationTime;
 
-    private LocalDateTime start_time;
+    @JoinColumn(name = "start_time")
+    private LocalDateTime startTime;
 
-    private LocalDateTime end_time;
+    @JoinColumn(name = "end_time")
+    private LocalDateTime endTime;
 
-    private int use_hour;
+    @JoinColumn(name = "use_hour")
+    private int useHour;
 
-    private int person_cnt;
+    @JoinColumn(name = "person_cnt")
+    private int personCnt;
 
     @Enumerated(EnumType.STRING)
     private ReservationState state;

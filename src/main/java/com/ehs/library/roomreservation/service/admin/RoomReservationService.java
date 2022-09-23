@@ -148,7 +148,7 @@ public class RoomReservationService {
         LocalDateTime now = LocalDateTime.now();
 
         // 예약승인 시간(현재시간)이 예약시간보다 늦은 경우
-        if(now.isAfter(studyRoomReservation.getReservation_time())){
+        if(now.isAfter(studyRoomReservation.getReservationTime())){
             studyRoomReservation.setState(ReservationState.REJECT);
             throw new RoomReservationOverAllowTimeException("예약한 시간을 이미 지났습니다. 해당 예약은 거절처리 됩니다.");
         }
@@ -165,16 +165,16 @@ public class RoomReservationService {
     public void studyRoomStateSetUse(Long id) {
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime enterAvailable = studyRoomReservation.getReservation_time().minus(10, ChronoUnit.MINUTES);
+        LocalDateTime enterAvailable = studyRoomReservation.getReservationTime().minus(10, ChronoUnit.MINUTES);
 
         // 입실처리하려는 시간이(현재시간) 예약시간 10분전 이상일경우... 예약시간 10분전부터 입실처리 가능.
         if(now.isBefore(enterAvailable)){
            String errorMsg = studyRoomReservation.getCreatedBy()+"가 예약한 "+studyRoomReservation.getRoom().getName()+
-                    "예약은 예약시간인 "+studyRoomReservation.getReservation_time()+" 10분전부터 입실처리가 가능합니다.";
+                    "예약은 예약시간인 "+studyRoomReservation.getReservationTime()+" 10분전부터 입실처리가 가능합니다.";
             throw new RoomReservationUseException(errorMsg);
         }
 
-        studyRoomReservation.setStart_time(LocalDateTime.now()); // 입실시간 설정
+        studyRoomReservation.setStartTime(LocalDateTime.now()); // 입실시간 설정
         studyRoomReservation.setState(ReservationState.USE);
         StudyRoom studyRoom = studyRoomReservation.getRoom();
         studyRoom.setState(StudyRoomState.USE); // 해당 스터디룸 USE로 상태 변경
@@ -199,7 +199,7 @@ public class RoomReservationService {
     public void studyRoomStateSetComplete(Long id){
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findByIdFetchJoinRoom(id);
         studyRoomReservation.setState(ReservationState.COMPLETE);
-        studyRoomReservation.setEnd_time(LocalDateTime.now()); // 퇴실 시간 설정
+        studyRoomReservation.setEndTime(LocalDateTime.now()); // 퇴실 시간 설정
         StudyRoom studyRoom = studyRoomReservation.getRoom();
         studyRoom.setState(StudyRoomState.AVAILABLE); // 해당 스터디룸 상태 AVAILABLE로 설정
     }

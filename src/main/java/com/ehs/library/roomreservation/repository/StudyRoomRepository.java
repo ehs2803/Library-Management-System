@@ -9,10 +9,10 @@ public interface StudyRoomRepository extends JpaRepository<StudyRoom, Long> {
     StudyRoom findByName(String name);
 
     @Query("select sr from StudyRoom sr join fetch sr.reservations rl " +
-            "where sr.id=:id and (rl.state='WAIT' or rl.state='ALLOW') order by rl.reservation_time")
+            "where sr.id=:id and (rl.state='WAIT' or rl.state='ALLOW') order by rl.reservationTime")
     StudyRoom findByIdAndStateWaitOrAllowFetchJoin(@Param("id") Long id);
 
     @Query("select sr from StudyRoom sr join fetch sr.reservations rl join fetch rl.member " +
-            "where sr.id=:id order by rl.reservation_time")
+            "where sr.id=:id order by rl.reservationTime")
     StudyRoom findByIdFetchJoinAll(@Param("id") Long id);
 }

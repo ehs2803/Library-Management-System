@@ -8,11 +8,15 @@ import com.ehs.library.notice.service.NoticeService;
 import com.ehs.library.sanction.constant.SanctionType;
 import com.ehs.library.sanction.entity.Sanction;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,9 +28,11 @@ class SanctionServiceTest {
     private SanctionService sanctionService;
     @Autowired
     private MemberService memberService;
+    @PersistenceContext
+    EntityManager em;
 
     @BeforeEach
-    public void saveMembers(){
+    public void saveMembersSanctions(){
         Member saveMember1 = Member.builder()
                 .name("test1")
                 .email("test1@naver.com")
@@ -45,13 +51,17 @@ class SanctionServiceTest {
                 .build();
         memberService.saveMember(saveMember1);
         memberService.saveMember(saveMember2);
+
+        em.flush();
+        em.clear();
     }
 
     @Test
+    @DisplayName("제재 날짜 1일 줄이기 테스트")
     void decreaseRemainDay() {
         // given
-        Member member_book = memberService.findById(1L);
-        Member member_studyroom = memberService.findById(2L);
+        Member member_book = memberService.findByemail("test1@naver.com");
+        Member member_studyroom = memberService.findByemail("test2@naver.com");
 
         assertEquals(5, member_book.getSanctionBookDay());
         assertEquals(7, member_studyroom.getSanctionStudyRoomDay());

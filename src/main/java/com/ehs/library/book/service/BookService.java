@@ -178,4 +178,8 @@ public class BookService {
         return jo.toString();
     }
 
+    // isbn 도서 소장중인 개수
+    public int getCountByIsbn(String isbn){
+        return bookRepository.countByIsbn(isbn);
+    }
 }

@@ -95,6 +95,40 @@
                 </div>
             </div><br>
 
+
+            <h2 th:text="'\''+|${keyword}|+'\''+' 검색 결과 '+ |${books.total}| +'건 검색'"></h2>
+
+
+<!--            <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">-->
+
+<!--                    <a th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${num})}"><li th:text="${num}"></li></a>-->
+
+<!--            </th:block>-->
+            <div>
+                <nav aria-label="Page navigation example" th:if="${books.total>0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a th:if="${pageMaker.isPrev()}" class="page-link" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.startPage-1})}" th:disabled="!${pageMaker.isPrev()}">Previous</a>
+                        </li>
+                        <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+                            <li th:if="${num}!=${pageMaker.cri.page}" class="page-item"><a class="page-link" th:text="${num}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${num})}"></a></li>
+                            <li th:if="${num}==${pageMaker.cri.page}" class="page-item active"><a class="page-link" th:text="${num}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${num})}"></a></li>
+                        </th:block>
+                        <li class="page-item">
+                            <a th:if="${pageMaker.isNext()}" class="page-link" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.endPage+1})}" th:disabled="!${pageMaker.isNext()}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+<!--            <div class="pagination justify-content-center">-->
+<!--                <a th:if="${pageMaker.isPrev()}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.cri.page-1})}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>-->
+<!--                <a th:if="!${pageMaker.isPrev()}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.cri.page-1})}" role="button" class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>-->
+<!--                <a th:if="${pageMaker.isNext()}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.cri.page+1})}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>-->
+<!--                <a th:if="!${pageMaker.isNext()}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.cri.page+1})}" role="button" class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>-->
+<!--            </div><br>-->
+
+
             <div class="container" th:each="book : ${books.items}">
                 <div class="card mb-3" style="width: 100%;">
                     <div class="row g-0">
@@ -112,10 +146,30 @@
                                 <h4 class="card-title" th:text="'가격 : ' + |${book.discount}|"></h4>
 
                                 <p class="card-text" th:text="${book.description}"></p>
+
+                                <a target="_blank" th:href="${book.link}">자세히 보기</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+
+            <div>
+                <nav aria-label="Page navigation example" th:if="${books.total>0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a th:if="${pageMaker.isPrev()}" class="page-link" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.startPage-1})}" th:disabled="!${pageMaker.isPrev()}">Previous</a>
+                        </li>
+                        <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+                            <li th:if="${num}!=${pageMaker.cri.page}" class="page-item"><a class="page-link" th:text="${num}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${num})}"></a></li>
+                            <li th:if="${num}==${pageMaker.cri.page}" class="page-item active"><a class="page-link" th:text="${num}" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${num})}"></a></li>
+                        </th:block>
+                        <li class="page-item">
+                            <a th:if="${pageMaker.isNext()}" class="page-link" th:href="@{/main/book/search/api/result(keyword=${keyword},page = ${pageMaker.endPage+1})}" th:disabled="!${pageMaker.isNext()}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
 

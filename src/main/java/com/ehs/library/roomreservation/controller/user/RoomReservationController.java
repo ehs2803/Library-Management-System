@@ -48,7 +48,7 @@ public class RoomReservationController {
     // 특정 스터디룸 예약 폼
     @GetMapping("/reservation/studyroom/book/{id}")
     public String reservationStudyRoomForm(@PathVariable Long id, Model model){
-        StudyRoom studyRoom_entity = roomReservationService.findByIdAndStateWaitOrAllowFetchJoi(id);
+        StudyRoom studyRoom_entity = roomReservationService.findByIdAndStateWaitOrAllowFetchJoin(id);
         List<StudyRoomReservation> studyRoomReservationList_entity;
 
         StudyRoomListDto studyRoom;
@@ -84,6 +84,7 @@ public class RoomReservationController {
         }
 
         StudyRoomBookFormDto studyRoomBookFormDto = new StudyRoomBookFormDto();
+        studyRoomBookFormDto.setTime("09:00");
         studyRoomBookFormDto.setId(id);
 
         LocalDate nowDate = LocalDate.now();
@@ -114,7 +115,61 @@ public class RoomReservationController {
         try {
             roomReservationService.reservationStudyRoom(principal.getName(), studyRoomBookFormDto);
         } catch (RuntimeException e){
+            StudyRoom studyRoom_entity = roomReservationService.findByIdAndStateWaitOrAllowFetchJoin(studyRoomBookFormDto.getId());
+            List<StudyRoomReservation> studyRoomReservationList_entity;
+
+            StudyRoomListDto studyRoom;
+            List<StudyRoomReservationDto> studyRoomReservationList;
+            ModelMapper modelMapper = new ModelMapper(); // ModelMapper이용해 List<Entity> -> List<Dto>
+
+            if(studyRoom_entity==null){ // state가 wait or allow인 스터디룸이 없는 경우
+                studyRoom_entity = roomReservationService.findById(studyRoomBookFormDto.getId());
+                studyRoomReservationList_entity = new ArrayList<>();
+
+                studyRoom = StudyRoomListDto.builder()
+                        .name(studyRoom_entity.getName())
+                        .location(studyRoom_entity.getLocation())
+                        .capacity(studyRoom_entity.getCapacity())
+                        .state(studyRoom_entity.getState().toString())
+                        .build();
+                studyRoomReservationList = studyRoomReservationList_entity.stream()
+                        .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
+                        .collect(Collectors.toList());
+            }
+            else {
+                studyRoomReservationList_entity = studyRoom_entity.getReservations();
+
+                studyRoom = StudyRoomListDto.builder()
+                        .name(studyRoom_entity.getName())
+                        .location(studyRoom_entity.getLocation())
+                        .capacity(studyRoom_entity.getCapacity())
+                        .state(studyRoom_entity.getState().toString())
+                        .build();
+                studyRoomReservationList = studyRoomReservationList_entity.stream()
+                        .map(reservation->modelMapper.map(reservation, StudyRoomReservationDto.class))
+                        .collect(Collectors.toList());
+            }
+
+            StudyRoomBookFormDto studyRoomBookFormDto1 = new StudyRoomBookFormDto();
+            studyRoomBookFormDto1.setId(studyRoomBookFormDto.getId());
+            studyRoomBookFormDto1.setTime("09:00");
+
+            LocalDate nowDate = LocalDate.now();
+            LocalDate startDate = nowDate.plusDays(1);
+            LocalDate endDate = startDate.plusDays(7);
+
+            // studyroom id가 예약목록 반환
+            model.addAttribute("studyRoom", studyRoom);
+            model.addAttribute("studyRoomReservationList",studyRoomReservationList);
+            model.addAttribute("bookForm", studyRoomBookFormDto1);
+            model.addAttribute("minDate", startDate); // 예약가능한 시작 날짜
+            model.addAttribute("maxDate", endDate); // 예약가능한 마지막 날짜
+            model.addAttribute("minTime","9:00:00"); // 예약가능한 시작 시간
+            model.addAttribute("maxTime","20:00:00"); // 예약가능한 마지막 시간
+            model.addAttribute("maxCapacity", studyRoom.getCapacity()); // 스터디룸 수용인원
+
             model.addAttribute("errorMessage", e.getMessage());
+
             return "reservation/studyroom/user/studyRoomBookForm";
         }
 
@@ -124,7 +179,7 @@ public class RoomReservationController {
     // 특정 스터디룸의 예약현황 조회
     @GetMapping("/reservation/studyroom/{id}")
     public String getStudyRoomReservationList(@PathVariable Long id, Model model){
-        StudyRoom studyRoom_entity = roomReservationService.findByIdAndStateWaitOrAllowFetchJoi(id);
+        StudyRoom studyRoom_entity = roomReservationService.findByIdAndStateWaitOrAllowFetchJoin(id);
         List<StudyRoomReservation> studyRoomReservationList_entity;
 
         StudyRoomListDto studyRoom;

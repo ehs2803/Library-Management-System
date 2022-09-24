@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class BookHopeController {
 
     private final BookHopeService bookHopeService;
+    private final BookService bookService;
     private final ModelMapper modelMapper;
 
     // 도서관 직원 관리자페이지
@@ -86,7 +87,10 @@ public class BookHopeController {
                 .state(bookHope_entity.getState().toString())
                 .build();
 
+        int cnt = bookService.getCountByIsbn(bookHope.getIsbn());
+
         model.addAttribute("bookHope", bookHope);
+        model.addAttribute("cnt", cnt);
 
         return "bookhope/admin/manageBookHopeUpdate";
     }

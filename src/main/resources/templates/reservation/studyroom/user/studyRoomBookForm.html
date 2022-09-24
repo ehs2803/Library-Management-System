@@ -40,14 +40,6 @@
         }
     </style>
 </head>
-<script>
-    $(document).ready(function () {
-        var errorMessage = [[${errorMessage}]];
-        if (errorMessage != null) {
-            alert(errorMessage);
-        }
-    });
-</script>
 <body>
 
 <!-- Footer-->
@@ -104,9 +96,9 @@
                 <tbody>
                 <tr th:each="reservation, loop : ${studyRoomReservationList}">
                     <td th:text="${loop.count}"></td>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
+                    <td th:text="${#temporals.format(reservation.reservationTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    <td th:text="${reservation.useHour}"></td>
+                    <td th:text="${reservation.personCnt}"></td>
                     <td th:text="${reservation.state}"></td>
                 </tr>
                 </tbody>
@@ -117,40 +109,40 @@
                 <input hidden type="text" th:field="*{id}" class="form-control">
 
                 <div class="form-group">
-                    <label th:for="name">예약날짜</label>
+                    <label th:for="date">예약날짜</label>
                     <input type="date" th:field="*{bookLocalDate}" class="form-control" th:min="${minDate}" th:max="${maxDate}" required>
                     <p th:if="${#fields.hasErrors('bookLocalDate')}" th:errors="*{bookLocalDate}" class="fieldError">Incorrect data</p>
                 </div>
                 <br>
 
                 <div class="form-group">
-                    <label th:for="name">예약시간</label>
+                    <label th:for="time">예약시간</label>
                     <input type="time" th:field="*{time}" class="form-control" th:min="${minTime}" th:max="${maxTime}"
-                           step="3600" value="10:00" required>
+                           step="3600" required>
                     <p th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="fieldError">Incorrect data</p>
                 </div>
                 <br>
 
                 <div class="form-group">
-                    <label th:for="use_hour">이용시간</label>
-                    <input type="number" th:field="*{use_hour}" class="form-control" min="1" max="5">
-                    <p th:if="${#fields.hasErrors('use_hour')}" th:errors="*{use_hour}" class="fieldError">Incorrect data</p>
+                    <label th:for="useHour">이용시간</label>
+                    <input type="number" th:field="*{useHour}" class="form-control" min="1" max="5">
+                    <p th:if="${#fields.hasErrors('useHour')}" th:errors="*{useHour}" class="fieldError">Incorrect data</p>
                 </div>
                 <br>
 
                 <div class="form-group">
-                    <label th:for="person_cnt">예약 인원</label>
-                    <input type="number" th:field="*{person_cnt}" class="form-control" min="1" th:max="${maxCapacity}">
-                    <p th:if="${#fields.hasErrors('person_cnt')}" th:errors="*{person_cnt}" class="fieldError">Incorrect data</p>
+                    <label th:for="personCnt">예약 인원</label>
+                    <input type="number" th:field="*{personCnt}" class="form-control" min="1" th:max="${maxCapacity}">
+                    <p th:if="${#fields.hasErrors('personCnt')}" th:errors="*{personCnt}" class="fieldError">Incorrect data</p>
                 </div>
                 <br>
-                <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
 
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-primary" style="">스터디룸 예약</button>
                 </div>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             </form>
+            <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
 
         </div>
     </section>

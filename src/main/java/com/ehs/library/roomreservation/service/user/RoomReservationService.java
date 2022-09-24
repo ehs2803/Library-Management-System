@@ -49,7 +49,7 @@ public class RoomReservationService {
 
     // 스터디룸 id State가 wait or allow인 것 reservations까지 fetch join
     @Transactional(readOnly = true)
-    public StudyRoom findByIdAndStateWaitOrAllowFetchJoi(Long id){
+    public StudyRoom findByIdAndStateWaitOrAllowFetchJoin(Long id){
         return studyRoomRepository.findByIdAndStateWaitOrAllowFetchJoin(id);
     }
 
@@ -70,39 +70,46 @@ public class RoomReservationService {
         LocalDateTime localDateTime = LocalDateTime.parse(inputDate, formatter);
 
         // 제재
-//        if(member.getSanctionStudyRoomDay()>0){
-//            throw new RoomReservationSanctionException("현재 제재중입니다. 스터디룸 예약이 불가능합니다.");
-//        }
-//
-//        // 예약시간이 겹치는 경우
-//        List<StudyRoomReservation> validateTime =
-//                studyRoomReservationRepository.findByRoomAndReservationTimeEquals(studyRoom, LocalDate.now());
-//        Set<Integer> useHour = new HashSet<>();
-//        for(StudyRoomReservation studyRoomReservation: validateTime){
-//            int startHour = studyRoomReservation.getReservationTime().getHour();
-//            for(int i=0;i<studyRoomReservation.getUseHour();i++){
-//                useHour.add(startHour+i);
-//            }
-//        }
-//
-//        boolean check_available=true;
-//        int reservationStartHor = Integer.parseInt(studyRoomBookFormDto.getTime().split(":")[0]);
-//        for(int i=0;i<studyRoomBookFormDto.getUse_hour();i++){
-//            if(useHour.contains(reservationStartHor+i)){
-//                check_available=false;
-//                break;
-//            }
-//        }
-//
-//        if(check_available==false){
-//            throw new RoomReservationOverlapException("이미 다른 사용자가 예약한 시간입니다.");
-//        }
+        if(member.getSanctionStudyRoomDay()>0){
+            throw new RoomReservationSanctionException("현재 제재중입니다. 스터디룸 예약이 불가능합니다.");
+        }
+
+        // 예약시간이 겹치는 경우
+        LocalDateTime startTime = LocalDateTime.of(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(),
+                0,0,0);
+        LocalDateTime endTime = LocalDateTime.of(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(),
+                23,59,59);
+        List<StudyRoomReservation> validateTime =
+                studyRoomReservationRepository.findByRoomAndReservationTimeBetween(studyRoom, startTime, endTime);
+        for(StudyRoomReservation studyRoomReservation : validateTime){
+            System.out.println(studyRoomReservation.getReservationTime());
+        }
+        Set<Integer> useHour = new HashSet<>();
+        for(StudyRoomReservation studyRoomReservation: validateTime){
+            int startHour = studyRoomReservation.getReservationTime().getHour();
+            for(int i=0;i<studyRoomReservation.getUseHour();i++){
+                useHour.add(startHour+i);
+            }
+        }
+
+        boolean check_available=true;
+        int reservationStartHor = Integer.parseInt(studyRoomBookFormDto.getTime().split(":")[0]);
+        for(int i=0;i<studyRoomBookFormDto.getUseHour();i++){
+            if(useHour.contains(reservationStartHor+i)){
+                check_available=false;
+                break;
+            }
+        }
+
+        if(check_available==false){
+            throw new RoomReservationOverlapException("이미 다른 사용자가 예약한 시간입니다.");
+        }
 
         StudyRoomReservation studyRoomReservation = StudyRoomReservation.builder()
                 .room(studyRoom)
                 .member(member)
-                .useHour(studyRoomBookFormDto.getUse_hour())
-                .personCnt(studyRoomBookFormDto.getPerson_cnt())
+                .useHour(studyRoomBookFormDto.getUseHour())
+                .personCnt(studyRoomBookFormDto.getPersonCnt())
                 .reservationTime(localDateTime)
                 .state(ReservationState.WAIT)
                 .build();

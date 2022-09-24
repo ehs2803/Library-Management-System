@@ -133,22 +133,31 @@ public class BookController {
         return "book/api/searchBook";
     }
 
-    // 네이버 API BOOK 검색 결과
+    // 네이버 API BOOK 검색 결과 v2 - 페이징
     @GetMapping("/main/book/search/api/result")
     public String searchBookAPIList(@RequestParam(defaultValue = "") String keyword,
-                                    //Criteria cri,
+                                    Criteria cri,
                                     Model model){
 
-//        PageMaker pageMaker = new PageMaker();
-//        pageMaker.setCri(cri);
-//        pageMaker.setTotalCount(100);
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword, cri);
+        pageMaker.setTotalCount(books.getTotal());
 
-        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword);
-
+        model.addAttribute("pageMaker",pageMaker);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("books", books);
 
         return "book/api/searchBookResult";
     }
+
+    // 네이버 API BOOK 검색 결과 v1
+//    @GetMapping("/main/book/search/api/result")
+//    public String searchBookAPIList(@RequestParam(defaultValue = "") String keyword, Model model){
+//        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword);
+//        model.addAttribute("books", books);
+//        return "book/api/searchBookResult";
+//    }
 
     // 도서 상세 정보
     @GetMapping("/main/book/{id}")

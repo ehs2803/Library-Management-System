@@ -101,9 +101,9 @@
                 <tbody>
                 <tr th:each="reservation, loop : ${studyRoomReservationList}">
                     <td th:text="${loop.count}"></td>
-                    <td th:text="${#temporals.format(reservation.reservation_time, 'yyyy년 MM월 dd일 HH:mm')}"></td>
-                    <td th:text="${reservation.use_hour}"></td>
-                    <td th:text="${reservation.person_cnt}"></td>
+                    <td th:text="${#temporals.format(reservation.reservationTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                    <td th:text="${reservation.useHour}"></td>
+                    <td th:text="${reservation.personCnt}"></td>
                     <td th:text="${reservation.state}"></td>
                 </tr>
                 </tbody>

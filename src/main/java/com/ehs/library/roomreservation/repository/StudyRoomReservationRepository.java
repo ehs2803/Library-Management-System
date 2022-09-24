@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomReservation, Long> {
@@ -35,5 +36,5 @@ public interface StudyRoomReservationRepository extends JpaRepository<StudyRoomR
 
     int countByRoom(StudyRoom room);
 
-    List<StudyRoomReservation> findByRoomAndReservationTimeEquals(StudyRoom room, LocalDate localDate);
+    List<StudyRoomReservation> findByRoomAndReservationTimeBetween(StudyRoom room, LocalDateTime startTime, LocalDateTime endTime);
 }

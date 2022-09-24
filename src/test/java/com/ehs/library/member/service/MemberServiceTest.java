@@ -1,6 +1,7 @@
 package com.ehs.library.member.service;
 
 import com.ehs.library.member.constant.Role;
+import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.exception.UserAlreadyExistException;
 import com.ehs.library.member.repository.MemberRepository;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,19 @@ class MemberServiceTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    public Member createMember(){
+        MemberFormDto memberFormDto = new MemberFormDto();
+        memberFormDto.setEmail("test@email.com");
+        memberFormDto.setName("이현수");
+        memberFormDto.setAddress("서울시 마포구 합정동");
+        memberFormDto.setPassword("temp123456");
+        memberFormDto.setRole("ADMIN");
+        return Member.createMember(memberFormDto, passwordEncoder);
+    }
 
     @BeforeEach
     public void saveMembers(){
@@ -90,5 +105,28 @@ class MemberServiceTest {
         assertEquals("tempAddress", findMember.getAddress());
         assertEquals(null, findMember.getTel());
         assertEquals(Role.USER, findMember.getRole());
+    }
+
+    @Test
+    @DisplayName("회원가입 테스트")
+    public void saveMemberTest2(){
+        Member member = createMember();
+        Member savedMember = memberService.saveMember(member);
+        assertEquals(member.getEmail(), savedMember.getEmail());
+        assertEquals(member.getName(), savedMember.getName());
+        assertEquals(member.getAddress(), savedMember.getAddress());
+        assertEquals(member.getPassword(), savedMember.getPassword());
+        assertEquals(member.getRole(), savedMember.getRole());
+    }
+
+    @Test
+    @DisplayName("중복 회원 가입 테스트")
+    public void saveDuplicateMemberTest(){
+        Member member1 = createMember();
+        Member member2 = createMember();
+        memberService.saveMember(member1);
+        Throwable e = assertThrows(UserAlreadyExistException.class, () -> {
+            memberService.saveMember(member2);});
+        assertEquals("이미 존재하는 이메일입니다", e.getMessage());
     }
 }

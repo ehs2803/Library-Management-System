@@ -2,6 +2,8 @@ package com.ehs.library.bookhope.controller.user;
 
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.bookapi.dto.BookApiResultDto;
+import com.ehs.library.bookapi.paging.Criteria;
+import com.ehs.library.bookapi.paging.PageMaker;
 import com.ehs.library.bookapi.service.BookApiService;
 import com.ehs.library.bookhope.constant.BookHopeState;
 import com.ehs.library.bookhope.dto.BookHopeDetailDto;
@@ -39,15 +41,32 @@ public class BookHopeController {
         return "book/api/searchBookHope";
     }
 
-    // 네이버 book api 검색 결과
+    // 네이버 book api 검색 결과 v2 - 페이징
     @GetMapping("/book/hope/search/list")
-    public String seachBookAPI(@RequestParam(defaultValue = "") String keyword, Model model){
-        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword);
+    public String seachBookAPI(@RequestParam(defaultValue = "") String keyword,
+                               Criteria cri,
+                               Model model){
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword, cri);
+        pageMaker.setTotalCount(books.getTotal());
 
+        model.addAttribute("pageMaker",pageMaker);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("books", books);
 
         return "book/api/searchBookHopeResult";
     }
+
+    // 네이버 book api 검색 결과 v1
+//    @GetMapping("/book/hope/search/list")
+//    public String seachBookAPI(@RequestParam(defaultValue = "") String keyword, Model model){
+//        BookApiResultDto books = bookApiService.searchBookNaverAPI(keyword);
+//
+//        model.addAttribute("books", books);
+//
+//        return "book/api/searchBookHopeResult";
+//    }
 
     @GetMapping("/book/hope/register/api")
     public String registerHopeBookApiForm(@ModelAttribute BookHopeFormDto bookHopeFormDto, Model model){

@@ -1,4 +1,4 @@
-package com.ehs.library.controller;
+package com.ehs.library.base.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -81,6 +81,7 @@
                             통합검색
                         </button>
                     </h2>
+
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <form action="/main/book/search/result" method="GET" style="width: 100%">
@@ -112,8 +113,21 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p>
+            </div><br>
+
+            <p th:if="${errorMessage}" th:text="*{errorMessage}" class="fieldError"></p><br>
+
+            <div class="pagination justify-content-center">
+                <a th:if="${hasPrev}" th:href="@{/main/book/search/result(page = ${previous})}" role="button"
+                   class="btn btn-lg bi bi-caret-left-square-fill"></a>
+                <a th:if="!${hasPrev}" th:href="@{/main/book/search/result(page = ${previous})}" role="button"
+                   class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
+                <a th:if="${hasNext}" th:href="@{/main/book/search/result(page = ${next})}" role="button"
+                   class="btn btn-lg bi bi-caret-right-square-fill"></a>
+                <a th:if="!${hasNext}" th:href="@{/main/book/search/result(page = ${next})}" role="button"
+                   class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
+            </div><br>
+
             <div class="card mb-3" style="width: 100%" th:each="book : ${bookList}">
                 <div class="row g-0">
                     <div class="col-md-2" style="border: 1px solid black">

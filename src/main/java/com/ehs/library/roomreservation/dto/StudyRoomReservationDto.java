@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 @Setter
 public class StudyRoomReservationDto {
     private Long id;
-    private LocalDateTime reservation_time;
-    private int use_hour;
-    private int person_cnt;
+    private LocalDateTime reservationTime;
+    private int useHour;
+    private int personCnt;
     private StudyRoomDto room;
     private String createdBy;
     private LocalDateTime regTime;

@@ -20,8 +20,8 @@ public class StudyRoomBookFormDto {
     private String time;
 
     @Min(value = 1, message = "이용시간은 1시간 이상으로 입력하세요.")
-    private int use_hour;
+    private int useHour;
 
     @Min(value = 1, message = "예약인원은 1명이상으로 입력하세요.")
-    private int person_cnt;
+    private int personCnt;
 }

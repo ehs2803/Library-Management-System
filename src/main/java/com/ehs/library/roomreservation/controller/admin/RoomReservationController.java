@@ -114,7 +114,7 @@ public class RoomReservationController {
         return "redirect:/admin/studyroom/list";
     }
 
-    // 스터디룸 id 정보 및 예약 기록 조회 ** NPE 문제 있음.. 임시적으로 해결함. 추후 고칠예정..
+    // 스터디룸 id 정보 및 예약 기록 조회 ** NPE 문제 있음
     @GetMapping("/admin/reservation/studyroom/book/{id}")
     public String getStudyRoomReservationList(@PathVariable Long id, Model model){
         StudyRoom studyRoom_entity_check = roomReservationService.getStudyRoomFetchJoinAll(id);

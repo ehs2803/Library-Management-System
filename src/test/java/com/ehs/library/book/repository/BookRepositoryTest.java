@@ -1,8 +1,7 @@
-package com.ehs.library.repository;
+package com.ehs.library.book.repository;
 
-import com.ehs.library.book.repository.BookRepository;
-import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.book.entity.Book;
+import com.ehs.library.member.dto.MemberFormDto;
 import com.ehs.library.member.entity.Member;
 import com.ehs.library.member.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
@@ -14,11 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

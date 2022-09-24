@@ -13,4 +13,5 @@ public class BookApiDto {
     private String pubdate;
     private String isbn;
     private String description;
+    private String link;
 }

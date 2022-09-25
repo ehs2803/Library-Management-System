@@ -9,7 +9,6 @@
 
 # **작품 구성도**
 
----
 1. 시스템 구성도
 
 ![image](docs/images/struc.jpg)
@@ -20,7 +19,6 @@
 
 # 데이터베이스
 
----
 ![image](docs/images/database.jpg)
 
 - member : 사용자 정보 저장
@@ -39,7 +37,6 @@
 
 # 기능
 
----
 
 ## 일반유저
 
@@ -64,8 +61,6 @@
 공지사항을 확인할 수 있습니다.
 
 
-
----
 ## 도서관 직원
 
 ### - 계정기능
@@ -86,7 +81,6 @@
 
 # 동작화면 
 
----
 ### **메인**
 
 <img width="1229" alt="image" src="https://user-images.githubusercontent.com/65898555/191660215-840394b8-c3e2-429c-ba50-d0dbbb1a0f93.png">

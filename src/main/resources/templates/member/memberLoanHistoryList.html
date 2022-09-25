@@ -12,7 +12,8 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2>검토 중 도서</h2>
+                        <h2>대출 이력</h2>
+
                     </div>
                 </div>
             </div>
@@ -21,47 +22,46 @@
             <div class="container">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/admin/mypage">관리자 페이지</a></li>
-                    <li><a href="/admin/book/hope">희망도서 신청 관리</a></li>
-                    <li>검토중인 도서</li>
+                    <li><a href="/meber/mypage">마이페이지</a></li>
+                    <li>대출 이력</li>
                 </ol>
             </div>
         </nav>
     </div><!-- End Breadcrumbs -->
 
     <section class="sample-page">
-        <div class="container" data-aos="fade-up">
-            <div class="container" style="overflow-x:auto;">
+        <div class="content">
 
-
-                <h2>검토(REVIEW) 중 도서</h2>
+            <h1>대출 이력 목록</h1>
+            <div style="overflow-x:auto;">
                 <table class="table">
                     <thead class="table-dark">
                     <tr>
                         <th>번호</th>
-                        <th>희망도서 이름</th>
-                        <th>작성일시</th>
-                        <th>신청자</th>
+                        <th>책이름</th>
+                        <th>대출일자</th>
+                        <th>반납일자</th>
+                        <th>반납연장횟수</th>
+                        <th>연체일수</th>
+                        <th>상태</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="bookHope, loop : ${bookHopeReviewList}">
+                    <tr th:each="loan, loop : ${loanList}">
                         <td th:text="${loop.count}"></td>
-                        <td>
-                            <a th:href="@{|/admin/book/hope/update/${bookHope.id}|}" th:text="${bookHope.name}"></a>
-                        </td>
-                        <td th:text="${#temporals.format(bookHope.regTime, 'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${bookHope.user.getEmail()}"></td>
+                        <th th:text="${loan.book.name}"></th>
+                        <td th:text="${#temporals.format(loan.startLoanTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <td th:text="${#temporals.format(loan.returnTime, 'yyyy년 MM월 dd일 HH:mm')}"></td>
+                        <th th:text="${loan.useExtensionCnt}"></th>
+                        <th th:text="${loan.overdueDay}"></th>
+                        <th th:text="${loan.loanState}"></th>
                     </tr>
                     </tbody>
                 </table>
-                <br>
-
-
             </div>
+
         </div>
     </section>
-
 
 </main><!-- End #main -->
 

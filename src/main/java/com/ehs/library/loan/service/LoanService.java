@@ -4,6 +4,8 @@ import com.ehs.library.base.constant.Policy;
 import com.ehs.library.book.constant.BookState;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.repository.BookRepository;
+import com.ehs.library.bookreservation.entity.BookReservation;
+import com.ehs.library.bookreservation.repository.BookReservationRepository;
 import com.ehs.library.loan.constant.LoanState;
 import com.ehs.library.loan.entity.Loan;
 import com.ehs.library.loan.entity.LoanWaitList;
@@ -38,6 +40,7 @@ public class LoanService {
     private final LoanRepository loanRepository;
     private final SanctionRepository sanctionRepository;
     private final MemberRepository memberRepository;
+    private final BookReservationRepository bookReservationRepository;
 
     // 도서 ID : bid 도서 waitList로 이동
     public void moveWaitList(Member member, Long bid){
@@ -58,13 +61,15 @@ public class LoanService {
     }
 
     // 특정 일반 유저 대출 대기 목록 조회
+    @Transactional(readOnly = true)
     public List<LoanWaitList> findByMember(Member member){
         return loanWaitListRepository.findByMemberFetchJoinBook(member);
     }
 
     // 대출 대기 목록 조회 by 유저, loanstate
-    public List<Loan> findByMemberAndLoan(Member member, LoanState loanState){
-        return loanRepository.findByMemberAndLoanFetchJoinBook(member, loanState);
+    @Transactional(readOnly = true)
+    public List<Loan> findLoanAndOverdueByMemberFetchJoinBook(Member member){
+        return loanRepository.findLoanAndOverdueByMemberFetchJoinBook(member);
     }
 
     // 대출 대기 목록에 있는 도서 대출처리
@@ -95,6 +100,12 @@ public class LoanService {
             loan.setOverdueDay(0);
             loanWaitListRepository.delete(loanWaitListList.get(i));
             loanRepository.save(loan);
+
+            // 해당 도서를 예약한 경우 예약 삭제
+            BookReservation bookReservation = bookReservationRepository.findByMemberAndBook(member, book);
+            if(bookReservation!=null){
+                bookReservationRepository.delete(bookReservation);
+            }
         }
     }
 
@@ -114,6 +125,20 @@ public class LoanService {
             loan.setLoanState(LoanState.OVERDUE_RETURN); // 연체 반납
         }
         loan.setReturnTime(LocalDateTime.now()); // 반납시간 현재 시간 설정
+
+        return loan.getMember().getId();
+    }
+
+    // 도서 분실처리하기
+    public Long BookLoss(Long id){
+        Loan loan = loanRepository.findByIdFetchJoin(id);
+
+        // 도서 상태 변경
+        Book book = loan.getBook();
+        book.setState(BookState.LOSS);
+
+        // loan state 설정
+        loan.setLoanState(LoanState.LOSS); // 연체 반납
 
         return loan.getMember().getId();
     }
@@ -163,5 +188,11 @@ public class LoanService {
             Member member = loan.getMember();
             member.setSanctionBookDay(member.getSanctionBookDay()+Policy.SANCTION_DAY_BOOK);
         }
+    }
+
+    // 멤버 기준 대출 내역 조회
+    @Transactional(readOnly = true)
+    public List<Loan> findByMemberFetchJoinBook(String email){
+        return loanRepository.findByMemberFetchJoinBook(memberRepository.findByEmail(email));
     }
 }

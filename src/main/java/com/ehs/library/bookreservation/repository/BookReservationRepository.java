@@ -29,4 +29,6 @@ public interface BookReservationRepository extends JpaRepository<BookReservation
 
     boolean existsByMemberAndBook(Member member, Book book);
 
+    BookReservation findByMemberAndBook(Member member, Book book);
+
 }

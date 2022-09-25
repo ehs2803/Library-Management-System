@@ -1,258 +1,137 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-  <title>Spring Library</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<main layout:fragment="content">
 
-  <!-- Favicons -->
-  <link href="/img/spring.png" rel="icon">
-  <link href="/img/spring.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="/vendor/aos/aos.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/css/main.css" rel="stylesheet">
-
-  <style>
-    .content {
-      margin-bottom:10%;
-      margin-top: 10%;
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Footer-->
-  <th:block th:replace="fragments/header :: headerFragment"></th:block>
-
-  <main id="main">
-
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs">
-      <div class="page-header d-flex align-items-center" style="background-image: url('/img/page-header1.jpg');">
-        <div class="container position-relative">
-          <div class="row d-flex justify-content-center">
-            <div class="col-lg-6 text-center">
-              <h2>마이페이지</h2>
-            </div>
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs">
+    <div class="page-header d-flex align-items-center" style="background-image: url('/img/page-header1.jpg');">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>마이페이지</h2>
           </div>
         </div>
       </div>
-      <nav>
-        <div class="container">
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li>마이페이지</li>
-          </ol>
-        </div>
-      </nav>
-    </div><!-- End Breadcrumbs -->
+    </div>
+    <nav>
+      <div class="container">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>마이페이지</li>
+        </ol>
+      </div>
+    </nav>
+  </div><!-- End Breadcrumbs -->
 
-    <section class="sample-page">
-      <div class="container" data-aos="fade-up">
+  <section class="sample-page">
+    <div class="container" data-aos="fade-up">
 
-        <div class="card mb-3" style="max-width: 100%;">
-          <div class="row g-0">
+      <div class="card mb-3" style="max-width: 100%;">
+        <div class="row g-0">
 
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col">
-                  <h2>[[${member.name}]] 님, 안녕하세요.</h2>
-                </div>
-                <div class="col order-5" style="text-align: right">
-                  <button type="button" class="btn btn-secondary btn-lg"><a th:href="@{|/member/mypage/edit/confirm|}" style="color: white">회원정보수정</a></button>
-                </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col">
+                <h2>[[${member.name}]] 님, 안녕하세요.</h2>
               </div>
-              <hr>
-              <div class="row">
-                <div class="col">
-                  <h4>아이디: [[${member.email}]]</h4>
-                </div>
-                <div class="col order-5">
-                  <h4>회원번호: [[${member.id}]]</h4>
-                </div>
+              <div class="col order-5" style="text-align: right">
+                <button type="button" class="btn btn-secondary btn-lg"><a th:href="@{|/member/mypage/edit/confirm|}" style="color: white">회원정보수정</a></button>
               </div>
-
-              <div class="row">
-                <div class="col">
-                  <h4>휴대폰번호: [[${member.tel}]]</h4>
-                </div>
-                <div class="col order-5">
-                  <h4>주소: [[${member.address}]]</h4>
-                </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col">
+                <h4>아이디: [[${member.email}]]</h4>
               </div>
+              <div class="col order-5">
+                <h4>회원번호: [[${member.id}]]</h4>
+              </div>
+            </div>
 
+            <div class="row">
+              <div class="col">
+                <h4>휴대폰번호: [[${member.tel}]]</h4>
+              </div>
+              <div class="col order-5">
+                <h4>주소: [[${member.address}]]</h4>
+              </div>
             </div>
-          </div>
-        </div>
 
-
-        <div class="row">
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">대출중인 도서</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/loan" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">연체중인 도서</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/overdue" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">예약중인 도서</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/reservation" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">나의 서재</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/interest" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">희망도서 신청</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/book/hope/list" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">대출 이력</h5>
-              <p class="card-text"></p>
-              <a href="" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">스터디룸 예약 현황</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/reservation/studyroom" class="btn btn-primary">상세보기</a>
-            </div>
-          </div>
-          <div class="card text-center" style="width: 33%;">
-            <div class="card-body">
-              <h5 class="card-title">제재 내역</h5>
-              <p class="card-text"></p>
-              <a href="/member/mypage/sanction/list" class="btn btn-primary">상세보기</a>
-            </div>
           </div>
         </div>
       </div>
 
 
-
-<!--        &lt;!&ndash; ======= Pricing Section ======= &ndash;&gt;-->
-<!--        <section id="pricing" class="pricing pt-0">-->
-<!--          <div class="container" data-aos="fade-up">-->
-
-<!--            <div class="section-header">-->
-<!--              <span>Pricing</span>-->
-<!--              <h2>Pricing</h2>-->
-
-<!--            </div>-->
-
-<!--            <div class="row gy-4">-->
-
-<!--              <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">-->
-<!--                <div class="pricing-item">-->
-<!--                  <h3>Free Plan</h3>-->
-<!--                  <h4><sup>$</sup>0<span> / month</span></h4>-->
-<!--                  <ul>-->
-<!--                    <li><i class="bi bi-check"></i> Quam adipiscing vitae proin</li>-->
-<!--                    <li><i class="bi bi-check"></i> Nec feugiat nisl pretium</li>-->
-<!--                    <li><i class="bi bi-check"></i> Nulla at volutpat diam uteera</li>-->
-<!--                    <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>-->
-<!--                    <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>-->
-<!--                  </ul>-->
-<!--                  <a href="#" class="buy-btn">Buy Now</a>-->
-<!--                </div>-->
-<!--              </div>&lt;!&ndash; End Pricing Item &ndash;&gt;-->
-
-<!--              <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">-->
-<!--                <div class="pricing-item featured">-->
-<!--                  <h3>Business Plan</h3>-->
-<!--                  <h4><sup>$</sup>29<span> / month</span></h4>-->
-<!--                  <ul>-->
-<!--                    <li><i class="bi bi-check"></i> Quam adipiscing vitae proin</li>-->
-<!--                    <li><i class="bi bi-check"></i> Nec feugiat nisl pretium</li>-->
-<!--                    <li><i class="bi bi-check"></i> Nulla at volutpat diam uteera</li>-->
-<!--                    <li><i class="bi bi-check"></i> Pharetra massa massa ultricies</li>-->
-<!--                    <li><i class="bi bi-check"></i> Massa ultricies mi quis hendrerit</li>-->
-<!--                  </ul>-->
-<!--                  <a href="#" class="buy-btn">Buy Now</a>-->
-<!--                </div>-->
-<!--              </div>&lt;!&ndash; End Pricing Item &ndash;&gt;-->
-
-<!--              <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">-->
-<!--                <div class="pricing-item">-->
-<!--                  <h3>Developer Plan</h3>-->
-<!--                  <h4><sup>$</sup>49<span> / month</span></h4>-->
-<!--                  <ul>-->
-<!--                    <li><i class="bi bi-check"></i> Quam adipiscing vitae proin</li>-->
-<!--                    <li><i class="bi bi-check"></i> Nec feugiat nisl pretium</li>-->
-<!--                    <li><i class="bi bi-check"></i> Nulla at volutpat diam uteera</li>-->
-<!--                    <li><i class="bi bi-check"></i> Pharetra massa massa ultricies</li>-->
-<!--                    <li><i class="bi bi-check"></i> Massa ultricies mi quis hendrerit</li>-->
-<!--                  </ul>-->
-<!--                  <a href="#" class="buy-btn">Buy Now</a>-->
-<!--                </div>-->
-<!--              </div>&lt;!&ndash; End Pricing Item &ndash;&gt;-->
-
-<!--            </div>-->
-
-<!--          </div>-->
-<!--        </section>&lt;!&ndash; End Pricing Section &ndash;&gt;-->
-
+      <div class="row">
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">대출중인 도서</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/loan" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">연체중인 도서</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/overdue" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">예약중인 도서</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/reservation" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
       </div>
-    </section>
+      <div class="row">
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">나의 서재</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/interest" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">희망도서 신청</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/book/hope/list" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">대출 이력</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/loan/list" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">스터디룸 예약 현황</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/reservation/studyroom" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 33%;">
+          <div class="card-body">
+            <h5 class="card-title">제재 내역</h5>
+            <p class="card-text"></p>
+            <a href="/member/mypage/sanction/list" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  </main><!-- End #main -->
+    </div>
+  </section>
 
-  <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+</main><!-- End #main -->
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/vendor/aos/aos.js"></script>
-  <script src="/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="/js/main.js"></script>
-
-</body>
 
 </html>

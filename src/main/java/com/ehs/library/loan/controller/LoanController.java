@@ -72,7 +72,7 @@ public class LoanController {
                 .build();
 
         List<LoanWaitList> loanWaitList_entity = loanService.findByMember(member_entity);
-        List<Loan> loanList_entity = loanService.findByMemberAndLoan(member_entity, LoanState.LOAN);
+        List<Loan> loanList_entity = loanService.findLoanAndOverdueByMemberFetchJoinBook(member_entity);
 
         // ModelMapper이용해 List<Entity> -> List<Dto>
         List<LoanDto> loanList = loanList_entity.stream()
@@ -134,6 +134,14 @@ public class LoanController {
     @GetMapping(value = "/admin/book/loan/return/{id}")
     public String loanReturn(@PathVariable Long id){
         Long mid = loanService.loanReturn(id);
+
+        return "redirect:/admin/member/"+mid;
+    }
+
+    // 분실 처리
+    @GetMapping("/admin/book/loan/loss/{id}")
+    public String bookLoss(@PathVariable Long id){
+        Long mid = loanService.BookLoss(id);
 
         return "redirect:/admin/member/"+mid;
     }

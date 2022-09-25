@@ -4,12 +4,11 @@ import com.ehs.library.base.constant.Policy;
 import com.ehs.library.book.entity.Book;
 import com.ehs.library.book.repository.BookRepository;
 import com.ehs.library.bookreservation.entity.BookReservation;
-import com.ehs.library.bookreservation.exception.BookReservationLimitException;
-import com.ehs.library.bookreservation.exception.BookReservationSanctionException;
+import com.ehs.library.bookreservation.exception.*;
 import com.ehs.library.bookreservation.repository.BookReservationRepository;
+import com.ehs.library.loan.constant.LoanState;
+import com.ehs.library.loan.repository.LoanRepository;
 import com.ehs.library.member.entity.Member;
-import com.ehs.library.bookreservation.exception.BookReservationAlreadyException;
-import com.ehs.library.bookreservation.exception.BookReservationOverException;
 import com.ehs.library.member.repository.MemberRepository;
 import com.ehs.library.sanction.repository.SanctionRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +25,7 @@ public class BookReservationService {
     private final BookReservationRepository bookReservationRepository;
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
+    private final LoanRepository loanRepository;
 
     // 도서 예약하기
     public Long reservationBook(String email, Long bid){
@@ -45,6 +45,9 @@ public class BookReservationService {
         }
         if(reservationCnt_book>=Policy.RESERVATION_LIMIT_BOOK){
             throw new BookReservationLimitException("이 책은 현재 3명의 회원이 예약했습니다. 더이상 예약이 불가능합니다.");
+        }
+        if(loanRepository.existsByMemberAndBookAndLoanState(member, book, LoanState.LOAN)){
+            throw new BookReservationAlreadyLoanException("이미 이 도서를 대출중입니다.");
         }
 
         BookReservation bookReservation = BookReservation.builder()

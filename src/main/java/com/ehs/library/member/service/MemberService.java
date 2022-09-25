@@ -72,7 +72,6 @@ public class MemberService implements UserDetailsService {
     }
 
     // 로그인한 사용자의 대출 내역 조회
-    @Transactional(readOnly = true)
     public List<LoanVo> findLoanBookList(Member member){
         return loanMapperRepository.findLoanBookList(member.getId());
     }

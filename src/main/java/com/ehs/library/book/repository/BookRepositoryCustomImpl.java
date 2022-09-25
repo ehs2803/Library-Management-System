@@ -1,5 +1,6 @@
 package com.ehs.library.book.repository;
 
+import com.ehs.library.book.constant.BookState;
 import com.ehs.library.book.dto.BookDto;
 import com.ehs.library.book.dto.BookSearchCondition;
 import com.ehs.library.book.entity.Book;
@@ -27,7 +28,8 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         return jpaQueryFactory
                 .selectFrom(QBook.book)
                 .join(QBook.book.bookImg, QBookImg.bookImg).fetchJoin()
-                .where(bookNameContains(condition.getName()),
+                .where(lossBookException(),
+                        bookNameContains(condition.getName()),
                         bookIsbnEq(condition.getIsbn()),
                         bookAuthorEq(condition.getAuthor()),
                         bookPublisherEq(condition.getPublisher()),
@@ -41,7 +43,8 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         QueryResults<Book> results = jpaQueryFactory
                 .selectFrom(QBook.book)
                 .join(QBook.book.bookImg, QBookImg.bookImg).fetchJoin()
-                .where(bookNameContains(condition.getName()),
+                .where(lossBookException(),
+                        bookNameContains(condition.getName()),
                         bookIsbnEq(condition.getIsbn()),
                         bookAuthorEq(condition.getAuthor()),
                         bookPublisherEq(condition.getPublisher()),
@@ -56,6 +59,10 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    private BooleanExpression lossBookException(){
+        return QBook.book.state.ne(BookState.LOSS);
     }
 
     private BooleanExpression bookNameContains(String name) {

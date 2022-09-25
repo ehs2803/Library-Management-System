@@ -7,6 +7,7 @@ import com.ehs.library.bookreservation.dto.BookReservationDto;
 import com.ehs.library.bookreservation.entity.BookReservation;
 import com.ehs.library.bookreservation.repository.BookReservationRepository;
 import com.ehs.library.loan.constant.LoanState;
+import com.ehs.library.loan.dto.LoanHistoryDto;
 import com.ehs.library.loan.dto.LoanMapperDto;
 import com.ehs.library.loan.entity.Loan;
 import com.ehs.library.loan.exception.BookLoanExtensionLimitException;
@@ -302,6 +303,19 @@ public class MemberMypageController {
         return "member/memberStudyRoomReservationList";
     }
 
+    @GetMapping("/loan/list")
+    public String getLoanList(Model model, Principal principal){
+        List<Loan> loanList_entity = loanService.findByMemberFetchJoinBook(principal.getName());
+
+        // List<Entity> -> List<Dto>
+        List<LoanHistoryDto> loanList = loanList_entity.stream()
+                .map(loan -> modelMapper.map(loan, LoanHistoryDto.class))
+                .collect(Collectors.toList());
+
+        model.addAttribute("loanList", loanList);
+
+        return "member/memberLoanHistoryList";
+    }
 
     @GetMapping("/sanction/list")
     public String getSanctionList(Model model, Principal principal){

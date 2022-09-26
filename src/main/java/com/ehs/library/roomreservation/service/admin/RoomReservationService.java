@@ -44,7 +44,7 @@ public class RoomReservationService {
 
     // 스터디룸 id 예약건수
     @Transactional(readOnly = true)
-    public int countByStudyRoom(Long id){
+    public int countByStudyRoomReservation(Long id){
         return studyRoomReservationRepository.countByRoom(studyRoomRepository.findById(id).get());
     }
 
@@ -129,12 +129,14 @@ public class RoomReservationService {
 
     // 스터디룸 수정
     public StudyRoom editStudyRoom(StudyRoomFormDto studyRoomFormDto){
-        StudyRoom validStudyRoom = studyRoomRepository.findByName(studyRoomFormDto.getName());
-        if(validStudyRoom != null){ // 스터디룸 이름이 이미 존재하는 경우
-            throw new RoomNameAlreadyExistException("존재하는 스터디룸 이름입니다.");
+        StudyRoom studyRoom = studyRoomRepository.findById(studyRoomFormDto.getId()).get();
+        if(!studyRoom.getName().equals(studyRoomFormDto.getName())){
+            StudyRoom validStudyRoom = studyRoomRepository.findByName(studyRoomFormDto.getName());
+            if(validStudyRoom != null){ // 스터디룸 이름이 이미 존재하는 경우
+                throw new RoomNameAlreadyExistException("존재하는 스터디룸 이름입니다.");
+            }
         }
 
-        StudyRoom studyRoom = studyRoomRepository.findById(studyRoomFormDto.getId()).get();
         studyRoom.setName(studyRoomFormDto.getName());
         studyRoom.setLocation(studyRoomFormDto.getLocation());
         studyRoom.setCapacity(studyRoomFormDto.getCapacity());

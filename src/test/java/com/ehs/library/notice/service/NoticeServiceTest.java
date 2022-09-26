@@ -62,10 +62,10 @@ class NoticeServiceTest {
         List<NoticeFormDto> noticeFormDtoList = noticeService.findAllNoticeList();
         NoticeDto findNotice = noticeService.noticeDetail(savedNotice.getId());
 
-        assertEquals(findNotice.getTitle(), "test title");
-        assertEquals(findNotice.getContent(), "test content");
-        assertEquals(findNotice.getId(), 1);
-        assertEquals(findNotice.getHit(), 1);
+        assertEquals("test title",findNotice.getTitle());
+        assertEquals("test content",findNotice.getContent());
+        assertEquals(1,findNotice.getId());
+        assertEquals(1,findNotice.getHit());
         //assertEquals(findNotice.getMember().getEmail(), member.getEmail());
 
         assertEquals(noticeFormDtoList.size(), 2);
@@ -80,12 +80,12 @@ class NoticeServiceTest {
         Notice savedNotice2 = noticeService.saveNewNotice(new NoticeAddFormDto("test title2", "test content2"));
 
         List<NoticeFormDto> noticeFormDtoList1 = noticeService.findAllNoticeList();
-        assertEquals(noticeFormDtoList1.size(), 2);
+        assertEquals(2,noticeFormDtoList1.size());
 
         // 공지사항 한개 삭제
         noticeService.deleteNotice(savedNotice2.getId());
         List<NoticeFormDto> noticeFormDtoList2 = noticeService.findAllNoticeList();
-        assertEquals(noticeFormDtoList2.size(), 1);
+        assertEquals(1,noticeFormDtoList2.size());
 
     }
 
@@ -103,9 +103,9 @@ class NoticeServiceTest {
         em.flush();
         em.clear();
 
-        // 공지사항 한개 삭제
+        // 공지사항 수정
         NoticeDto updateNotice = noticeService.noticeDetail(savedNotice.getId());
-        assertEquals(updateNotice.getTitle(), "test title");
-        assertEquals(updateNotice.getContent(), "test content");
+        assertEquals("test title",updateNotice.getTitle());
+        assertEquals("test content",updateNotice.getContent());
     }
 }

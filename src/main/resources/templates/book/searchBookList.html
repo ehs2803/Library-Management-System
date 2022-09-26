@@ -52,25 +52,25 @@
 
                                 <div class="input-group">
                                     <div class="input-group-text" id="btnGroupAddon2">책이름</div>
-                                    <input name="keyword" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                    <input th:value="${keyword}" name="keyword" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
                                 </div><br>
 
                                 <div class="input-group">
                                     <div class="input-group-text" id="btnGroupAddon2">ISBN</div>
-                                    <input name="isbn" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                    <input th:value="${isbn}" name="isbn" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
                                 </div><br>
 
                                 <div class="input-group">
                                     <div class="input-group-text" id="btnGroupAddon2">저자</div>
-                                    <input name="author" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                    <input th:value="${author}" name="author" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
                                 </div><br>
                                 <div class="input-group">
                                     <div class="input-group-text" id="btnGroupAddon2">출판사</div>
-                                    <input name="publisher" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                    <input th:value="${publisher}" name="publisher" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
                                 </div><br>
                                 <div class="input-group">
                                     <div class="input-group-text" id="btnGroupAddon2">출판년도</div>
-                                    <input name="year" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                    <input th:value="${year}" name="year" type="text" class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon2">
                                 </div><br>
                                 <button class="btn btn-primary">Search</button>
                             </form>

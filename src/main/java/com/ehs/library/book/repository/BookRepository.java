@@ -22,4 +22,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, BookRepositor
     List<Book> findByIsbn(String isbn);
 
     int countByIsbn(String isbn);
+
+    Book findBySymbol(String symbol);
 }

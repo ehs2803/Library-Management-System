@@ -7,6 +7,7 @@ import com.ehs.library.roomreservation.constant.StudyRoomState;
 import com.ehs.library.roomreservation.dto.StudyRoomBookFormDto;
 import com.ehs.library.roomreservation.entity.StudyRoom;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
+import com.ehs.library.roomreservation.exception.RoomReservationCancelException;
 import com.ehs.library.roomreservation.exception.RoomReservationOverlapException;
 import com.ehs.library.roomreservation.exception.RoomReservationSanctionException;
 import com.ehs.library.roomreservation.repository.StudyRoomRepository;
@@ -118,11 +119,11 @@ public class RoomReservationService {
     }
 
     // 스터디룸 예약 취소
-    public void studyRoomStateSetCancel(Long id) throws Exception {
+    public void studyRoomStateSetCancel(Long id) {
         StudyRoomReservation studyRoomReservation = studyRoomReservationRepository.findById(id).get();
         // 예약날짜와 현재날짜가 같을 경우
         if(ChronoLocalDate.from(studyRoomReservation.getReservationTime()).isEqual(LocalDate.now())){
-            throw new Exception("당일 예약 취소는 불가능합니다.");
+            throw new RoomReservationCancelException("당일 예약 취소는 불가능합니다.");
         }
         studyRoomReservation.setState(ReservationState.CANCEL);
     }

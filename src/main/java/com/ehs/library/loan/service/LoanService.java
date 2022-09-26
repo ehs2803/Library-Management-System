@@ -86,7 +86,7 @@ public class LoanService {
             throw new BookLoanOverdueException("현재 연체된 책이 있습니다. 도서 대출이 불가능합니다.");
         }
         // 빌릴 수 있는 책의 최대 개수를 초과할 때
-        if(loanWaitListList.size()>Policy.LOAN_BOOK_CNT-loanRepository.countLoanByMemberAndLoanState(member, LoanState.LOAN)){
+        if(Policy.LOAN_BOOK_CNT-loanRepository.countLoanByMemberAndLoanState(member, LoanState.LOAN)<=0){
             throw new BookLoanLimitException("빌릴 수 있는 책의 최대 개수를 초과했습니다.");
         }
 
@@ -116,6 +116,9 @@ public class LoanService {
         // 도서 상태 변경
         Book book = loan.getBook();
         book.setState(BookState.AVAILABLE);
+        if(bookReservationRepository.existsByBook(book)){
+            book.setState(BookState.BOOKED);
+        }
 
         // loan state 설정
         if(loan.getLoanState().toString().equals("LOAN")){ // 정상 반납

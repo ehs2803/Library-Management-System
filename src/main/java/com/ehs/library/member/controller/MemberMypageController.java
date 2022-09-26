@@ -22,6 +22,7 @@ import com.ehs.library.member.exception.UserAlreadyExistException;
 import com.ehs.library.member.service.MemberService;
 import com.ehs.library.roomreservation.dto.StudyRoomReservationDto;
 import com.ehs.library.roomreservation.entity.StudyRoomReservation;
+import com.ehs.library.roomreservation.exception.RoomReservationCancelException;
 import com.ehs.library.roomreservation.service.user.RoomReservationService;
 import com.ehs.library.sanction.dto.SanctionDto;
 import com.ehs.library.sanction.entity.Sanction;
@@ -187,7 +188,7 @@ public class MemberMypageController {
     public String memberReservationStudyRoomCancel(@PathVariable Long id, Principal principal, Model model){
         try {
             roomReservationService.studyRoomStateSetCancel(id);
-        } catch (Exception e){
+        } catch (RoomReservationCancelException e){
             List<StudyRoomReservation> ReservationList = roomReservationService.findByMemberFetchJoinRoom(principal.getName());
 
             List<StudyRoomReservation> reservationList_wait_temp = new ArrayList<>();

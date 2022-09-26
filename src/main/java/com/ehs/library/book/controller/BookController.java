@@ -124,6 +124,12 @@ public class BookController {
         model.addAttribute("hasNext", bookList.hasNext());
         model.addAttribute("hasPrev", bookList.hasPrevious());
 
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("isbn",isbn);
+        model.addAttribute("author",author);
+        model.addAttribute("publisher",publisher);
+        model.addAttribute("year",year);
+
         return "book/searchBookList";
     }
 

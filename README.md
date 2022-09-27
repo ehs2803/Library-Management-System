@@ -28,7 +28,7 @@
 - book_reservation : 도서예약 정보
 - book_hope : 희망도서 신청 정보
 - loan : 도서 대출정보
-- loan_wait_list : 
+- loan_wait_list : 대출 대기 도서 저장
 - studyroom : 스터디룸 정보
 - study_room_reservation : 스터디룸 예약 정보
 - sanction : 도서 대출, 스터디룸 예약 제재 저장

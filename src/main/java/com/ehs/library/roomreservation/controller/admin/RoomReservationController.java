@@ -213,7 +213,7 @@ public class RoomReservationController {
 
         model.addAttribute("studyRoomReservationList",studyRoomReservationList);
 
-        return "reservation/studyroom/admin/studyRoomReservationUseList";
+        return "reservation/studyroom/admin/studyroomReservationUseList";
     }
 
     // 스터디룸 예약 상태 ALLOW로 설정 (예약승인)

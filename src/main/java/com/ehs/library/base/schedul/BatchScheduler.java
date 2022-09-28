@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @RequiredArgsConstructor
+@Component
 public class BatchScheduler {
     private final LoanService loanService;
     private final BookReservationService bookReservationService;

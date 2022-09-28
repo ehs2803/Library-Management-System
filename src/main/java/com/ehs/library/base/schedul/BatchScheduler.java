@@ -5,6 +5,7 @@ import com.ehs.library.loan.service.LoanService;
 import com.ehs.library.sanction.service.SanctionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
